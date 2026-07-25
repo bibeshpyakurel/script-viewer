@@ -1,0 +1,41 @@
+{
+  "compilerOptions": {
+    // Modern output target; Vite handles any further downleveling for browsers.
+    "target": "ES2022",
+    // Browser + modern JS APIs are available to app code.
+    "lib": ["ES2022", "DOM", "DOM.Iterable"],
+    // Leave module syntax untouched — Vite/Rollup does the bundling.
+    "module": "preserve",
+    // Resolve imports the way a bundler does (exports maps, extensionless).
+    "moduleResolution": "bundler",
+    // Vite's client types (import.meta.env, ?raw imports, etc.).
+    "types": ["vite/client"],
+
+    // Required: all strict type-checking rules on.
+    "strict": true,
+    // Catch unused locals/params, which strict alone does not.
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    // Treat index access as possibly-undefined; important for parser code.
+    "noUncheckedIndexedAccess": true,
+    // Force `case` blocks to break/return explicitly.
+    "noFallthroughCasesInSwitch": true,
+
+    // React 17+ automatic JSX runtime — no `import React` needed.
+    "jsx": "react-jsx",
+    // Make type-only imports explicit so the transpiler can erase them safely.
+    "verbatimModuleSyntax": true,
+    // Allow `import pkg from './x.json'`-style default interop.
+    "esModuleInterop": true,
+    // Fail on casing mismatches (macOS/Windows are case-insensitive, CI is not).
+    "forceConsistentCasingInFileNames": true,
+    // Every file is its own module — required by bundlers.
+    "isolatedModules": true,
+    // Type-checking only; Vite emits the actual build output.
+    "noEmit": true,
+    // Faster repeat `tsc --noEmit` runs.
+    "skipLibCheck": true
+  },
+  // App source plus the build config itself, so config errors fail typecheck too.
+  "include": ["src", "vite.config.ts"]
+}

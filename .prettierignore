@@ -1,0 +1,5 @@
+dist
+package-lock.json
+
+# Supplied fixture — must stay byte-for-byte as delivered. Never reformat.
+src/fixtures/sample-script.xml

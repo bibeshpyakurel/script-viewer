@@ -1,0 +1,31 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      # Clean checkout of the commit under test.
+      - uses: actions/checkout@v7
+
+      # Required: Node 20. `cache: npm` reuses the npm cache keyed on the lockfile.
+      - uses: actions/setup-node@v7
+        with:
+          node-version: '20'
+          cache: npm
+
+      # `ci` (not `install`) installs exactly the lockfile and fails if it drifted.
+      - run: npm ci
+
+      # Each step below fails the job on a non-zero exit — the default, so no
+      # continue-on-error anywhere. Ordered cheapest-to-most-expensive.
+      - run: npm run lint
+
+      - run: npm run typecheck
+
+      - run: npm test
+
+      - run: npm run build

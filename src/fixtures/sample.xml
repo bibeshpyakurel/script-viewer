@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<script title="Sample">
+  <scene heading="INT. ROOM - DAY">
+    <action>A short sample fixture for parser tests.</action>
+    <dialogue character="NARRATOR">Replace this with a real sample.</dialogue>
+  </scene>
+</script>
