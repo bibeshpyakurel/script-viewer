@@ -148,6 +148,7 @@ Working and covered by tests:
 - A measured fidelity indicator: element/attribute counts, nodes dropped, and a
   live round-trip check
 - The document's full element vocabulary, derived by walking the tree
+- Malformed XML renders a clear error panel instead of a blank screen
 - CI green on every commit
 
 Not yet complete:
@@ -156,10 +157,6 @@ Not yet complete:
   view that walks the script the way an operator does — page by page, greeting
   to close — would layer on top of the same parsed tree. Not built yet.
 - **Upload / search.** The app reads the bundled fixture only.
-- **Error presentation in the UI.** Parsing rejects malformed input with a clear
-  `XmlParseError`, and `safeParseXml` returns a typed result for callers that
-  must render a failure rather than throw. Wiring that into the interface is
-  still to do.
 - **XML declaration.** `parseXml` returns the document element, so the leading
   `<?xml version="1.0" encoding="utf-8"?>` is not part of the tree. The `pi` node
   kind exists to hold it; wiring it up is a small change.
