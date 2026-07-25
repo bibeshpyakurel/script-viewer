@@ -1,12 +1,19 @@
 # Script Viewer
 
-Parses an AnSer call-center script export (XML) into a lossless JSON tree, and
-renders it as a readable script view.
+**Live app: https://bibeshpyakurel.github.io/script-viewer/**
 
-The core idea: **one uniform node type represents any XML node**, so the parser
-has no knowledge of AnSer's vocabulary. An element it has never seen survives
-with its name, attributes, parent, and sibling position intact — with no code
-change. That property is enforced by tests, not asserted in prose.
+AnSer builds call-center scripts in a GUI and stores them as XML — pages, input
+fields, requirements, display settings, navigation, and vendor configuration all
+nested together in a form that is painful to review by hand. This is a viewer
+for those files: it parses an export into JSON and renders it as a browsable,
+collapsible tree, so a reviewer can scan the structure of a script and drill
+into any part of it without reading raw XML.
+
+The design rests on one idea: **a single uniform node type represents any XML
+node**, so the parser has no knowledge of AnSer's vocabulary. An element it has
+never seen survives with its name, attributes, parent, and sibling position
+intact, with no code change. That property is enforced by tests rather than
+asserted in prose, and the app reports it on screen.
 
 ---
 
@@ -63,17 +70,21 @@ See [DECISIONS.md](DECISIONS.md) for why each choice was made.
 
 ```
 src/
-  parser/
-    parseXml.ts         XML string -> XmlNode tree. Generic; no tag names appear.
-    serializeXml.ts     XmlNode tree -> XML string. Exists to prove fidelity.
-    parseXml.test.ts    The fidelity suite.
-  types/
-    xmlNode.ts          The one node type. Read this first.
-  fixtures/
-    sample-script.xml   The supplied export, byte-for-byte unchanged.
-  components/           UI.
-  main.tsx              React entry point.
+  types/       The one node type every other file is built around. Read first.
+  parser/      XML -> XmlNode tree, back again, and analysis over the tree.
+  components/  React UI: the generic tree renderer and its panels.
+  fixtures/    The supplied export, byte-for-byte unchanged. Read-only input.
+  main.tsx     React entry point.
 ```
+
+| File                         | Purpose                                                |
+| ---------------------------- | ------------------------------------------------------ |
+| `types/xmlNode.ts`           | The uniform node type, and why it is shaped that way   |
+| `parser/parseXml.ts`         | String → tree. Generic; no tag name appears in it      |
+| `parser/serializeXml.ts`     | Tree → string. Exists to make fidelity provable        |
+| `parser/analyze.ts`          | Fidelity measurement and element vocabulary            |
+| `components/XmlNodeView.tsx` | The generic recursive renderer                         |
+| `components/App.tsx`         | Loads the fixture, handles the error path, lays out UI |
 
 **Read `src/types/xmlNode.ts` first.** It is the contract the rest of the
 project is built around, and its doc comment explains the reasoning.
@@ -82,20 +93,38 @@ The fixture is treated as read-only input. It is listed in `.prettierignore` so
 formatting can never rewrite it, and it is loaded via Vite's `?raw` import as an
 immutable string.
 
-## How it works
+## How the parser preserves everything
 
-1. `parseXml(xml)` hands the string to `@xmldom/xmldom`'s `DOMParser`.
-2. It walks the DOM recursively, converting each node to an `XmlNode`.
-3. The only branch is a `switch` on `node.nodeType` — a fixed, spec-defined set
-   of structural kinds. **No branch anywhere compares a tag or attribute name.**
-4. Names and values are copied as opaque strings; children are mapped in order.
+`parseXml` hands the string to `@xmldom/xmldom`, then walks the resulting DOM
+recursively. Its **only branch is a `switch` on `node.nodeType`** — element,
+text, CDATA, comment, processing instruction. That is a closed set fixed by the
+XML spec, not a list of things this project happens to know about. No branch
+anywhere compares a tag or attribute name, so a name it has never seen takes the
+identical code path as one it has.
 
-`XmlNode` is a discriminated union over five kinds — `element`, `text`, `cdata`,
-`comment`, `pi`. Elements hold their name exactly as written (namespace prefix
-included), attributes as an **ordered array** of `{ name, value }`, and children
-as an **ordered array**. Both are arrays rather than objects because sibling
-order carries meaning and an object would lose order, collapse duplicates, and
-handle namespace declarations poorly.
+Four things follow from that, and each is what makes the result lossless:
+
+- **Names are copied verbatim**, namespace prefix included — `xsi:type`, not
+  `type`. Elements use `tagName`, never `localName`.
+- **Attributes are an ordered array** of `{ name, value }`, not an object. An
+  object would lose order, collapse duplicate names, and mishandle namespace
+  declarations. The fixture proves the last point: it declares `xmlns:xsd` and
+  never uses it, so a parser that recorded only namespaces _in use_ would drop
+  it silently.
+- **Children are an ordered array.** Sibling order is meaning — three `<Option>`
+  values are a dropdown an operator reads top to bottom.
+- **Empty elements are real nodes** with `children: []`, never `null` or an
+  omitted field. The fixture has 14 of them.
+
+Malformed input is rejected rather than half-parsed. That needs explicit work:
+xmldom _throws_ only on fatal errors, and quietly **recovers** from several
+genuinely broken documents. `parseXml` captures the parser's error handler and
+refuses anything that reports a problem, so a partial tree never reaches the UI.
+
+The app reports its own fidelity on screen — element and attribute counts,
+nodes dropped, and a live `parse → serialize → parse` round-trip check. The
+"0 dropped" figure is computed by re-deriving the tree and comparing, not
+printed as a constant.
 
 ## CI
 

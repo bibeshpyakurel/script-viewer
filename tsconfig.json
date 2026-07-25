@@ -8,8 +8,9 @@
     "module": "preserve",
     // Resolve imports the way a bundler does (exports maps, extensionless).
     "moduleResolution": "bundler",
-    // Vite's client types (import.meta.env, ?raw imports, etc.).
-    "types": ["vite/client"],
+    // Vite's client types (import.meta.env, ?raw imports). `node` is needed
+    // only so vite.config.ts can read process.env for the deploy base path.
+    "types": ["vite/client", "node"],
 
     // Required: all strict type-checking rules on.
     "strict": true,

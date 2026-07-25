@@ -179,7 +179,32 @@ union at five kinds.
 declaration sits above the root and is not yet captured. The type is ready; the
 wiring is not.
 
-## 10. TypeScript pinned to `~6.0.3`
+## 10. TypeScript end to end
+
+**Decision.** TypeScript everywhere — parser, serializer, components, tests —
+with `strict` on.
+
+**Why.** The whole project rests on one claim: nothing is lost between XML and
+screen. That claim lives in a type. `XmlNode` being a discriminated union means
+a `switch` over `kind` is checked for exhaustiveness, so adding a sixth node
+kind breaks the build at every place that fails to handle it — the compiler
+enforces the guarantee instead of a reviewer having to notice. `strict` and
+`noUncheckedIndexedAccess` matter most in the parser and tests, where array
+indexing is constant; they caught real gaps while this was being written.
+
+The payoff shows up in the renderer too: because `XmlNode` is a closed union,
+the view cannot forget a node kind. That is the display-side half of "nothing
+gets silently dropped," and it costs nothing at runtime.
+
+**Rejected: JavaScript with JSDoc.** Lighter toolchain, no build step for
+types. Rejected because the exhaustiveness checking above is the point, and it
+is much weaker without real types.
+
+**Rejected: TypeScript only in the parser.** The boundary would sit exactly
+where data crosses into the UI — the place a lossy shortcut is most likely to
+be introduced, and the place a reviewer is most likely to look.
+
+## 11. TypeScript pinned to `~6.0.3`
 
 **Decision.** Not the latest 7.x.
 
@@ -189,7 +214,7 @@ genuinely supports is preferable to forcing the install with
 `--legacy-peer-deps` and hoping. Revisit when typescript-eslint ships TS 7
 support.
 
-## 11. Strict everything
+## 12. Strict everything
 
 **Decision.** `strict: true`, plus `noUncheckedIndexedAccess`,
 `noUnusedLocals`, `noUnusedParameters`.
@@ -198,7 +223,7 @@ support.
 arrays constantly, and it forces every access to be treated as possibly
 undefined. It caught real gaps while writing the tests.
 
-## 12. CI ordered cheapest-first
+## 13. CI ordered cheapest-first
 
 **Decision.** `npm ci → lint → typecheck → test → build` on Node 20.
 
@@ -207,12 +232,55 @@ a drifted lockfile fails the build instead of being silently reconciled.
 
 ---
 
-## What was deliberately left out
+## What I deliberately left out
 
-- **No state management library.** Nothing yet needs shared mutable state.
-- **No CSS framework.** Not enough UI to justify the dependency.
-- **No schema validation.** Validating against a schema would reintroduce an
-  allowlist through the back door.
-- **No XML byte-level round trip.** Structural equality is the useful guarantee;
-  byte equality would force the serializer to reproduce incidental formatting
-  and would prove less about the data model.
+**This is a viewer, not an editor.** That is the single scoping decision behind
+most of what follows. Reading a script export is a bounded problem with a
+verifiable correctness property — nothing is lost. Editing is a different
+product: it needs a mutation model, undo, validation on write, conflict
+handling, and a way to emit XML that AnSer's own tooling will accept. Adding a
+shallow version of that would have traded a guarantee I can prove for a feature
+I could not stand behind.
+
+Also left out, each on purpose:
+
+- **No editing, upload, or search.** Same reason. Upload is the cheapest of the
+  three to add later — the parser already takes a string, so it is a file input
+  and an error path, both of which exist.
+- **No state management library.** Nothing needs shared mutable state. Node
+  expansion is local component state.
+- **No CSS framework or component library.** ~400 lines of plain CSS covers it,
+  and a framework would have been more configuration than styling.
+- **No schema validation.** Validating against a schema means declaring which
+  elements are legal — an allowlist through the back door, and the fixture is
+  explicit that unknown fields must survive.
+- **No byte-level round trip.** Structural equality is the useful guarantee.
+  Byte equality would force the serializer to reproduce incidental formatting
+  and would prove things about the serializer, not the data model.
+- **No performance work.** The fixture is 13.5 KB. The walk is recursive and
+  rendering is eager, so a very large or deeply nested export would strain both.
+  I would rather measure against a real file than guess at a shape I have not
+  seen.
+
+## What I would build next
+
+In priority order, with the reasoning:
+
+1. **Capture the XML declaration.** `parseXml` returns the document element, so
+   `<?xml version="1.0" encoding="utf-8"?>` is not in the tree. The `pi` node
+   kind exists for it; what is missing is returning a document-level node with
+   the declaration as a sibling of the root. This is the last real fidelity gap
+   and it is small — I left it because it changes `parseXml`'s return type for
+   every caller and deserved a deliberate change rather than a bolt-on.
+2. **A semantic call-flow view.** Read the script the way an operator walks a
+   call: page by page in order, greeting, fields collected, the urgency branch,
+   the close. Crucially this layers _on top of_ the generic renderer as typed
+   **selectors** over the tree — `getPages(tree)` — never a second parse path
+   and never a typed parse result, which would reintroduce the allowlist.
+3. **File upload.** Makes the tool useful on a real export rather than the
+   bundled fixture.
+4. **Property-based testing.** Generate random XML, assert the round trip holds.
+   The two gaps I found by hand-writing mutations — whitespace loss and element
+   namespace prefixes — are exactly what generative testing finds automatically.
+5. **Accessibility pass.** Keyboard navigation and screen-reader testing on the
+   tree. It is keyboard-operable and labelled today, but not audited.
