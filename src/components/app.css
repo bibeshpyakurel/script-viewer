@@ -1,0 +1,361 @@
+/* Calm, readable, one accent. Plain CSS, no framework, no theme switcher —
+   though the palette follows the reader's OS light/dark preference. */
+
+:root {
+  --bg: #fbfbfa;
+  --surface: #ffffff;
+  --border: #e4e4e1;
+  --ink: #1c1c1a;
+  --ink-soft: #63635e;
+  --ink-faint: #8f8f88;
+  --accent: #2f6f5e;
+  --accent-soft: #edf5f2;
+  --attr-bg: #f2f4f7;
+  --danger: #a33a2a;
+  --danger-bg: #fdf3f1;
+  --mono: ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Consolas, monospace;
+  --sans: ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #17181a;
+    --surface: #1e2022;
+    --border: #32353a;
+    --ink: #e8e8e4;
+    --ink-soft: #a4a49d;
+    --ink-faint: #77776f;
+    --accent: #7fc0ac;
+    --accent-soft: #1d2b27;
+    --attr-bg: #26292d;
+    --danger: #e8907f;
+    --danger-bg: #2a1d1a;
+  }
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--sans);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+.app {
+  max-width: 68rem;
+  margin: 0 auto;
+  padding: 2.5rem 1.25rem 6rem;
+}
+
+/* ---------- masthead ---------- */
+
+.masthead {
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 1.25rem;
+  margin-bottom: 1.5rem;
+}
+
+.masthead h1 {
+  margin: 0;
+  font-size: 1.5rem;
+  letter-spacing: -0.01em;
+}
+
+.tagline {
+  margin: 0.35rem 0 0;
+  color: var(--ink-soft);
+  font-size: 0.9rem;
+}
+
+/* ---------- stats ---------- */
+
+.stats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 1.25rem;
+}
+
+.stat {
+  display: flex;
+  flex-direction: column;
+  min-width: 6.5rem;
+  padding: 0.6rem 0.85rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+}
+
+.stat-value {
+  font-size: 1.15rem;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+
+.stat-label {
+  font-size: 0.75rem;
+  color: var(--ink-faint);
+  text-transform: lowercase;
+}
+
+/* ---------- controls ---------- */
+
+.toolbar,
+.json-head {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  margin-bottom: 0.75rem;
+}
+
+.btn {
+  font: inherit;
+  font-size: 0.85rem;
+  padding: 0.35rem 0.7rem;
+  color: var(--ink);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.btn:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.btn:focus-visible,
+.twisty:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.hint,
+.json-size {
+  font-size: 0.8rem;
+  color: var(--ink-faint);
+}
+
+/* ---------- JSON panel ---------- */
+
+.json-panel {
+  margin-bottom: 1.5rem;
+}
+
+.json-body {
+  margin: 0;
+  max-height: 24rem;
+  overflow: auto;
+  padding: 0.9rem 1rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  font-family: var(--mono);
+  font-size: 0.78rem;
+  line-height: 1.55;
+  color: var(--ink-soft);
+}
+
+/* ---------- tree ---------- */
+
+.tree {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 0.85rem 1rem;
+  overflow-x: auto;
+  font-family: var(--mono);
+  font-size: 0.82rem;
+}
+
+.node-head {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+  padding: 0.12rem 0;
+}
+
+.children {
+  margin-left: 0.62rem;
+  padding-left: 0.75rem;
+  border-left: 1px solid var(--border);
+}
+
+.twisty {
+  flex: none;
+  width: 1.1rem;
+  padding: 0;
+  font: inherit;
+  font-size: 0.7rem;
+  color: var(--ink-faint);
+  background: none;
+  border: 0;
+  cursor: pointer;
+  text-align: left;
+}
+
+.twisty:hover {
+  color: var(--accent);
+}
+
+.twisty-spacer {
+  display: inline-block;
+  cursor: default;
+}
+
+.tag {
+  color: var(--accent);
+  font-weight: 600;
+}
+
+/* Namespace prefixes stay present, but recede. */
+.ns-prefix {
+  color: var(--ink-faint);
+  font-weight: 400;
+}
+
+/* ---------- attributes ---------- */
+
+.attrs {
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: 0.3rem;
+}
+
+.attr {
+  display: inline-flex;
+  align-items: baseline;
+  padding: 0.02rem 0.4rem;
+  background: var(--attr-bg);
+  border-radius: 999px;
+  font-size: 0.75rem;
+  white-space: nowrap;
+  max-width: 30rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.attr-name {
+  color: var(--ink-soft);
+}
+
+.attr-eq {
+  color: var(--ink-faint);
+  margin: 0 0.15rem;
+}
+
+.attr-value {
+  color: var(--ink);
+  font-weight: 500;
+}
+
+/* ---------- values ---------- */
+
+.inline-text {
+  color: var(--ink);
+  font-family: var(--sans);
+  font-size: 0.85rem;
+}
+
+/* Empty elements are real nodes and must look present, not missing. */
+.empty-badge {
+  font-family: var(--sans);
+  font-size: 0.68rem;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+  border: 1px dashed var(--border);
+  border-radius: 4px;
+  padding: 0 0.3rem;
+}
+
+.count {
+  font-family: var(--sans);
+  font-size: 0.72rem;
+  color: var(--ink-faint);
+}
+
+.leaf {
+  display: flex;
+  align-items: baseline;
+  gap: 0.35rem;
+  padding: 0.12rem 0;
+}
+
+.leaf-label {
+  font-family: var(--sans);
+  font-size: 0.68rem;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+  flex: none;
+}
+
+.leaf-value {
+  font-family: var(--sans);
+  font-size: 0.85rem;
+  white-space: pre-wrap;
+}
+
+.leaf-comment .leaf-value,
+.leaf-pi .leaf-value {
+  color: var(--ink-soft);
+  font-style: italic;
+}
+
+.leaf-cdata .leaf-value {
+  font-family: var(--mono);
+  background: var(--accent-soft);
+  padding: 0 0.25rem;
+  border-radius: 3px;
+}
+
+/* ---------- error ---------- */
+
+.error {
+  background: var(--danger-bg);
+  border: 1px solid var(--danger);
+  border-radius: 10px;
+  padding: 1.25rem 1.5rem;
+}
+
+.error h2 {
+  margin: 0 0 0.6rem;
+  font-size: 1.05rem;
+  color: var(--danger);
+}
+
+.error-message {
+  margin: 0 0 0.75rem;
+  padding: 0.75rem 0.9rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  font-family: var(--mono);
+  font-size: 0.82rem;
+  white-space: pre-wrap;
+  overflow-x: auto;
+}
+
+.error-help {
+  margin: 0;
+  font-size: 0.85rem;
+  color: var(--ink-soft);
+}
+
+/* ---------- a11y ---------- */
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
