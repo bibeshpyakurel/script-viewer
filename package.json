@@ -14,6 +14,7 @@
     "test": "vitest run"
   },
   "dependencies": {
+    "@xmldom/xmldom": "^0.9.10",
     "react": "^19.2.8",
     "react-dom": "^19.2.8"
   },
