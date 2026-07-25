@@ -1,8 +1,10 @@
 import { useMemo, useState } from 'react';
 import { safeParseXml } from '../parser/parseXml';
+import { checkFidelity, collectVocabulary } from '../parser/analyze';
 import type { XmlNode } from '../types/xmlNode';
 import { XmlNodeView } from './XmlNodeView';
 import { JsonPanel } from './JsonPanel';
+import { VocabularyPanel } from './VocabularyPanel';
 import fixture from '../fixtures/sample-script.xml?raw';
 import './app.css';
 
@@ -40,7 +42,8 @@ function ScriptView({ tree }: { tree: XmlNode }) {
   const [openToDepth, setOpenToDepth] = useState(DEFAULT_OPEN_DEPTH);
   // Remounting resets every node's local open state to the new default.
   const [treeKey, setTreeKey] = useState(0);
-  const stats = useMemo(() => summarize(tree), [tree]);
+  const fidelity = useMemo(() => checkFidelity(tree), [tree]);
+  const vocabulary = useMemo(() => collectVocabulary(tree), [tree]);
 
   function setAll(depth: number) {
     setOpenToDepth(depth);
@@ -51,11 +54,25 @@ function ScriptView({ tree }: { tree: XmlNode }) {
     <>
       {/* Derived from structure alone — no tag name is inspected. */}
       <section className="stats" aria-label="Document summary">
-        <Stat label="elements" value={stats.elements} />
-        <Stat label="attributes" value={stats.attributes} />
-        <Stat label="text nodes" value={stats.text} />
-        <Stat label="max depth" value={stats.depth} />
+        <Stat label="elements" value={fidelity.elements} />
+        <Stat label="attributes" value={fidelity.attributes} />
+        <Stat label="text nodes" value={fidelity.textNodes} />
+        <Stat label="nodes dropped" value={fidelity.dropped} />
       </section>
+
+      {/* The invisible 30%, made visible. Measured, not asserted. */}
+      <p
+        className={`fidelity${fidelity.roundTripOk ? ' fidelity-ok' : ' fidelity-bad'}`}
+      >
+        <span className="fidelity-mark" aria-hidden="true">
+          {fidelity.roundTripOk ? '✓' : '✕'}
+        </span>
+        {fidelity.roundTripOk
+          ? `Round trip verified — serializing this tree back to XML and parsing it again returns all ${fidelity.totalNodes.toLocaleString()} nodes, identical.`
+          : 'Round trip FAILED — this tree does not survive re-serialization.'}
+      </p>
+
+      <VocabularyPanel vocabulary={vocabulary} />
 
       <div className="toolbar">
         <button type="button" className="btn" onClick={() => setAll(Infinity)}>
@@ -99,31 +116,4 @@ function ParseErrorView({ message }: { message: string }) {
       </p>
     </section>
   );
-}
-
-/** Counts derived generically from node shape — never from a tag name. */
-function summarize(node: XmlNode): {
-  elements: number;
-  attributes: number;
-  text: number;
-  depth: number;
-} {
-  let elements = 0;
-  let attributes = 0;
-  let text = 0;
-  let depth = 0;
-
-  const walk = (n: XmlNode, d: number): void => {
-    depth = Math.max(depth, d);
-    if (n.kind === 'element') {
-      elements += 1;
-      attributes += n.attributes.length;
-      n.children.forEach((c) => walk(c, d + 1));
-    } else if (n.kind === 'text' && n.value.trim() !== '') {
-      text += 1;
-    }
-  };
-
-  walk(node, 1);
-  return { elements, attributes, text, depth };
 }

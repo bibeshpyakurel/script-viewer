@@ -359,3 +359,81 @@ body {
   white-space: nowrap;
   border: 0;
 }
+
+/* ---------- fidelity indicator ---------- */
+
+.fidelity {
+  display: flex;
+  align-items: baseline;
+  gap: 0.4rem;
+  margin: 0 0 1.25rem;
+  font-size: 0.82rem;
+  color: var(--ink-soft);
+}
+
+.fidelity-mark {
+  font-weight: 700;
+  flex: none;
+}
+
+.fidelity-ok .fidelity-mark {
+  color: var(--accent);
+}
+
+.fidelity-bad {
+  color: var(--danger);
+}
+
+/* ---------- vocabulary ---------- */
+
+.vocab {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 1.25rem;
+}
+
+.vocab-list {
+  flex-basis: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.3rem;
+  list-style: none;
+  margin: 0.25rem 0 0;
+  padding: 0;
+}
+
+.vocab-item {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.35rem;
+  padding: 0.12rem 0.5rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  font-family: var(--mono);
+  font-size: 0.74rem;
+}
+
+/* Names occurring once — often the vendor-specific or unexpected ones. */
+.vocab-rare {
+  border-style: dashed;
+  border-color: var(--accent);
+}
+
+.vocab-name {
+  color: var(--ink);
+}
+
+.vocab-count {
+  color: var(--ink-faint);
+  font-variant-numeric: tabular-nums;
+}
+
+.vocab-note {
+  flex-basis: 100%;
+  margin: 0.5rem 0 0;
+  font-size: 0.78rem;
+  color: var(--ink-faint);
+}

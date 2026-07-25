@@ -39,7 +39,7 @@ Then open the URL Vite prints (usually `http://localhost:5173`).
 npm test
 ```
 
-35 tests. They prove the properties the project depends on rather than just
+54 tests. They prove the properties the project depends on rather than just
 exercising the code:
 
 - **No allowlist** — an element and attribute that appear nowhere in the fixture
@@ -113,12 +113,20 @@ Any failing step fails the job.
 Working and covered by tests:
 
 - Parser, serializer, and the full fidelity suite
+- Generic collapsible tree view, with the same no-allowlist guarantee as the
+  parser — proven by a test that renders an element absent from the fixture
+- Parsed JSON viewable and copyable in the UI
+- A measured fidelity indicator: element/attribute counts, nodes dropped, and a
+  live round-trip check
+- The document's full element vocabulary, derived by walking the tree
 - CI green on every commit
 
 Not yet complete:
 
-- **Frontend.** The script rendering UI is still in progress.
-- **JSON inspection.** No route or export yet for viewing the parsed JSON.
+- **Semantic call-flow view.** The tree view is generic by design. A read-only
+  view that walks the script the way an operator does — page by page, greeting
+  to close — would layer on top of the same parsed tree. Not built yet.
+- **Upload / search.** The app reads the bundled fixture only.
 - **Error presentation in the UI.** Parsing rejects malformed input with a clear
   `XmlParseError`, and `safeParseXml` returns a typed result for callers that
   must render a failure rather than throw. Wiring that into the interface is
