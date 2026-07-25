@@ -141,10 +141,26 @@ without pulling in jsdom, and it reports malformed XML by embedding a
 by tag name, which loses sibling order and duplicate handling by construction —
 the exact failure this design exists to avoid.
 
-**Verified behavior on malformed input.** Five malformed documents (unclosed
-tag, mismatched nesting, non-XML text, empty string, truncated mid-attribute)
-all **throw**. There is no silent partial tree. What is still missing is wrapping
-those raw `ParseError`s into something the UI can present clearly.
+**Verified behavior on malformed input.** xmldom throws only on _fatal_ errors.
+Several genuinely malformed documents are reported to `onError` and then
+**recovered**, handing back a tree that misrepresents the source:
+
+| Input              | xmldom                      |
+| ------------------ | --------------------------- |
+| `<a><b></a>`       | throws (fatal)              |
+| `<a x="1" x="2"/>` | throws (fatal)              |
+| `<a>&nope;</a>`    | reports `error`, recovers   |
+| `<a x=1/>`         | reports `warning`, recovers |
+| `junk<a/>`         | reports `error`, recovers   |
+
+The recovering cases are the dangerous ones — nothing looks wrong. Capturing
+`onError` is therefore a **correctness** requirement, not a message-quality
+nicety. `parseXml` collects every report and rejects the document if there are
+any. The supplied fixture reports zero, so this is strict without being noisy.
+
+**Known limitation.** A bare ampersand (`<a>x & y</a>`) produces no report at
+all and parses to the text `x & y`. xmldom tolerates it silently, so this parser
+accepts it too. No data is lost, but technically invalid XML gets through.
 
 ## 9. A `pi` kind for processing instructions
 

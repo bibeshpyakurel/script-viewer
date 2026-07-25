@@ -39,8 +39,8 @@ Then open the URL Vite prints (usually `http://localhost:5173`).
 npm test
 ```
 
-15 tests, all against the real supplied fixture. They prove the properties the
-project depends on rather than just exercising the code:
+35 tests. They prove the properties the project depends on rather than just
+exercising the code:
 
 - **No allowlist** — an element and attribute that appear nowhere in the fixture
   are injected, parsed, and checked for name, attribute name/value, parent, and
@@ -54,6 +54,8 @@ project depends on rather than just exercising the code:
 - **Whitespace fidelity** — indentation text nodes are kept, not silently
   dropped.
 - **Round trip** — `parse → serialize → parse` produces a deeply equal tree.
+- **Malformed input** — invalid XML is rejected with a readable message, never
+  half-parsed. Including the cases xmldom would otherwise recover from silently.
 
 See [DECISIONS.md](DECISIONS.md) for why each choice was made.
 
@@ -117,9 +119,10 @@ Not yet complete:
 
 - **Frontend.** The script rendering UI is still in progress.
 - **JSON inspection.** No route or export yet for viewing the parsed JSON.
-- **Error presentation.** Malformed XML throws (verified — it does not silently
-  produce a partial tree), but the errors are raw `@xmldom/xmldom` `ParseError`s
-  and are not yet wrapped or surfaced in the UI.
+- **Error presentation in the UI.** Parsing rejects malformed input with a clear
+  `XmlParseError`, and `safeParseXml` returns a typed result for callers that
+  must render a failure rather than throw. Wiring that into the interface is
+  still to do.
 - **XML declaration.** `parseXml` returns the document element, so the leading
   `<?xml version="1.0" encoding="utf-8"?>` is not part of the tree. The `pi` node
   kind exists to hold it; wiring it up is a small change.
