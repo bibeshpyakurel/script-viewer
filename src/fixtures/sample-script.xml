@@ -1,0 +1,299 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScriptExport xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+              schemaVersion="1.0"
+              environment="training">
+  <Source>
+    <System>AMTELCO_REPLICA_TRAINING_DERIVATIVE</System>
+    <ExportId>training-export-2026-001</ExportId>
+    <ExportedAt>2026-07-01T15:00:00Z</ExportedAt>
+  </Source>
+
+  <Developers>
+    <Developer developerId="developer-taulant-matraku">
+      <DisplayName>Taulant Matraku</DisplayName>
+      <Role>Script Developer</Role>
+      <Active>true</Active>
+    </Developer>
+  </Developers>
+
+  <Client clientId="training-client-001">
+    <Name>Training Property Management</Name>
+    <Status>Active</Status>
+  </Client>
+
+  <Script scriptId="training-script-main"
+          clientId="training-client-001">
+    <Name>Training Property Main Script</Name>
+    <CreatedByDeveloperId>developer-taulant-matraku</CreatedByDeveloperId>
+    <CreatedAt>2026-01-15T15:30:00Z</CreatedAt>
+    <ActiveVersionId>training-version-001</ActiveVersionId>
+
+    <Versions>
+      <Version versionId="training-version-001" versionNumber="1">
+        <Status>Active</Status>
+        <ChangeReason>Initial synthetic training script</ChangeReason>
+        <CreatedByDeveloperId>developer-taulant-matraku</CreatedByDeveloperId>
+        <CreatedAt>2026-01-15T15:30:00Z</CreatedAt>
+
+        <Pages>
+          <Page pageId="training-page-caller-information" order="1">
+            <Name>Caller Information</Name>
+            <XmlVersion>1</XmlVersion>
+            <XmlNodes>
+              <XmlSharedActionsNode />
+            </XmlNodes>
+            <XmlElements>
+              <anyType xsi:type="DisplayElement">
+                <Id>training-opening-greeting</Id>
+                <NodeType>Display</NodeType>
+                <Name>Opening Greeting</Name>
+                <Description>Read the greeting before collecting caller information.</Description>
+                <OperatorPrompt>
+                  <Instruction>Read verbatim</Instruction>
+                  <SpokenText>Thank you for calling Training Property Management. My name is [Operator Name]. How may I help you today?</SpokenText>
+                  <AfterHoursText>Thank you for calling Training Property Management's after-hours service. My name is [Operator Name]. How may I help you?</AfterHoursText>
+                </OperatorPrompt>
+                <Modes>
+                  <Mode ModeName="Normal"><XmlSerializiationData /></Mode>
+                  <Mode ModeName="AfterHours"><XmlSerializiationData /></Mode>
+                </Modes>
+              </anyType>
+
+              <anyType xsi:type="InputElement">
+                <Id>training-caller-name</Id>
+                <NodeType>Input</NodeType>
+                <Name>Caller Name</Name>
+                <Description>Enter the caller's full name.</Description>
+                <Tag>caller</Tag>
+                <Requirements>
+                  <Required>true</Required>
+                  <Readonly>false</Readonly>
+                  <MaxChars>80</MaxChars>
+                  <InputType>Text</InputType>
+                </Requirements>
+                <XmlCalcNode />
+                <XmlDisplayNode>
+                  <LabelStyle>StandardLabel</LabelStyle>
+                  <InputStyle>StandardInput</InputStyle>
+                  <SummaryLabel>Caller Name</SummaryLabel>
+                  <SummaryPageable>true</SummaryPageable>
+                </XmlDisplayNode>
+                <Modes>
+                  <Mode ModeName="Normal"><XmlSerializiationData /></Mode>
+                  <Mode ModeName="AfterHours"><XmlSerializiationData /></Mode>
+                </Modes>
+              </anyType>
+
+              <anyType xsi:type="InputElement">
+                <Id>training-callback-number</Id>
+                <NodeType>Input</NodeType>
+                <Name>Callback Number</Name>
+                <Description>Enter the number where the caller can be reached.</Description>
+                <Tag>callback</Tag>
+                <Requirements>
+                  <Required>false</Required>
+                  <Readonly>false</Readonly>
+                  <MaxChars>24</MaxChars>
+                  <InputType>Phone</InputType>
+                  <SaveFormatted>true</SaveFormatted>
+                </Requirements>
+                <XmlCalcNode>
+                  <Expr dataType="Boolean" source="training">callback_number != empty</Expr>
+                </XmlCalcNode>
+                <XmlDisplayNode>
+                  <LabelStyle>StandardLabel</LabelStyle>
+                  <InputStyle>PhoneInput</InputStyle>
+                  <SummaryLabel>Callback Number</SummaryLabel>
+                  <SummaryDialable>true</SummaryDialable>
+                </XmlDisplayNode>
+                <Modes>
+                  <Mode ModeName="Normal">
+                    <XmlSerializiationData>
+                      <InputHint>Ten-digit callback number</InputHint>
+                    </XmlSerializiationData>
+                  </Mode>
+                  <Mode ModeName="AfterHours">
+                    <XmlSerializiationData>
+                      <InputHint>Confirm the best callback number</InputHint>
+                    </XmlSerializiationData>
+                  </Mode>
+                </Modes>
+                <NavType>Screen</NavType>
+                <NavScreen>training-page-call-reason</NavScreen>
+                <FutureVendorSetting preserve="true" vendorVersion="next">
+                  <UnknownValue>retain-in-json</UnknownValue>
+                </FutureVendorSetting>
+              </anyType>
+            </XmlElements>
+            <Styles>
+              <Style>
+                <Name>StandardInput</Name>
+                <Bold>false</Bold>
+                <FontFamily>Inter</FontFamily>
+                <Size>12</Size>
+              </Style>
+            </Styles>
+            <SummaryHeader>Caller Information</SummaryHeader>
+          </Page>
+
+          <Page pageId="training-page-call-reason" order="2">
+            <Name>Call Reason</Name>
+            <XmlVersion>1</XmlVersion>
+            <XmlElements>
+              <anyType xsi:type="DisplayElement">
+                <Id>training-call-reason-heading</Id>
+                <NodeType>Display</NodeType>
+                <Name>Call Reason Heading</Name>
+                <Description>Ask the caller why they are calling.</Description>
+                <OperatorPrompt>
+                  <Instruction>Ask the caller</Instruction>
+                  <SpokenText>May I ask what you are calling about today?</SpokenText>
+                  <AfterHoursText>Please describe the issue that needs after-hours assistance.</AfterHoursText>
+                </OperatorPrompt>
+                <Modes>
+                  <Mode ModeName="Normal"><XmlSerializiationData /></Mode>
+                </Modes>
+              </anyType>
+              <anyType xsi:type="InputElement">
+                <Id>training-call-reason</Id>
+                <NodeType>Input</NodeType>
+                <Name>Call Reason</Name>
+                <Description>Record the caller's reason for calling.</Description>
+                <Tag>call_reason</Tag>
+                <Requirements>
+                  <Required>true</Required>
+                  <Readonly>false</Readonly>
+                  <MaxChars>500</MaxChars>
+                  <InputType>Multiline</InputType>
+                </Requirements>
+                <XmlCalcNode />
+                <XmlDisplayNode>
+                  <LabelStyle>StandardLabel</LabelStyle>
+                  <InputStyle>StandardInput</InputStyle>
+                  <SummaryLabel>Call Reason</SummaryLabel>
+                  <SummaryPageable>true</SummaryPageable>
+                </XmlDisplayNode>
+                <Modes>
+                  <Mode ModeName="Normal">
+                    <XmlSerializiationData>
+                      <InputHint>Enter the caller's reason for calling</InputHint>
+                    </XmlSerializiationData>
+                  </Mode>
+                  <Mode ModeName="AfterHours">
+                    <XmlSerializiationData>
+                      <InputHint>Record the after-hours request</InputHint>
+                    </XmlSerializiationData>
+                  </Mode>
+                </Modes>
+              </anyType>
+              <anyType xsi:type="InputElement">
+                <Id>training-property-location</Id>
+                <NodeType>Input</NodeType>
+                <Name>Property or Unit</Name>
+                <Description>Record the property address, building, or unit involved.</Description>
+                <Tag>property_location</Tag>
+                <Requirements>
+                  <Required>true</Required>
+                  <Readonly>false</Readonly>
+                  <MaxChars>120</MaxChars>
+                  <InputType>Text</InputType>
+                </Requirements>
+                <XmlCalcNode />
+                <Modes>
+                  <Mode ModeName="Normal">
+                    <XmlSerializiationData>
+                      <InputHint>Property address, building, or unit</InputHint>
+                    </XmlSerializiationData>
+                  </Mode>
+                </Modes>
+              </anyType>
+              <anyType xsi:type="SelectElement">
+                <Id>training-urgency</Id>
+                <NodeType>Input</NodeType>
+                <Name>Urgency</Name>
+                <Description>Select the urgency described by the caller.</Description>
+                <Tag>urgency</Tag>
+                <Requirements>
+                  <Required>true</Required>
+                  <Readonly>false</Readonly>
+                  <InputType>Select</InputType>
+                </Requirements>
+                <Options>
+                  <Option value="Routine">Routine</Option>
+                  <Option value="Urgent">Urgent</Option>
+                  <Option value="Emergency">Emergency</Option>
+                </Options>
+                <ConditionalActions>
+                  <When fieldId="training-urgency" operator="Equals" value="Emergency">
+                    <Action type="Escalate">Follow the emergency escalation procedure.</Action>
+                  </When>
+                </ConditionalActions>
+                <NavType>Screen</NavType>
+                <NavScreen>training-page-confirm-close</NavScreen>
+              </anyType>
+            </XmlElements>
+            <SummaryHeader>Call Reason</SummaryHeader>
+          </Page>
+
+          <Page pageId="training-page-confirm-close" order="3">
+            <Name>Confirm and Close</Name>
+            <XmlVersion>1</XmlVersion>
+            <XmlElements>
+              <anyType xsi:type="DisplayElement">
+                <Id>training-confirmation-readback</Id>
+                <NodeType>Display</NodeType>
+                <Name>Confirm Information</Name>
+                <Description>Read the captured information back to the caller.</Description>
+                <OperatorPrompt>
+                  <Instruction>Confirm the captured details</Instruction>
+                  <SpokenText>Let me confirm the information I have before we finish.</SpokenText>
+                </OperatorPrompt>
+                <TemplateFields>
+                  <FieldRef elementId="training-caller-name" />
+                  <FieldRef elementId="training-callback-number" />
+                  <FieldRef elementId="training-property-location" />
+                  <FieldRef elementId="training-call-reason" />
+                  <FieldRef elementId="training-urgency" />
+                </TemplateFields>
+              </anyType>
+              <anyType xsi:type="SelectElement">
+                <Id>training-disposition</Id>
+                <NodeType>Input</NodeType>
+                <Name>Call Outcome</Name>
+                <Description>Select how the call was handled.</Description>
+                <Tag>disposition</Tag>
+                <Requirements>
+                  <Required>true</Required>
+                  <Readonly>false</Readonly>
+                  <InputType>Select</InputType>
+                </Requirements>
+                <Options>
+                  <Option value="MessageTaken">Message Taken</Option>
+                  <Option value="Transferred">Transferred</Option>
+                  <Option value="Resolved">Resolved During Call</Option>
+                </Options>
+              </anyType>
+              <anyType xsi:type="DisplayElement">
+                <Id>training-closing-script</Id>
+                <NodeType>Display</NodeType>
+                <Name>Closing</Name>
+                <Description>Close the call after confirming the information.</Description>
+                <OperatorPrompt>
+                  <Instruction>Read verbatim</Instruction>
+                  <SpokenText>Thank you. I have recorded your information and will make sure it reaches the appropriate person. Is there anything else I can help you with today?</SpokenText>
+                  <AfterHoursText>Thank you. I have recorded your information for the after-hours team. If this becomes an immediate emergency, please contact local emergency services.</AfterHoursText>
+                </OperatorPrompt>
+              </anyType>
+            </XmlElements>
+            <CompletionAction actionId="training-complete-call">
+              <Label>Complete call</Label>
+              <Outcome>MessageCaptured</Outcome>
+            </CompletionAction>
+            <SummaryHeader>Call Summary</SummaryHeader>
+          </Page>
+        </Pages>
+      </Version>
+    </Versions>
+  </Script>
+</ScriptExport>
