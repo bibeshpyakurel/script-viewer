@@ -1,6 +1,6 @@
 # Script Viewer
 
-**Live app: https://bibeshpyakurel.github.io/script-viewer/**
+**Live app: https://fanciful-paprenjak-251565.netlify.app**
 
 AnSer builds call-center scripts in a GUI and stores them as XML — pages, input
 fields, requirements, display settings, navigation, and vendor configuration all
@@ -136,6 +136,24 @@ npm ci → lint → typecheck → test → build
 ```
 
 Any failing step fails the job.
+
+## Deployment
+
+The live app above is a static build of `dist/`, hosted on Netlify.
+
+```bash
+npm run build   # outputs to dist/, asset paths rooted at /
+```
+
+`.github/workflows/deploy.yml` also builds and publishes to GitHub Pages on push
+to `main`. It is committed and the build step passes, but Pages is not currently
+enabled on the repository, so that workflow's final step fails. Enabling Pages
+(Settings → Pages → Source: GitHub Actions) is all it needs.
+
+Asset paths are configurable rather than hardcoded: `vite.config.ts` reads
+`VITE_BASE` and defaults to `/`. That default is correct for Netlify, Vercel, and
+local preview; the Pages workflow sets `/script-viewer/` because Pages serves
+from a subpath.
 
 ## Current status
 
