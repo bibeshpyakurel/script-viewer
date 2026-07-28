@@ -225,6 +225,8 @@ function humanize(name: string): string {
   return spaced.charAt(0).toUpperCase() + spaced.slice(1).toLowerCase();
 }
 
+/** Turn any name into a CSS-class-safe suffix, so a field can be styled by
+ *  name (`prompt-spokentext`) without assuming which names exist. */
 function slug(name: string): string {
   return name.toLowerCase().replace(/[^a-z0-9]+/g, '-');
 }

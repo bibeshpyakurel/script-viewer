@@ -7,6 +7,7 @@ import { JsonPanel } from './JsonPanel';
 import { VocabularyPanel } from './VocabularyPanel';
 import { ScriptView } from './ScriptView';
 import { SourcePicker } from './SourcePicker';
+import { ThemeToggle, useTheme } from './ThemeToggle';
 import fixture from '../fixtures/sample-script.xml?raw';
 import './app.css';
 
@@ -30,9 +31,18 @@ interface Source {
 
 const FIXTURE_SOURCE: Source = { label: 'sample-script.xml', xml: fixture };
 
+/**
+ * Root component: owns the three pieces of state the whole app reads from —
+ * which XML is loaded, which tab is showing, and the active theme.
+ *
+ * Parsing happens here, once, and the resulting tree is handed to whichever
+ * view is active. Every tab therefore renders the same parsed data; none of
+ * them re-parses or keeps its own copy.
+ */
 export function App() {
   const [source, setSource] = useState<Source>(FIXTURE_SOURCE);
   const [tab, setTab] = useState<Tab>('script');
+  const [theme, toggleTheme] = useTheme();
 
   // `safeParseXml`, not `parseXml`: a throw during render would blank the
   // screen. A returned result lets us show the message instead.
@@ -48,6 +58,9 @@ export function App() {
               An AnSer call-center script export, parsed into a lossless tree.
             </p>
           </div>
+          <ThemeToggle theme={theme} onToggle={toggleTheme} />
+        </div>
+        <div className="masthead-row masthead-tools">
           <SourcePicker
             current={source.label}
             isFixture={source.xml === fixture}
@@ -74,6 +87,13 @@ export function App() {
   );
 }
 
+/**
+ * Everything shown once the XML parsed successfully.
+ *
+ * The fidelity summary and vocabulary sit above the tabs on purpose: they
+ * describe the document as a whole, so they should not appear to belong to
+ * whichever view happens to be selected.
+ */
 function LoadedView({
   tree,
   tab,
@@ -138,6 +158,12 @@ function LoadedView({
   );
 }
 
+/**
+ * One tab. `aria-current` rather than `aria-selected`, because these are
+ * buttons in a nav rather than a full ARIA tablist widget — claiming the
+ * tablist role would promise keyboard behaviour (arrow-key traversal) that is
+ * not implemented.
+ */
 function TabButton({
   id,
   tab,
@@ -194,6 +220,7 @@ function TreeTab({ tree }: { tree: XmlNode }) {
   );
 }
 
+/** One figure in the summary row. `toLocaleString` so large counts group. */
 function Stat({ label, value }: { label: string; value: number }) {
   return (
     <div className="stat">

@@ -31,6 +31,13 @@ interface Options {
   check: boolean;
 }
 
+/**
+ * Minimal hand-rolled argument parsing.
+ *
+ * Four flags do not justify a dependency, and keeping `scripts/` free of extra
+ * packages means the export can run from a clean checkout with nothing beyond
+ * what the app already needs.
+ */
 function parseArgs(argv: readonly string[]): Options {
   const positional: string[] = [];
   let output = DEFAULT_OUTPUT;
@@ -53,11 +60,25 @@ function parseArgs(argv: readonly string[]): Options {
   return { input: positional[0] ?? DEFAULT_INPUT, output, check };
 }
 
+/**
+ * Report a problem and exit non-zero.
+ *
+ * The `never` return lets callers use this in place of a value without the
+ * compiler complaining about a missing branch, and the non-zero exit is what
+ * makes `--check` usable as a CI gate.
+ */
 function fail(message: string): never {
   console.error(message);
   process.exit(1);
 }
 
+/**
+ * Read the XML, parse it, and either write the JSON or verify what is on disk.
+ *
+ * The tree is checked for round-trip fidelity before anything is written, so a
+ * parser regression fails the export rather than quietly committing a degraded
+ * artifact.
+ */
 function main(): void {
   const options = parseArgs(process.argv.slice(2));
   const inputPath = resolve(repoRoot, options.input);

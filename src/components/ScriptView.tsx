@@ -145,6 +145,13 @@ export function ScriptView({ tree }: { tree: XmlNode }) {
   );
 }
 
+/**
+ * One page of the call, in the order an operator works through it: the
+ * elements first, then the styles it defines, then how the page completes.
+ *
+ * The `id` on the section is what makes the call-flow links and the navigation
+ * targets on each element scroll to the right place.
+ */
 function PageSection({
   page,
   elementsById,
@@ -298,6 +305,8 @@ function ScriptMetadata({
   );
 }
 
+/** One labelled figure in the header summary. A `<dt>`/`<dd>` pair, so the
+ *  label and value stay associated for assistive tech. */
 function Fact({
   label,
   children,

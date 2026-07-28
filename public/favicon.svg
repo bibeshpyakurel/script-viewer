@@ -1,22 +1,25 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" role="img" aria-label="Script Viewer">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="32" height="32">
   <title>Script Viewer</title>
-  <!-- Palette matches the app's accent (--accent) and page background (--bg).
-       An SVG favicon can follow the reader's theme, so the mark stays legible
-       against both a light and a dark browser tab strip. -->
-  <style>
-    .plate { fill: #2f6f5e; }
-    .glyph { stroke: #fbfbfa; }
-    @media (prefers-color-scheme: dark) {
-      .plate { fill: #7fc0ac; }
-      .glyph { stroke: #17181a; }
-    }
-  </style>
-  <rect class="plate" width="32" height="32" rx="7" />
-  <!-- `</>`: angle brackets around a slash. Reads as markup at 16px, where a
-       document outline with text lines would turn to mush. -->
+  <!--
+    Colours are presentation ATTRIBUTES, not a <style> block.
+
+    Favicon renderers frequently ignore CSS inside an SVG. An earlier version of
+    this file set its fill through a <style> rule with a prefers-color-scheme
+    query; where that CSS was dropped, the plate fell back to the SVG default
+    fill (black) and the strokes to none, so the icon rendered as a black square
+    with no glyph. Inline attributes always apply.
+
+    The plate is the app's accent green, which stays legible against both a
+    light and a dark browser tab strip, so the icon needs no theme awareness.
+  -->
+  <rect width="32" height="32" rx="7" fill="#2f6f5e" />
+  <!--
+    `</>`: angle brackets around a slash. Reads as markup at 16px, where a
+    document outline with text lines would turn to mush.
+  -->
   <g
-    class="glyph"
     fill="none"
+    stroke="#fbfbfa"
     stroke-width="2.4"
     stroke-linecap="round"
     stroke-linejoin="round"

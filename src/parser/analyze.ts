@@ -2,10 +2,19 @@ import type { XmlNode } from '../types/xmlNode';
 import { parseXml } from './parseXml';
 import { serializeXml } from './serializeXml';
 
+/**
+ * What survived the parse, as numbers the UI can show.
+ *
+ * Every field is derived by walking the tree, so the report cannot drift from
+ * the data the way a hand-maintained constant would.
+ */
 export interface FidelityReport {
   elements: number;
   attributes: number;
+  /** Text nodes with non-whitespace content. Indentation is excluded here so
+   *  the figure reflects actual content, not the file's formatting. */
   textNodes: number;
+  /** Every node of every kind, whitespace and the document wrapper included. */
   totalNodes: number;
   /** Node count after `serialize -> parse`. Equal to `totalNodes` if lossless. */
   nodesAfterRoundTrip: number;
@@ -46,6 +55,13 @@ export function checkFidelity(tree: XmlNode): FidelityReport {
   };
 }
 
+/**
+ * Walk the tree once, tallying each category.
+ *
+ * Kept as a single traversal rather than four `filter` passes: the counts are
+ * displayed together and read from the same nodes, so one walk is both cheaper
+ * and impossible to get out of step with itself.
+ */
 function countNodes(node: XmlNode): {
   elements: number;
   attributes: number;
@@ -75,7 +91,9 @@ function countNodes(node: XmlNode): {
   return { elements, attributes, textNodes, totalNodes };
 }
 
+/** One distinct element name, and how many times the document uses it. */
 export interface VocabularyEntry {
+  /** Verbatim tag name, namespace prefix included. */
   name: string;
   count: number;
 }

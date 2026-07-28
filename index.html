@@ -8,21 +8,16 @@
       name="description"
       content="Parses an AnSer call-center script export into JSON and renders it without losing a single element, attribute, or namespace."
     />
-    <!-- Relative, not root-absolute: GitHub Pages serves this app from
-         /script-viewer/, so a leading slash would point at the domain root. -->
-    <link rel="icon" type="image/svg+xml" href="./favicon.svg" />
-    <link rel="apple-touch-icon" href="./apple-touch-icon.png" />
-    <!-- Tints the browser chrome on mobile to match the app's accent. -->
-    <meta
-      name="theme-color"
-      media="(prefers-color-scheme: light)"
-      content="#2f6f5e"
-    />
-    <meta
-      name="theme-color"
-      media="(prefers-color-scheme: dark)"
-      content="#17181a"
-    />
+    <!-- Root-absolute on purpose. Vite rewrites these with the configured base,
+         so they build to /script-viewer/... for GitHub Pages while staying at
+         the domain root everywhere else. A relative "./" path would break on a
+         URL without a trailing slash, since it resolves against the parent. -->
+    <link rel="icon" href="/favicon.ico" sizes="32x32" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <!-- Tints the browser chrome on mobile. Matches the app's default (dark)
+         surface; the light theme is opt-in via the in-app toggle. -->
+    <meta name="theme-color" content="#17181a" />
   </head>
   <body>
     <div id="root"></div>

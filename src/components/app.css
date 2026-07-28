@@ -1,7 +1,34 @@
-/* Calm, readable, one accent. Plain CSS, no framework, no theme switcher —
-   though the palette follows the reader's OS light/dark preference. */
+/* Calm, readable, one accent. Plain CSS, no framework.
 
-:root {
+   Dark is the DEFAULT, not a preference-driven alternative: this is a tool for
+   reading dense structured data, and the dark palette is the one the layout was
+   designed and tuned against. Light is opt-in through the header toggle.
+
+   Both themes are plain variable sets on :root, so every rule below is written
+   once against semantic names and neither theme is the special case. The theme
+   is applied as a data-theme attribute on <html> — see ThemeToggle. */
+
+:root,
+:root[data-theme='dark'] {
+  --bg: #17181a;
+  --surface: #1e2022;
+  --border: #32353a;
+  --ink: #e8e8e4;
+  --ink-soft: #a4a49d;
+  --ink-faint: #77776f;
+  --accent: #7fc0ac;
+  --accent-soft: #1d2b27;
+  --attr-bg: #26292d;
+  --danger: #e8907f;
+  --danger-bg: #2a1d1a;
+  /* Select-element badge, which needs a hue outside the green/red pair. */
+  --violet-bg: #2b2438;
+  --violet-ink: #b79ee8;
+  --mono: ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Consolas, monospace;
+  --sans: ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
+}
+
+:root[data-theme='light'] {
   --bg: #fbfbfa;
   --surface: #ffffff;
   --border: #e4e4e1;
@@ -13,24 +40,8 @@
   --attr-bg: #f2f4f7;
   --danger: #a33a2a;
   --danger-bg: #fdf3f1;
-  --mono: ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Consolas, monospace;
-  --sans: ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --bg: #17181a;
-    --surface: #1e2022;
-    --border: #32353a;
-    --ink: #e8e8e4;
-    --ink-soft: #a4a49d;
-    --ink-faint: #77776f;
-    --accent: #7fc0ac;
-    --accent-soft: #1d2b27;
-    --attr-bg: #26292d;
-    --danger: #e8907f;
-    --danger-bg: #2a1d1a;
-  }
+  --violet-bg: #efe9f7;
+  --violet-ink: #6a4f9c;
 }
 
 body {
@@ -448,6 +459,46 @@ body {
   justify-content: space-between;
 }
 
+/* The source controls sit on their own row under the title, so the theme
+   toggle keeps the top-right corner to itself at every width. */
+.masthead-tools {
+  margin-top: 0.9rem;
+  justify-content: flex-end;
+}
+
+/* ---------- theme toggle ---------- */
+
+.theme-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  flex: none;
+  font: inherit;
+  font-size: 0.82rem;
+  padding: 0.35rem 0.7rem;
+  color: var(--ink-soft);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  cursor: pointer;
+}
+
+.theme-toggle:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.theme-toggle:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.theme-icon {
+  display: inline-flex;
+  /* Optical centring: the glyphs read low against the cap height of the label. */
+  margin-top: -1px;
+}
+
 .source-row {
   display: flex;
   gap: 0.5rem;
@@ -740,16 +791,11 @@ label.btn {
   color: var(--accent);
 }
 
+/* Reads from theme variables like everything else, so it follows the toggle
+   rather than the OS setting. */
 .el-kind-select {
-  background: #efe9f7;
-  color: #6a4f9c;
-}
-
-@media (prefers-color-scheme: dark) {
-  .el-kind-select {
-    background: #2b2438;
-    color: #b79ee8;
-  }
+  background: var(--violet-bg);
+  color: var(--violet-ink);
 }
 
 .el-name {

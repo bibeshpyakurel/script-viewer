@@ -59,6 +59,13 @@ export function XmlNodeView({
   }
 }
 
+/**
+ * One element row, plus its children when expanded.
+ *
+ * Open state is local to each row and seeded from `openToDepth`, so the
+ * expand/collapse buttons work by remounting the tree with a new default
+ * rather than by threading a controlled value through every level.
+ */
 function ElementView({
   node,
   depth,
