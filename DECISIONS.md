@@ -98,10 +98,12 @@ pin the behavior.
 
 **Decision.** The parser's only branch is `switch (node.nodeType)`.
 
-**Why.** This is where "no allowlist" is enforced, and it is checkable: every
-string literal in `parseXml.ts` is two import paths, one error message, one MIME
-type, and the five `kind` tags. **No XML tag or attribute name appears anywhere
-in the file.**
+**Why.** This is where "no allowlist" is enforced, and it is checkable. Every
+string literal in `parseXml.ts` is one of: two import paths, the six `kind`
+tags, the three xmldom severity levels (`warning`, `error`, `fatalError`), one
+MIME type, this project's own error name, one error message, and two formatting
+strings. **No XML tag or attribute name appears anywhere in the file** — grep it
+against the fixture's vocabulary and nothing matches.
 
 **Note on the distinction.** Switching on `nodeType` is not an allowlist. An
 allowlist restricts an open-ended vocabulary — tag names, of which there are
@@ -164,7 +166,7 @@ accepts it too. No data is lost, but technically invalid XML gets through.
 
 ## 9. A `pi` kind for processing instructions
 
-**Decision.** `XmlNode` includes a fifth kind carrying `target` and `data`.
+**Decision.** `XmlNode` includes a kind carrying `target` and `data`.
 
 **Why.** The fixture opens with `<?xml version="1.0" encoding="utf-8"?>`.
 Without somewhere to put it, a full-document round trip would silently drop the
@@ -208,7 +210,7 @@ with `strict` on.
 
 **Why.** The whole project rests on one claim: nothing is lost between XML and
 screen. That claim lives in a type. `XmlNode` being a discriminated union means
-a `switch` over `kind` is checked for exhaustiveness, so adding a sixth node
+a `switch` over `kind` is checked for exhaustiveness, so adding a seventh node
 kind breaks the build at every place that fails to handle it — the compiler
 enforces the guarantee instead of a reviewer having to notice. `strict` and
 `noUncheckedIndexedAccess` matter most in the parser and tests, where array

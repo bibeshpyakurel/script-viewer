@@ -11,9 +11,12 @@ import fixture from '../fixtures/sample-script.xml?raw';
 import './app.css';
 
 /**
- * Deep enough that the landing view reaches the script's page list, which is
- * the thing a reviewer actually came to read. Shallower and they open to
- * export metadata and have to go hunting.
+ * How deep the Tree tab opens before collapsing.
+ *
+ * Six reaches inside each `<Page>`, so the tab lands on page contents rather
+ * than on a row of collapsed pages. The Script tab is where a reviewer starts;
+ * someone who switches to Tree has gone looking for structure, so erring
+ * one level deeper serves them better than erring shallow.
  */
 const DEFAULT_OPEN_DEPTH = 6;
 

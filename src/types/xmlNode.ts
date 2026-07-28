@@ -120,11 +120,12 @@ export interface XmlCommentNode {
  *
  * This kind also carries the XML declaration that opens the fixture,
  * `<?xml version="1.0" encoding="utf-8"?>`, as `target: 'xml'` with
- * `data: 'version="1.0" encoding="utf-8"'`.
+ * `data: 'version="1.0" encoding="utf-8"'`. It reaches the tree as a child of
+ * the {@link XmlDocumentNode}, since the declaration sits above the root.
  *
  * Strictly, the XML spec treats the declaration as its own production and
  * forbids `xml` as a PI target, so this reuse is a deliberate simplification:
- * it keeps the union at five kinds instead of six, and the declaration is
+ * it keeps the union at six kinds instead of seven, and the declaration is
  * syntactically identical to a PI. The alternative — dropping it — would mean
  * the very first line of the supplied document vanished from the parsed
  * result, which is exactly the kind of silent loss this type exists to prevent.
