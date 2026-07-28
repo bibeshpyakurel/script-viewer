@@ -43,11 +43,31 @@
  * what the document said, but the order in which it said it.
  */
 export type XmlNode =
+  | XmlDocumentNode
   | XmlElementNode
   | XmlTextNode
   | XmlCDataNode
   | XmlCommentNode
   | XmlProcessingInstructionNode;
+
+/**
+ * The whole document, including everything ABOVE the root element.
+ *
+ * This kind exists for one reason: a document is not the same thing as its root
+ * element. The prolog — the XML declaration, any comment or processing
+ * instruction before `<ScriptExport>`, and the whitespace between them — are
+ * children of the document, siblings of the root. Returning the root element
+ * instead would silently discard the supplied file's very first line.
+ *
+ * `children` therefore holds the prolog, the single root element, and any
+ * trailing nodes, in document order. Exactly one child is an element; that
+ * invariant belongs to XML, not to this type, so it is not encoded here.
+ */
+export interface XmlDocumentNode {
+  kind: 'document';
+  /** Ordered: prolog nodes, the root element, then any trailing nodes. */
+  children: XmlNode[];
+}
 
 /** A single attribute, name kept exactly as written (prefix included). */
 export interface XmlAttribute {

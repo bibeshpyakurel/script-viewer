@@ -1,0 +1,3543 @@
+{
+  "kind": "document",
+  "children": [
+    {
+      "kind": "pi",
+      "target": "xml",
+      "data": "version=\"1.0\" encoding=\"utf-8\""
+    },
+    {
+      "kind": "text",
+      "value": "\n"
+    },
+    {
+      "kind": "element",
+      "name": "ScriptExport",
+      "attributes": [
+        {
+          "name": "xmlns:xsi",
+          "value": "http://www.w3.org/2001/XMLSchema-instance"
+        },
+        {
+          "name": "xmlns:xsd",
+          "value": "http://www.w3.org/2001/XMLSchema"
+        },
+        {
+          "name": "schemaVersion",
+          "value": "1.0"
+        },
+        {
+          "name": "environment",
+          "value": "training"
+        }
+      ],
+      "children": [
+        {
+          "kind": "text",
+          "value": "\n  "
+        },
+        {
+          "kind": "element",
+          "name": "Source",
+          "attributes": [],
+          "children": [
+            {
+              "kind": "text",
+              "value": "\n    "
+            },
+            {
+              "kind": "element",
+              "name": "System",
+              "attributes": [],
+              "children": [
+                {
+                  "kind": "text",
+                  "value": "AMTELCO_REPLICA_TRAINING_DERIVATIVE"
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "value": "\n    "
+            },
+            {
+              "kind": "element",
+              "name": "ExportId",
+              "attributes": [],
+              "children": [
+                {
+                  "kind": "text",
+                  "value": "training-export-2026-001"
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "value": "\n    "
+            },
+            {
+              "kind": "element",
+              "name": "ExportedAt",
+              "attributes": [],
+              "children": [
+                {
+                  "kind": "text",
+                  "value": "2026-07-01T15:00:00Z"
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "value": "\n  "
+            }
+          ]
+        },
+        {
+          "kind": "text",
+          "value": "\n\n  "
+        },
+        {
+          "kind": "element",
+          "name": "Developers",
+          "attributes": [],
+          "children": [
+            {
+              "kind": "text",
+              "value": "\n    "
+            },
+            {
+              "kind": "element",
+              "name": "Developer",
+              "attributes": [
+                {
+                  "name": "developerId",
+                  "value": "developer-taulant-matraku"
+                }
+              ],
+              "children": [
+                {
+                  "kind": "text",
+                  "value": "\n      "
+                },
+                {
+                  "kind": "element",
+                  "name": "DisplayName",
+                  "attributes": [],
+                  "children": [
+                    {
+                      "kind": "text",
+                      "value": "Taulant Matraku"
+                    }
+                  ]
+                },
+                {
+                  "kind": "text",
+                  "value": "\n      "
+                },
+                {
+                  "kind": "element",
+                  "name": "Role",
+                  "attributes": [],
+                  "children": [
+                    {
+                      "kind": "text",
+                      "value": "Script Developer"
+                    }
+                  ]
+                },
+                {
+                  "kind": "text",
+                  "value": "\n      "
+                },
+                {
+                  "kind": "element",
+                  "name": "Active",
+                  "attributes": [],
+                  "children": [
+                    {
+                      "kind": "text",
+                      "value": "true"
+                    }
+                  ]
+                },
+                {
+                  "kind": "text",
+                  "value": "\n    "
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "value": "\n  "
+            }
+          ]
+        },
+        {
+          "kind": "text",
+          "value": "\n\n  "
+        },
+        {
+          "kind": "element",
+          "name": "Client",
+          "attributes": [
+            {
+              "name": "clientId",
+              "value": "training-client-001"
+            }
+          ],
+          "children": [
+            {
+              "kind": "text",
+              "value": "\n    "
+            },
+            {
+              "kind": "element",
+              "name": "Name",
+              "attributes": [],
+              "children": [
+                {
+                  "kind": "text",
+                  "value": "Training Property Management"
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "value": "\n    "
+            },
+            {
+              "kind": "element",
+              "name": "Status",
+              "attributes": [],
+              "children": [
+                {
+                  "kind": "text",
+                  "value": "Active"
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "value": "\n  "
+            }
+          ]
+        },
+        {
+          "kind": "text",
+          "value": "\n\n  "
+        },
+        {
+          "kind": "element",
+          "name": "Script",
+          "attributes": [
+            {
+              "name": "scriptId",
+              "value": "training-script-main"
+            },
+            {
+              "name": "clientId",
+              "value": "training-client-001"
+            }
+          ],
+          "children": [
+            {
+              "kind": "text",
+              "value": "\n    "
+            },
+            {
+              "kind": "element",
+              "name": "Name",
+              "attributes": [],
+              "children": [
+                {
+                  "kind": "text",
+                  "value": "Training Property Main Script"
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "value": "\n    "
+            },
+            {
+              "kind": "element",
+              "name": "CreatedByDeveloperId",
+              "attributes": [],
+              "children": [
+                {
+                  "kind": "text",
+                  "value": "developer-taulant-matraku"
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "value": "\n    "
+            },
+            {
+              "kind": "element",
+              "name": "CreatedAt",
+              "attributes": [],
+              "children": [
+                {
+                  "kind": "text",
+                  "value": "2026-01-15T15:30:00Z"
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "value": "\n    "
+            },
+            {
+              "kind": "element",
+              "name": "ActiveVersionId",
+              "attributes": [],
+              "children": [
+                {
+                  "kind": "text",
+                  "value": "training-version-001"
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "value": "\n\n    "
+            },
+            {
+              "kind": "element",
+              "name": "Versions",
+              "attributes": [],
+              "children": [
+                {
+                  "kind": "text",
+                  "value": "\n      "
+                },
+                {
+                  "kind": "element",
+                  "name": "Version",
+                  "attributes": [
+                    {
+                      "name": "versionId",
+                      "value": "training-version-001"
+                    },
+                    {
+                      "name": "versionNumber",
+                      "value": "1"
+                    }
+                  ],
+                  "children": [
+                    {
+                      "kind": "text",
+                      "value": "\n        "
+                    },
+                    {
+                      "kind": "element",
+                      "name": "Status",
+                      "attributes": [],
+                      "children": [
+                        {
+                          "kind": "text",
+                          "value": "Active"
+                        }
+                      ]
+                    },
+                    {
+                      "kind": "text",
+                      "value": "\n        "
+                    },
+                    {
+                      "kind": "element",
+                      "name": "ChangeReason",
+                      "attributes": [],
+                      "children": [
+                        {
+                          "kind": "text",
+                          "value": "Initial synthetic training script"
+                        }
+                      ]
+                    },
+                    {
+                      "kind": "text",
+                      "value": "\n        "
+                    },
+                    {
+                      "kind": "element",
+                      "name": "CreatedByDeveloperId",
+                      "attributes": [],
+                      "children": [
+                        {
+                          "kind": "text",
+                          "value": "developer-taulant-matraku"
+                        }
+                      ]
+                    },
+                    {
+                      "kind": "text",
+                      "value": "\n        "
+                    },
+                    {
+                      "kind": "element",
+                      "name": "CreatedAt",
+                      "attributes": [],
+                      "children": [
+                        {
+                          "kind": "text",
+                          "value": "2026-01-15T15:30:00Z"
+                        }
+                      ]
+                    },
+                    {
+                      "kind": "text",
+                      "value": "\n\n        "
+                    },
+                    {
+                      "kind": "element",
+                      "name": "Pages",
+                      "attributes": [],
+                      "children": [
+                        {
+                          "kind": "text",
+                          "value": "\n          "
+                        },
+                        {
+                          "kind": "element",
+                          "name": "Page",
+                          "attributes": [
+                            {
+                              "name": "pageId",
+                              "value": "training-page-caller-information"
+                            },
+                            {
+                              "name": "order",
+                              "value": "1"
+                            }
+                          ],
+                          "children": [
+                            {
+                              "kind": "text",
+                              "value": "\n            "
+                            },
+                            {
+                              "kind": "element",
+                              "name": "Name",
+                              "attributes": [],
+                              "children": [
+                                {
+                                  "kind": "text",
+                                  "value": "Caller Information"
+                                }
+                              ]
+                            },
+                            {
+                              "kind": "text",
+                              "value": "\n            "
+                            },
+                            {
+                              "kind": "element",
+                              "name": "XmlVersion",
+                              "attributes": [],
+                              "children": [
+                                {
+                                  "kind": "text",
+                                  "value": "1"
+                                }
+                              ]
+                            },
+                            {
+                              "kind": "text",
+                              "value": "\n            "
+                            },
+                            {
+                              "kind": "element",
+                              "name": "XmlNodes",
+                              "attributes": [],
+                              "children": [
+                                {
+                                  "kind": "text",
+                                  "value": "\n              "
+                                },
+                                {
+                                  "kind": "element",
+                                  "name": "XmlSharedActionsNode",
+                                  "attributes": [],
+                                  "children": []
+                                },
+                                {
+                                  "kind": "text",
+                                  "value": "\n            "
+                                }
+                              ]
+                            },
+                            {
+                              "kind": "text",
+                              "value": "\n            "
+                            },
+                            {
+                              "kind": "element",
+                              "name": "XmlElements",
+                              "attributes": [],
+                              "children": [
+                                {
+                                  "kind": "text",
+                                  "value": "\n              "
+                                },
+                                {
+                                  "kind": "element",
+                                  "name": "anyType",
+                                  "attributes": [
+                                    {
+                                      "name": "xsi:type",
+                                      "value": "DisplayElement"
+                                    }
+                                  ],
+                                  "children": [
+                                    {
+                                      "kind": "text",
+                                      "value": "\n                "
+                                    },
+                                    {
+                                      "kind": "element",
+                                      "name": "Id",
+                                      "attributes": [],
+                                      "children": [
+                                        {
+                                          "kind": "text",
+                                          "value": "training-opening-greeting"
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "kind": "text",
+                                      "value": "\n                "
+                                    },
+                                    {
+                                      "kind": "element",
+                                      "name": "NodeType",
+                                      "attributes": [],
+                                      "children": [
+                                        {
+                                          "kind": "text",
+                                          "value": "Display"
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "kind": "text",
+                                      "value": "\n                "
+                                    },
+                                    {
+                                      "kind": "element",
+                                      "name": "Name",
+                                      "attributes": [],
+                                      "children": [
+                                        {
+                                          "kind": "text",
+                                          "value": "Opening Greeting"
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "kind": "text",
+                                      "value": "\n                "
+                                    },
+                                    {
+                                      "kind": "element",
+                                      "name": "Description",
+                                      "attributes": [],
+                                      "children": [
+                                        {
+                                          "kind": "text",
+                                          "value": "Read the greeting before collecting caller information."
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "kind": "text",
+                                      "value": "\n                "
+                                    },
+                                    {
+                                      "kind": "element",
+                                      "name": "OperatorPrompt",
+                                      "attributes": [],
+                                      "children": [
+                                        {
+                                          "kind": "text",
+                                          "value": "\n                  "
+                                        },
+                                        {
+                                          "kind": "element",
+                                          "name": "Instruction",
+                                          "attributes": [],
+                                          "children": [
+                                            {
+                                              "kind": "text",
+                                              "value": "Read verbatim"
+                                            }
+                                          ]
+                                        },
+                                        {
+                                          "kind": "text",
+                                          "value": "\n                  "
+                                        },
+                                        {
+                                          "kind": "element",
+                                          "name": "SpokenText",
+                                          "attributes": [],
+                                          "children": [
+                                            {
+                                              "kind": "text",
+                                              "value": "Thank you for calling Training Property Management. My name is [Operator Name]. How may I help you today?"
+                                            }
+                                          ]
+                                        },
+                                        {
+                                          "kind": "text",
+                                          "value": "\n                  "
+                                        },
+                                        {
+                                          "kind": "element",
+                                          "name": "AfterHoursText",
+                                          "attributes": [],
+                                          "children": [
+                                            {
+                                              "kind": "text",
+                                              "value": "Thank you for calling Training Property Management's after-hours service. My name is [Operator Name]. How may I help you?"
+                                            }
+                                          ]
+                                        },
+                                        {
+                                          "kind": "text",
+                                          "value": "\n                "
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "kind": "text",
+                                      "value": "\n                "
+                                    },
+                                    {
+                                      "kind": "element",
+                                      "name": "Modes",
+                                      "attributes": [],
+                                      "children": [
+                                        {
+                                          "kind": "text",
+                                          "value": "\n                  "
+                                        },
+                                        {
+                                          "kind": "element",
+                                          "name": "Mode",
+                                          "attributes": [
+                                            {
+                                              "name": "ModeName",
+                                              "value": "Normal"
+                                            }
+                                          ],
+                                          "children": [
+                                            {
+                                              "kind": "element",
+                                              "name": "XmlSerializiationData",
+                                              "attributes": [],
+                                              "children": []
+                                            }
+                                          ]
+                                        },
+                                        {
+                                          "kind": "text",
+                                          "value": "\n                  "
+                                        },
+                                        {
+                                          "kind": "element",
+                                          "name": "Mode",
+                                          "attributes": [
+                                            {
+                                              "name": "ModeName",
+                                              "value": "AfterHours"
+                                            }
+                                          ],
+                                          "children": [
+                                            {
+                                              "kind": "element",
+                                              "name": "XmlSerializiationData",
+                                              "attributes": [],
+                                              "children": []
+                                            }
+                                          ]
+                                        },
+                                        {
+                                          "kind": "text",
+                                          "value": "\n                "
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "kind": "text",
+                                      "value": "\n              "
+                                    }
+                                  ]
+                                },
+                                {
+                                  "kind": "text",
+                                  "value": "\n\n              "
+                                },
+                                {
+                                  "kind": "element",
+                                  "name": "anyType",
+                                  "attributes": [
+                                    {
+                                      "name": "xsi:type",
+                                      "value": "InputElement"
+                                    }
+                                  ],
+                                  "children": [
+                                    {
+                                      "kind": "text",
+                                      "value": "\n                "
+                                    },
+                                    {
+                                      "kind": "element",
+                                      "name": "Id",
+                                      "attributes": [],
+                                      "children": [
+                                        {
+                                          "kind": "text",
+                                          "value": "training-caller-name"
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "kind": "text",
+                                      "value": "\n                "
+                                    },
+                                    {
+                                      "kind": "element",
+                                      "name": "NodeType",
+                                      "attributes": [],
+                                      "children": [
+                                        {
+                                          "kind": "text",
+                                          "value": "Input"
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "kind": "text",
+                                      "value": "\n                "
+                                    },
+                                    {
+                                      "kind": "element",
+                                      "name": "Name",
+                                      "attributes": [],
+                                      "children": [
+                                        {
+                                          "kind": "text",
+                                          "value": "Caller Name"
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "kind": "text",
+                                      "value": "\n                "
+                                    },
+                                    {
+                                      "kind": "element",
+                                      "name": "Description",
+                                      "attributes": [],
+                                      "children": [
+                                        {
+                                          "kind": "text",
+                                          "value": "Enter the caller's full name."
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "kind": "text",
+                                      "value": "\n                "
+                                    },
+                                    {
+                                      "kind": "element",
+                                      "name": "Tag",
+                                      "attributes": [],
+                                      "children": [
+                                        {
+                                          "kind": "text",
+                                          "value": "caller"
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "kind": "text",
+                                      "value": "\n                "
+                                    },
+                                    {
+                                      "kind": "element",
+                                      "name": "Requirements",
+                                      "attributes": [],
+                                      "children": [
+                                        {
+                                          "kind": "text",
+                                          "value": "\n                  "
+                                        },
+                                        {
+                                          "kind": "element",
+                                          "name": "Required",
+                                          "attributes": [],
+                                          "children": [
+                                            {
+                                              "kind": "text",
+                                              "value": "true"
+                                            }
+                                          ]
+                                        },
+                                        {
+                                          "kind": "text",
+                                          "value": "\n                  "
+                                        },
+                                        {
+                                          "kind": "element",
+                                          "name": "Readonly",
+                                          "attributes": [],
+                                          "children": [
+                                            {
+                                              "kind": "text",
+                                              "value": "false"
+                                            }
+                                          ]
+                                        },
+                                        {
+                                          "kind": "text",
+                                          "value": "\n                  "
+                                        },
+                                        {
+                                          "kind": "element",
+                                          "name": "MaxChars",
+                                          "attributes": [],
+                                          "children": [
+                                            {
+                                              "kind": "text",
+                                              "value": "80"
+                                            }
+                                          ]
+                                        },
+                                        {
+                                          "kind": "text",
+                                          "value": "\n                  "
+                                        },
+                                        {
+                                          "kind": "element",
+                                          "name": "InputType",
+                                          "attributes": [],
+                                          "children": [
+                                            {
+                                              "kind": "text",
+                                              "value": "Text"
+                                            }
+                                          ]
+                                        },
+                                        {
+                                          "kind": "text",
+                                          "value": "\n                "
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "kind": "text",
+                                      "value": "\n                "
+                                    },
+                                    {
+                                      "kind": "element",
+                                      "name": "XmlCalcNode",
+                                      "attributes": [],
+                                      "children": []
+                                    },
+                                    {
+                                      "kind": "text",
+                                      "value": "\n                "
+                                    },
+                                    {
+                                      "kind": "element",
+                                      "name": "XmlDisplayNode",
+                                      "attributes": [],
+                                      "children": [
+                                        {
+                                          "kind": "text",
+                                          "value": "\n                  "
+                                        },
+                                        {
+                                          "kind": "element",
+                                          "name": "LabelStyle",
+                                          "attributes": [],
+                                          "children": [
+                                            {
+                                              "kind": "text",
+                                              "value": "StandardLabel"
+                                            }
+                                          ]
+                                        },
+                                        {
+                                          "kind": "text",
+                                          "value": "\n                  "
+                                        },
+                                        {
+                                          "kind": "element",
+                                          "name": "InputStyle",
+                                          "attributes": [],
+                                          "children": [
+                                            {
+                                              "kind": "text",
+                                              "value": "StandardInput"
+                                            }
+                                          ]
+                                        },
+                                        {
+                                          "kind": "text",
+                                          "value": "\n                  "
+                                        },
+                                        {
+                                          "kind": "element",
+                                          "name": "SummaryLabel",
+                                          "attributes": [],
+                                          "children": [
+                                            {
+                                              "kind": "text",
+                                              "value": "Caller Name"
+                                            }
+                                          ]
+                                        },
+                                        {
+                                          "kind": "text",
+                                          "value": "\n                  "
+                                        },
+                                        {
+                                          "kind": "element",
+                                          "name": "SummaryPageable",
+                                          "attributes": [],
+                                          "children": [
+                                            {
+                                              "kind": "text",
+                                              "value": "true"
+                                            }
+                                          ]
+                                        },
+                                        {
+                                          "kind": "text",
+                                          "value": "\n                "
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "kind": "text",
+                                      "value": "\n                "
+                                    },
+                                    {
+                                      "kind": "element",
+                                      "name": "Modes",
+                                      "attributes": [],
+                                      "children": [
+                                        {
+                                          "kind": "text",
+                                          "value": "\n                  "
+                                        },
+                                        {
+                                          "kind": "element",
+                                          "name": "Mode",
+                                          "attributes": [
+                                            {
+                                              "name": "ModeName",
+                                              "value": "Normal"
+                                            }
+                                          ],
+                                          "children": [
+                                            {
+                                              "kind": "element",
+                                              "name": "XmlSerializiationData",
+                                              "attributes": [],
+                                              "children": []
+                                            }
+                                          ]
+                                        },
+                                        {
+                                          "kind": "text",
+                                          "value": "\n                  "
+                                        },
+                                        {
+                                          "kind": "element",
+                                          "name": "Mode",
+                                          "attributes": [
+                                            {
+                                              "name": "ModeName",
+                                              "value": "AfterHours"
+                                            }
+                                          ],
+                                          "children": [
+                                            {
+                                              "kind": "element",
+                                              "name": "XmlSerializiationData",
+                                              "attributes": [],
+                                              "children": []
+                                            }
+                                          ]
+                                        },
+                                        {
+                                          "kind": "text",
+                                          "value": "\n                "
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "kind": "text",
+                                      "value": "\n              "
+                                    }
+                                  ]
+                                },
+                                {
+                                  "kind": "text",
+                                  "value": "\n\n              "
+                                },
+                                {
+                                  "kind": "element",
+                                  "name": "anyType",
+                                  "attributes": [
+                                    {
+                                      "name": "xsi:type",
+                                      "value": "InputElement"
+                                    }
+                                  ],
+                                  "children": [
+                                    {
+                                      "kind": "text",
+                                      "value": "\n                "
+                                    },
+                                    {
+                                      "kind": "element",
+                                      "name": "Id",
+                                      "attributes": [],
+                                      "children": [
+                                        {
+                                          "kind": "text",
+                                          "value": "training-callback-number"
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "kind": "text",
+                                      "value": "\n                "
+                                    },
+                                    {
+                                      "kind": "element",
+                                      "name": "NodeType",
+                                      "attributes": [],
+                                      "children": [
+                                        {
+                                          "kind": "text",
+                                          "value": "Input"
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "kind": "text",
+                                      "value": "\n                "
+                                    },
+                                    {
+                                      "kind": "element",
+                                      "name": "Name",
+                                      "attributes": [],
+                                      "children": [
+                                        {
+                                          "kind": "text",
+                                          "value": "Callback Number"
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "kind": "text",
+                                      "value": "\n                "
+                                    },
+                                    {
+                                      "kind": "element",
+                                      "name": "Description",
+                                      "attributes": [],
+                                      "children": [
+                                        {
+                                          "kind": "text",
+                                          "value": "Enter the number where the caller can be reached."
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "kind": "text",
+                                      "value": "\n                "
+                                    },
+                                    {
+                                      "kind": "element",
+                                      "name": "Tag",
+                                      "attributes": [],
+                                      "children": [
+                                        {
+                                          "kind": "text",
+                                          "value": "callback"
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "kind": "text",
+                                      "value": "\n                "
+                                    },
+                                    {
+                                      "kind": "element",
+                                      "name": "Requirements",
+                                      "attributes": [],
+                                      "children": [
+                                        {
+                                          "kind": "text",
+                                          "value": "\n                  "
+                                        },
+                                        {
+                                          "kind": "element",
+                                          "name": "Required",
+                                          "attributes": [],
+                                          "children": [
+                                            {
+                                              "kind": "text",
+                                              "value": "false"
+                                            }
+                                          ]
+                                        },
+                                        {
+                                          "kind": "text",
+                                          "value": "\n                  "
+                                        },
+                                        {
+                                          "kind": "element",
+                                          "name": "Readonly",
+                                          "attributes": [],
+                                          "children": [
+                                            {
+                                              "kind": "text",
+                                              "value": "false"
+                                            }
+                                          ]
+                                        },
+                                        {
+                                          "kind": "text",
+                                          "value": "\n                  "
+                                        },
+                                        {
+                                          "kind": "element",
+                                          "name": "MaxChars",
+                                          "attributes": [],
+                                          "children": [
+                                            {
+                                              "kind": "text",
+                                              "value": "24"
+                                            }
+                                          ]
+                                        },
+                                        {
+                                          "kind": "text",
+                                          "value": "\n                  "
+                                        },
+                                        {
+                                          "kind": "element",
+                                          "name": "InputType",
+                                          "attributes": [],
+                                          "children": [
+                                            {
+                                              "kind": "text",
+                                              "value": "Phone"
+                                            }
+                                          ]
+                                        },
+                                        {
+                                          "kind": "text",
+                                          "value": "\n                  "
+                                        },
+                                        {
+                                          "kind": "element",
+                                          "name": "SaveFormatted",
+                                          "attributes": [],
+                                          "children": [
+                                            {
+                                              "kind": "text",
+                                              "value": "true"
+                                            }
+                                          ]
+                                        },
+                                        {
+                                          "kind": "text",
+                                          "value": "\n                "
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "kind": "text",
+                                      "value": "\n                "
+                                    },
+                                    {
+                                      "kind": "element",
+                                      "name": "XmlCalcNode",
+                                      "attributes": [],
+                                      "children": [
+                                        {
+                                          "kind": "text",
+                                          "value": "\n                  "
+                                        },
+                                        {
+                                          "kind": "element",
+                                          "name": "Expr",
+                                          "attributes": [
+                                            {
+                                              "name": "dataType",
+                                              "value": "Boolean"
+                                            },
+                                            {
+                                              "name": "source",
+                                              "value": "training"
+                                            }
+                                          ],
+                                          "children": [
+                                            {
+                                              "kind": "text",
+                                              "value": "callback_number != empty"
+                                            }
+                                          ]
+                                        },
+                                        {
+                                          "kind": "text",
+                                          "value": "\n                "
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "kind": "text",
+                                      "value": "\n                "
+                                    },
+                                    {
+                                      "kind": "element",
+                                      "name": "XmlDisplayNode",
+                                      "attributes": [],
+                                      "children": [
+                                        {
+                                          "kind": "text",
+                                          "value": "\n                  "
+                                        },
+                                        {
+                                          "kind": "element",
+                                          "name": "LabelStyle",
+                                          "attributes": [],
+                                          "children": [
+                                            {
+                                              "kind": "text",
+                                              "value": "StandardLabel"
+                                            }
+                                          ]
+                                        },
+                                        {
+                                          "kind": "text",
+                                          "value": "\n                  "
+                                        },
+                                        {
+                                          "kind": "element",
+                                          "name": "InputStyle",
+                                          "attributes": [],
+                                          "children": [
+                                            {
+                                              "kind": "text",
+                                              "value": "PhoneInput"
+                                            }
+                                          ]
+                                        },
+                                        {
+                                          "kind": "text",
+                                          "value": "\n                  "
+                                        },
+                                        {
+                                          "kind": "element",
+                                          "name": "SummaryLabel",
+                                          "attributes": [],
+                                          "children": [
+                                            {
+                                              "kind": "text",
+                                              "value": "Callback Number"
+                                            }
+                                          ]
+                                        },
+                                        {
+                                          "kind": "text",
+                                          "value": "\n                  "
+                                        },
+                                        {
+                                          "kind": "element",
+                                          "name": "SummaryDialable",
+                                          "attributes": [],
+                                          "children": [
+                                            {
+                                              "kind": "text",
+                                              "value": "true"
+                                            }
+                                          ]
+                                        },
+                                        {
+                                          "kind": "text",
+                                          "value": "\n                "
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "kind": "text",
+                                      "value": "\n                "
+                                    },
+                                    {
+                                      "kind": "element",
+                                      "name": "Modes",
+                                      "attributes": [],
+                                      "children": [
+                                        {
+                                          "kind": "text",
+                                          "value": "\n                  "
+                                        },
+                                        {
+                                          "kind": "element",
+                                          "name": "Mode",
+                                          "attributes": [
+                                            {
+                                              "name": "ModeName",
+                                              "value": "Normal"
+                                            }
+                                          ],
+                                          "children": [
+                                            {
+                                              "kind": "text",
+                                              "value": "\n                    "
+                                            },
+                                            {
+                                              "kind": "element",
+                                              "name": "XmlSerializiationData",
+                                              "attributes": [],
+                                              "children": [
+                                                {
+                                                  "kind": "text",
+                                                  "value": "\n                      "
+                                                },
+                                                {
+                                                  "kind": "element",
+                                                  "name": "InputHint",
+                                                  "attributes": [],
+                                                  "children": [
+                                                    {
+                                                      "kind": "text",
+                                                      "value": "Ten-digit callback number"
+                                                    }
+                                                  ]
+                                                },
+                                                {
+                                                  "kind": "text",
+                                                  "value": "\n                    "
+                                                }
+                                              ]
+                                            },
+                                            {
+                                              "kind": "text",
+                                              "value": "\n                  "
+                                            }
+                                          ]
+                                        },
+                                        {
+                                          "kind": "text",
+                                          "value": "\n                  "
+                                        },
+                                        {
+                                          "kind": "element",
+                                          "name": "Mode",
+                                          "attributes": [
+                                            {
+                                              "name": "ModeName",
+                                              "value": "AfterHours"
+                                            }
+                                          ],
+                                          "children": [
+                                            {
+                                              "kind": "text",
+                                              "value": "\n                    "
+                                            },
+                                            {
+                                              "kind": "element",
+                                              "name": "XmlSerializiationData",
+                                              "attributes": [],
+                                              "children": [
+                                                {
+                                                  "kind": "text",
+                                                  "value": "\n                      "
+                                                },
+                                                {
+                                                  "kind": "element",
+                                                  "name": "InputHint",
+                                                  "attributes": [],
+                                                  "children": [
+                                                    {
+                                                      "kind": "text",
+                                                      "value": "Confirm the best callback number"
+                                                    }
+                                                  ]
+                                                },
+                                                {
+                                                  "kind": "text",
+                                                  "value": "\n                    "
+                                                }
+                                              ]
+                                            },
+                                            {
+                                              "kind": "text",
+                                              "value": "\n                  "
+                                            }
+                                          ]
+                                        },
+                                        {
+                                          "kind": "text",
+                                          "value": "\n                "
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "kind": "text",
+                                      "value": "\n                "
+                                    },
+                                    {
+                                      "kind": "element",
+                                      "name": "NavType",
+                                      "attributes": [],
+                                      "children": [
+                                        {
+                                          "kind": "text",
+                                          "value": "Screen"
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "kind": "text",
+                                      "value": "\n                "
+                                    },
+                                    {
+                                      "kind": "element",
+                                      "name": "NavScreen",
+                                      "attributes": [],
+                                      "children": [
+                                        {
+                                          "kind": "text",
+                                          "value": "training-page-call-reason"
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "kind": "text",
+                                      "value": "\n                "
+                                    },
+                                    {
+                                      "kind": "element",
+                                      "name": "FutureVendorSetting",
+                                      "attributes": [
+                                        {
+                                          "name": "preserve",
+                                          "value": "true"
+                                        },
+                                        {
+                                          "name": "vendorVersion",
+                                          "value": "next"
+                                        }
+                                      ],
+                                      "children": [
+                                        {
+                                          "kind": "text",
+                                          "value": "\n                  "
+                                        },
+                                        {
+                                          "kind": "element",
+                                          "name": "UnknownValue",
+                                          "attributes": [],
+                                          "children": [
+                                            {
+                                              "kind": "text",
+                                              "value": "retain-in-json"
+                                            }
+                                          ]
+                                        },
+                                        {
+                                          "kind": "text",
+                                          "value": "\n                "
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "kind": "text",
+                                      "value": "\n              "
+                                    }
+                                  ]
+                                },
+                                {
+                                  "kind": "text",
+                                  "value": "\n            "
+                                }
+                              ]
+                            },
+                            {
+                              "kind": "text",
+                              "value": "\n            "
+                            },
+                            {
+                              "kind": "element",
+                              "name": "Styles",
+                              "attributes": [],
+                              "children": [
+                                {
+                                  "kind": "text",
+                                  "value": "\n              "
+                                },
+                                {
+                                  "kind": "element",
+                                  "name": "Style",
+                                  "attributes": [],
+                                  "children": [
+                                    {
+                                      "kind": "text",
+                                      "value": "\n                "
+                                    },
+                                    {
+                                      "kind": "element",
+                                      "name": "Name",
+                                      "attributes": [],
+                                      "children": [
+                                        {
+                                          "kind": "text",
+                                          "value": "StandardInput"
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "kind": "text",
+                                      "value": "\n                "
+                                    },
+                                    {
+                                      "kind": "element",
+                                      "name": "Bold",
+                                      "attributes": [],
+                                      "children": [
+                                        {
+                                          "kind": "text",
+                                          "value": "false"
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "kind": "text",
+                                      "value": "\n                "
+                                    },
+                                    {
+                                      "kind": "element",
+                                      "name": "FontFamily",
+                                      "attributes": [],
+                                      "children": [
+                                        {
+                                          "kind": "text",
+                                          "value": "Inter"
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "kind": "text",
+                                      "value": "\n                "
+                                    },
+                                    {
+                                      "kind": "element",
+                                      "name": "Size",
+                                      "attributes": [],
+                                      "children": [
+                                        {
+                                          "kind": "text",
+                                          "value": "12"
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "kind": "text",
+                                      "value": "\n              "
+                                    }
+                                  ]
+                                },
+                                {
+                                  "kind": "text",
+                                  "value": "\n            "
+                                }
+                              ]
+                            },
+                            {
+                              "kind": "text",
+                              "value": "\n            "
+                            },
+                            {
+                              "kind": "element",
+                              "name": "SummaryHeader",
+                              "attributes": [],
+                              "children": [
+                                {
+                                  "kind": "text",
+                                  "value": "Caller Information"
+                                }
+                              ]
+                            },
+                            {
+                              "kind": "text",
+                              "value": "\n          "
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "text",
+                          "value": "\n\n          "
+                        },
+                        {
+                          "kind": "element",
+                          "name": "Page",
+                          "attributes": [
+                            {
+                              "name": "pageId",
+                              "value": "training-page-call-reason"
+                            },
+                            {
+                              "name": "order",
+                              "value": "2"
+                            }
+                          ],
+                          "children": [
+                            {
+                              "kind": "text",
+                              "value": "\n            "
+                            },
+                            {
+                              "kind": "element",
+                              "name": "Name",
+                              "attributes": [],
+                              "children": [
+                                {
+                                  "kind": "text",
+                                  "value": "Call Reason"
+                                }
+                              ]
+                            },
+                            {
+                              "kind": "text",
+                              "value": "\n            "
+                            },
+                            {
+                              "kind": "element",
+                              "name": "XmlVersion",
+                              "attributes": [],
+                              "children": [
+                                {
+                                  "kind": "text",
+                                  "value": "1"
+                                }
+                              ]
+                            },
+                            {
+                              "kind": "text",
+                              "value": "\n            "
+                            },
+                            {
+                              "kind": "element",
+                              "name": "XmlElements",
+                              "attributes": [],
+                              "children": [
+                                {
+                                  "kind": "text",
+                                  "value": "\n              "
+                                },
+                                {
+                                  "kind": "element",
+                                  "name": "anyType",
+                                  "attributes": [
+                                    {
+                                      "name": "xsi:type",
+                                      "value": "DisplayElement"
+                                    }
+                                  ],
+                                  "children": [
+                                    {
+                                      "kind": "text",
+                                      "value": "\n                "
+                                    },
+                                    {
+                                      "kind": "element",
+                                      "name": "Id",
+                                      "attributes": [],
+                                      "children": [
+                                        {
+                                          "kind": "text",
+                                          "value": "training-call-reason-heading"
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "kind": "text",
+                                      "value": "\n                "
+                                    },
+                                    {
+                                      "kind": "element",
+                                      "name": "NodeType",
+                                      "attributes": [],
+                                      "children": [
+                                        {
+                                          "kind": "text",
+                                          "value": "Display"
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "kind": "text",
+                                      "value": "\n                "
+                                    },
+                                    {
+                                      "kind": "element",
+                                      "name": "Name",
+                                      "attributes": [],
+                                      "children": [
+                                        {
+                                          "kind": "text",
+                                          "value": "Call Reason Heading"
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "kind": "text",
+                                      "value": "\n                "
+                                    },
+                                    {
+                                      "kind": "element",
+                                      "name": "Description",
+                                      "attributes": [],
+                                      "children": [
+                                        {
+                                          "kind": "text",
+                                          "value": "Ask the caller why they are calling."
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "kind": "text",
+                                      "value": "\n                "
+                                    },
+                                    {
+                                      "kind": "element",
+                                      "name": "OperatorPrompt",
+                                      "attributes": [],
+                                      "children": [
+                                        {
+                                          "kind": "text",
+                                          "value": "\n                  "
+                                        },
+                                        {
+                                          "kind": "element",
+                                          "name": "Instruction",
+                                          "attributes": [],
+                                          "children": [
+                                            {
+                                              "kind": "text",
+                                              "value": "Ask the caller"
+                                            }
+                                          ]
+                                        },
+                                        {
+                                          "kind": "text",
+                                          "value": "\n                  "
+                                        },
+                                        {
+                                          "kind": "element",
+                                          "name": "SpokenText",
+                                          "attributes": [],
+                                          "children": [
+                                            {
+                                              "kind": "text",
+                                              "value": "May I ask what you are calling about today?"
+                                            }
+                                          ]
+                                        },
+                                        {
+                                          "kind": "text",
+                                          "value": "\n                  "
+                                        },
+                                        {
+                                          "kind": "element",
+                                          "name": "AfterHoursText",
+                                          "attributes": [],
+                                          "children": [
+                                            {
+                                              "kind": "text",
+                                              "value": "Please describe the issue that needs after-hours assistance."
+                                            }
+                                          ]
+                                        },
+                                        {
+                                          "kind": "text",
+                                          "value": "\n                "
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "kind": "text",
+                                      "value": "\n                "
+                                    },
+                                    {
+                                      "kind": "element",
+                                      "name": "Modes",
+                                      "attributes": [],
+                                      "children": [
+                                        {
+                                          "kind": "text",
+                                          "value": "\n                  "
+                                        },
+                                        {
+                                          "kind": "element",
+                                          "name": "Mode",
+                                          "attributes": [
+                                            {
+                                              "name": "ModeName",
+                                              "value": "Normal"
+                                            }
+                                          ],
+                                          "children": [
+                                            {
+                                              "kind": "element",
+                                              "name": "XmlSerializiationData",
+                                              "attributes": [],
+                                              "children": []
+                                            }
+                                          ]
+                                        },
+                                        {
+                                          "kind": "text",
+                                          "value": "\n                "
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "kind": "text",
+                                      "value": "\n              "
+                                    }
+                                  ]
+                                },
+                                {
+                                  "kind": "text",
+                                  "value": "\n              "
+                                },
+                                {
+                                  "kind": "element",
+                                  "name": "anyType",
+                                  "attributes": [
+                                    {
+                                      "name": "xsi:type",
+                                      "value": "InputElement"
+                                    }
+                                  ],
+                                  "children": [
+                                    {
+                                      "kind": "text",
+                                      "value": "\n                "
+                                    },
+                                    {
+                                      "kind": "element",
+                                      "name": "Id",
+                                      "attributes": [],
+                                      "children": [
+                                        {
+                                          "kind": "text",
+                                          "value": "training-call-reason"
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "kind": "text",
+                                      "value": "\n                "
+                                    },
+                                    {
+                                      "kind": "element",
+                                      "name": "NodeType",
+                                      "attributes": [],
+                                      "children": [
+                                        {
+                                          "kind": "text",
+                                          "value": "Input"
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "kind": "text",
+                                      "value": "\n                "
+                                    },
+                                    {
+                                      "kind": "element",
+                                      "name": "Name",
+                                      "attributes": [],
+                                      "children": [
+                                        {
+                                          "kind": "text",
+                                          "value": "Call Reason"
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "kind": "text",
+                                      "value": "\n                "
+                                    },
+                                    {
+                                      "kind": "element",
+                                      "name": "Description",
+                                      "attributes": [],
+                                      "children": [
+                                        {
+                                          "kind": "text",
+                                          "value": "Record the caller's reason for calling."
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "kind": "text",
+                                      "value": "\n                "
+                                    },
+                                    {
+                                      "kind": "element",
+                                      "name": "Tag",
+                                      "attributes": [],
+                                      "children": [
+                                        {
+                                          "kind": "text",
+                                          "value": "call_reason"
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "kind": "text",
+                                      "value": "\n                "
+                                    },
+                                    {
+                                      "kind": "element",
+                                      "name": "Requirements",
+                                      "attributes": [],
+                                      "children": [
+                                        {
+                                          "kind": "text",
+                                          "value": "\n                  "
+                                        },
+                                        {
+                                          "kind": "element",
+                                          "name": "Required",
+                                          "attributes": [],
+                                          "children": [
+                                            {
+                                              "kind": "text",
+                                              "value": "true"
+                                            }
+                                          ]
+                                        },
+                                        {
+                                          "kind": "text",
+                                          "value": "\n                  "
+                                        },
+                                        {
+                                          "kind": "element",
+                                          "name": "Readonly",
+                                          "attributes": [],
+                                          "children": [
+                                            {
+                                              "kind": "text",
+                                              "value": "false"
+                                            }
+                                          ]
+                                        },
+                                        {
+                                          "kind": "text",
+                                          "value": "\n                  "
+                                        },
+                                        {
+                                          "kind": "element",
+                                          "name": "MaxChars",
+                                          "attributes": [],
+                                          "children": [
+                                            {
+                                              "kind": "text",
+                                              "value": "500"
+                                            }
+                                          ]
+                                        },
+                                        {
+                                          "kind": "text",
+                                          "value": "\n                  "
+                                        },
+                                        {
+                                          "kind": "element",
+                                          "name": "InputType",
+                                          "attributes": [],
+                                          "children": [
+                                            {
+                                              "kind": "text",
+                                              "value": "Multiline"
+                                            }
+                                          ]
+                                        },
+                                        {
+                                          "kind": "text",
+                                          "value": "\n                "
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "kind": "text",
+                                      "value": "\n                "
+                                    },
+                                    {
+                                      "kind": "element",
+                                      "name": "XmlCalcNode",
+                                      "attributes": [],
+                                      "children": []
+                                    },
+                                    {
+                                      "kind": "text",
+                                      "value": "\n                "
+                                    },
+                                    {
+                                      "kind": "element",
+                                      "name": "XmlDisplayNode",
+                                      "attributes": [],
+                                      "children": [
+                                        {
+                                          "kind": "text",
+                                          "value": "\n                  "
+                                        },
+                                        {
+                                          "kind": "element",
+                                          "name": "LabelStyle",
+                                          "attributes": [],
+                                          "children": [
+                                            {
+                                              "kind": "text",
+                                              "value": "StandardLabel"
+                                            }
+                                          ]
+                                        },
+                                        {
+                                          "kind": "text",
+                                          "value": "\n                  "
+                                        },
+                                        {
+                                          "kind": "element",
+                                          "name": "InputStyle",
+                                          "attributes": [],
+                                          "children": [
+                                            {
+                                              "kind": "text",
+                                              "value": "StandardInput"
+                                            }
+                                          ]
+                                        },
+                                        {
+                                          "kind": "text",
+                                          "value": "\n                  "
+                                        },
+                                        {
+                                          "kind": "element",
+                                          "name": "SummaryLabel",
+                                          "attributes": [],
+                                          "children": [
+                                            {
+                                              "kind": "text",
+                                              "value": "Call Reason"
+                                            }
+                                          ]
+                                        },
+                                        {
+                                          "kind": "text",
+                                          "value": "\n                  "
+                                        },
+                                        {
+                                          "kind": "element",
+                                          "name": "SummaryPageable",
+                                          "attributes": [],
+                                          "children": [
+                                            {
+                                              "kind": "text",
+                                              "value": "true"
+                                            }
+                                          ]
+                                        },
+                                        {
+                                          "kind": "text",
+                                          "value": "\n                "
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "kind": "text",
+                                      "value": "\n                "
+                                    },
+                                    {
+                                      "kind": "element",
+                                      "name": "Modes",
+                                      "attributes": [],
+                                      "children": [
+                                        {
+                                          "kind": "text",
+                                          "value": "\n                  "
+                                        },
+                                        {
+                                          "kind": "element",
+                                          "name": "Mode",
+                                          "attributes": [
+                                            {
+                                              "name": "ModeName",
+                                              "value": "Normal"
+                                            }
+                                          ],
+                                          "children": [
+                                            {
+                                              "kind": "text",
+                                              "value": "\n                    "
+                                            },
+                                            {
+                                              "kind": "element",
+                                              "name": "XmlSerializiationData",
+                                              "attributes": [],
+                                              "children": [
+                                                {
+                                                  "kind": "text",
+                                                  "value": "\n                      "
+                                                },
+                                                {
+                                                  "kind": "element",
+                                                  "name": "InputHint",
+                                                  "attributes": [],
+                                                  "children": [
+                                                    {
+                                                      "kind": "text",
+                                                      "value": "Enter the caller's reason for calling"
+                                                    }
+                                                  ]
+                                                },
+                                                {
+                                                  "kind": "text",
+                                                  "value": "\n                    "
+                                                }
+                                              ]
+                                            },
+                                            {
+                                              "kind": "text",
+                                              "value": "\n                  "
+                                            }
+                                          ]
+                                        },
+                                        {
+                                          "kind": "text",
+                                          "value": "\n                  "
+                                        },
+                                        {
+                                          "kind": "element",
+                                          "name": "Mode",
+                                          "attributes": [
+                                            {
+                                              "name": "ModeName",
+                                              "value": "AfterHours"
+                                            }
+                                          ],
+                                          "children": [
+                                            {
+                                              "kind": "text",
+                                              "value": "\n                    "
+                                            },
+                                            {
+                                              "kind": "element",
+                                              "name": "XmlSerializiationData",
+                                              "attributes": [],
+                                              "children": [
+                                                {
+                                                  "kind": "text",
+                                                  "value": "\n                      "
+                                                },
+                                                {
+                                                  "kind": "element",
+                                                  "name": "InputHint",
+                                                  "attributes": [],
+                                                  "children": [
+                                                    {
+                                                      "kind": "text",
+                                                      "value": "Record the after-hours request"
+                                                    }
+                                                  ]
+                                                },
+                                                {
+                                                  "kind": "text",
+                                                  "value": "\n                    "
+                                                }
+                                              ]
+                                            },
+                                            {
+                                              "kind": "text",
+                                              "value": "\n                  "
+                                            }
+                                          ]
+                                        },
+                                        {
+                                          "kind": "text",
+                                          "value": "\n                "
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "kind": "text",
+                                      "value": "\n              "
+                                    }
+                                  ]
+                                },
+                                {
+                                  "kind": "text",
+                                  "value": "\n              "
+                                },
+                                {
+                                  "kind": "element",
+                                  "name": "anyType",
+                                  "attributes": [
+                                    {
+                                      "name": "xsi:type",
+                                      "value": "InputElement"
+                                    }
+                                  ],
+                                  "children": [
+                                    {
+                                      "kind": "text",
+                                      "value": "\n                "
+                                    },
+                                    {
+                                      "kind": "element",
+                                      "name": "Id",
+                                      "attributes": [],
+                                      "children": [
+                                        {
+                                          "kind": "text",
+                                          "value": "training-property-location"
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "kind": "text",
+                                      "value": "\n                "
+                                    },
+                                    {
+                                      "kind": "element",
+                                      "name": "NodeType",
+                                      "attributes": [],
+                                      "children": [
+                                        {
+                                          "kind": "text",
+                                          "value": "Input"
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "kind": "text",
+                                      "value": "\n                "
+                                    },
+                                    {
+                                      "kind": "element",
+                                      "name": "Name",
+                                      "attributes": [],
+                                      "children": [
+                                        {
+                                          "kind": "text",
+                                          "value": "Property or Unit"
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "kind": "text",
+                                      "value": "\n                "
+                                    },
+                                    {
+                                      "kind": "element",
+                                      "name": "Description",
+                                      "attributes": [],
+                                      "children": [
+                                        {
+                                          "kind": "text",
+                                          "value": "Record the property address, building, or unit involved."
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "kind": "text",
+                                      "value": "\n                "
+                                    },
+                                    {
+                                      "kind": "element",
+                                      "name": "Tag",
+                                      "attributes": [],
+                                      "children": [
+                                        {
+                                          "kind": "text",
+                                          "value": "property_location"
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "kind": "text",
+                                      "value": "\n                "
+                                    },
+                                    {
+                                      "kind": "element",
+                                      "name": "Requirements",
+                                      "attributes": [],
+                                      "children": [
+                                        {
+                                          "kind": "text",
+                                          "value": "\n                  "
+                                        },
+                                        {
+                                          "kind": "element",
+                                          "name": "Required",
+                                          "attributes": [],
+                                          "children": [
+                                            {
+                                              "kind": "text",
+                                              "value": "true"
+                                            }
+                                          ]
+                                        },
+                                        {
+                                          "kind": "text",
+                                          "value": "\n                  "
+                                        },
+                                        {
+                                          "kind": "element",
+                                          "name": "Readonly",
+                                          "attributes": [],
+                                          "children": [
+                                            {
+                                              "kind": "text",
+                                              "value": "false"
+                                            }
+                                          ]
+                                        },
+                                        {
+                                          "kind": "text",
+                                          "value": "\n                  "
+                                        },
+                                        {
+                                          "kind": "element",
+                                          "name": "MaxChars",
+                                          "attributes": [],
+                                          "children": [
+                                            {
+                                              "kind": "text",
+                                              "value": "120"
+                                            }
+                                          ]
+                                        },
+                                        {
+                                          "kind": "text",
+                                          "value": "\n                  "
+                                        },
+                                        {
+                                          "kind": "element",
+                                          "name": "InputType",
+                                          "attributes": [],
+                                          "children": [
+                                            {
+                                              "kind": "text",
+                                              "value": "Text"
+                                            }
+                                          ]
+                                        },
+                                        {
+                                          "kind": "text",
+                                          "value": "\n                "
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "kind": "text",
+                                      "value": "\n                "
+                                    },
+                                    {
+                                      "kind": "element",
+                                      "name": "XmlCalcNode",
+                                      "attributes": [],
+                                      "children": []
+                                    },
+                                    {
+                                      "kind": "text",
+                                      "value": "\n                "
+                                    },
+                                    {
+                                      "kind": "element",
+                                      "name": "Modes",
+                                      "attributes": [],
+                                      "children": [
+                                        {
+                                          "kind": "text",
+                                          "value": "\n                  "
+                                        },
+                                        {
+                                          "kind": "element",
+                                          "name": "Mode",
+                                          "attributes": [
+                                            {
+                                              "name": "ModeName",
+                                              "value": "Normal"
+                                            }
+                                          ],
+                                          "children": [
+                                            {
+                                              "kind": "text",
+                                              "value": "\n                    "
+                                            },
+                                            {
+                                              "kind": "element",
+                                              "name": "XmlSerializiationData",
+                                              "attributes": [],
+                                              "children": [
+                                                {
+                                                  "kind": "text",
+                                                  "value": "\n                      "
+                                                },
+                                                {
+                                                  "kind": "element",
+                                                  "name": "InputHint",
+                                                  "attributes": [],
+                                                  "children": [
+                                                    {
+                                                      "kind": "text",
+                                                      "value": "Property address, building, or unit"
+                                                    }
+                                                  ]
+                                                },
+                                                {
+                                                  "kind": "text",
+                                                  "value": "\n                    "
+                                                }
+                                              ]
+                                            },
+                                            {
+                                              "kind": "text",
+                                              "value": "\n                  "
+                                            }
+                                          ]
+                                        },
+                                        {
+                                          "kind": "text",
+                                          "value": "\n                "
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "kind": "text",
+                                      "value": "\n              "
+                                    }
+                                  ]
+                                },
+                                {
+                                  "kind": "text",
+                                  "value": "\n              "
+                                },
+                                {
+                                  "kind": "element",
+                                  "name": "anyType",
+                                  "attributes": [
+                                    {
+                                      "name": "xsi:type",
+                                      "value": "SelectElement"
+                                    }
+                                  ],
+                                  "children": [
+                                    {
+                                      "kind": "text",
+                                      "value": "\n                "
+                                    },
+                                    {
+                                      "kind": "element",
+                                      "name": "Id",
+                                      "attributes": [],
+                                      "children": [
+                                        {
+                                          "kind": "text",
+                                          "value": "training-urgency"
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "kind": "text",
+                                      "value": "\n                "
+                                    },
+                                    {
+                                      "kind": "element",
+                                      "name": "NodeType",
+                                      "attributes": [],
+                                      "children": [
+                                        {
+                                          "kind": "text",
+                                          "value": "Input"
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "kind": "text",
+                                      "value": "\n                "
+                                    },
+                                    {
+                                      "kind": "element",
+                                      "name": "Name",
+                                      "attributes": [],
+                                      "children": [
+                                        {
+                                          "kind": "text",
+                                          "value": "Urgency"
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "kind": "text",
+                                      "value": "\n                "
+                                    },
+                                    {
+                                      "kind": "element",
+                                      "name": "Description",
+                                      "attributes": [],
+                                      "children": [
+                                        {
+                                          "kind": "text",
+                                          "value": "Select the urgency described by the caller."
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "kind": "text",
+                                      "value": "\n                "
+                                    },
+                                    {
+                                      "kind": "element",
+                                      "name": "Tag",
+                                      "attributes": [],
+                                      "children": [
+                                        {
+                                          "kind": "text",
+                                          "value": "urgency"
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "kind": "text",
+                                      "value": "\n                "
+                                    },
+                                    {
+                                      "kind": "element",
+                                      "name": "Requirements",
+                                      "attributes": [],
+                                      "children": [
+                                        {
+                                          "kind": "text",
+                                          "value": "\n                  "
+                                        },
+                                        {
+                                          "kind": "element",
+                                          "name": "Required",
+                                          "attributes": [],
+                                          "children": [
+                                            {
+                                              "kind": "text",
+                                              "value": "true"
+                                            }
+                                          ]
+                                        },
+                                        {
+                                          "kind": "text",
+                                          "value": "\n                  "
+                                        },
+                                        {
+                                          "kind": "element",
+                                          "name": "Readonly",
+                                          "attributes": [],
+                                          "children": [
+                                            {
+                                              "kind": "text",
+                                              "value": "false"
+                                            }
+                                          ]
+                                        },
+                                        {
+                                          "kind": "text",
+                                          "value": "\n                  "
+                                        },
+                                        {
+                                          "kind": "element",
+                                          "name": "InputType",
+                                          "attributes": [],
+                                          "children": [
+                                            {
+                                              "kind": "text",
+                                              "value": "Select"
+                                            }
+                                          ]
+                                        },
+                                        {
+                                          "kind": "text",
+                                          "value": "\n                "
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "kind": "text",
+                                      "value": "\n                "
+                                    },
+                                    {
+                                      "kind": "element",
+                                      "name": "Options",
+                                      "attributes": [],
+                                      "children": [
+                                        {
+                                          "kind": "text",
+                                          "value": "\n                  "
+                                        },
+                                        {
+                                          "kind": "element",
+                                          "name": "Option",
+                                          "attributes": [
+                                            {
+                                              "name": "value",
+                                              "value": "Routine"
+                                            }
+                                          ],
+                                          "children": [
+                                            {
+                                              "kind": "text",
+                                              "value": "Routine"
+                                            }
+                                          ]
+                                        },
+                                        {
+                                          "kind": "text",
+                                          "value": "\n                  "
+                                        },
+                                        {
+                                          "kind": "element",
+                                          "name": "Option",
+                                          "attributes": [
+                                            {
+                                              "name": "value",
+                                              "value": "Urgent"
+                                            }
+                                          ],
+                                          "children": [
+                                            {
+                                              "kind": "text",
+                                              "value": "Urgent"
+                                            }
+                                          ]
+                                        },
+                                        {
+                                          "kind": "text",
+                                          "value": "\n                  "
+                                        },
+                                        {
+                                          "kind": "element",
+                                          "name": "Option",
+                                          "attributes": [
+                                            {
+                                              "name": "value",
+                                              "value": "Emergency"
+                                            }
+                                          ],
+                                          "children": [
+                                            {
+                                              "kind": "text",
+                                              "value": "Emergency"
+                                            }
+                                          ]
+                                        },
+                                        {
+                                          "kind": "text",
+                                          "value": "\n                "
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "kind": "text",
+                                      "value": "\n                "
+                                    },
+                                    {
+                                      "kind": "element",
+                                      "name": "ConditionalActions",
+                                      "attributes": [],
+                                      "children": [
+                                        {
+                                          "kind": "text",
+                                          "value": "\n                  "
+                                        },
+                                        {
+                                          "kind": "element",
+                                          "name": "When",
+                                          "attributes": [
+                                            {
+                                              "name": "fieldId",
+                                              "value": "training-urgency"
+                                            },
+                                            {
+                                              "name": "operator",
+                                              "value": "Equals"
+                                            },
+                                            {
+                                              "name": "value",
+                                              "value": "Emergency"
+                                            }
+                                          ],
+                                          "children": [
+                                            {
+                                              "kind": "text",
+                                              "value": "\n                    "
+                                            },
+                                            {
+                                              "kind": "element",
+                                              "name": "Action",
+                                              "attributes": [
+                                                {
+                                                  "name": "type",
+                                                  "value": "Escalate"
+                                                }
+                                              ],
+                                              "children": [
+                                                {
+                                                  "kind": "text",
+                                                  "value": "Follow the emergency escalation procedure."
+                                                }
+                                              ]
+                                            },
+                                            {
+                                              "kind": "text",
+                                              "value": "\n                  "
+                                            }
+                                          ]
+                                        },
+                                        {
+                                          "kind": "text",
+                                          "value": "\n                "
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "kind": "text",
+                                      "value": "\n                "
+                                    },
+                                    {
+                                      "kind": "element",
+                                      "name": "NavType",
+                                      "attributes": [],
+                                      "children": [
+                                        {
+                                          "kind": "text",
+                                          "value": "Screen"
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "kind": "text",
+                                      "value": "\n                "
+                                    },
+                                    {
+                                      "kind": "element",
+                                      "name": "NavScreen",
+                                      "attributes": [],
+                                      "children": [
+                                        {
+                                          "kind": "text",
+                                          "value": "training-page-confirm-close"
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "kind": "text",
+                                      "value": "\n              "
+                                    }
+                                  ]
+                                },
+                                {
+                                  "kind": "text",
+                                  "value": "\n            "
+                                }
+                              ]
+                            },
+                            {
+                              "kind": "text",
+                              "value": "\n            "
+                            },
+                            {
+                              "kind": "element",
+                              "name": "SummaryHeader",
+                              "attributes": [],
+                              "children": [
+                                {
+                                  "kind": "text",
+                                  "value": "Call Reason"
+                                }
+                              ]
+                            },
+                            {
+                              "kind": "text",
+                              "value": "\n          "
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "text",
+                          "value": "\n\n          "
+                        },
+                        {
+                          "kind": "element",
+                          "name": "Page",
+                          "attributes": [
+                            {
+                              "name": "pageId",
+                              "value": "training-page-confirm-close"
+                            },
+                            {
+                              "name": "order",
+                              "value": "3"
+                            }
+                          ],
+                          "children": [
+                            {
+                              "kind": "text",
+                              "value": "\n            "
+                            },
+                            {
+                              "kind": "element",
+                              "name": "Name",
+                              "attributes": [],
+                              "children": [
+                                {
+                                  "kind": "text",
+                                  "value": "Confirm and Close"
+                                }
+                              ]
+                            },
+                            {
+                              "kind": "text",
+                              "value": "\n            "
+                            },
+                            {
+                              "kind": "element",
+                              "name": "XmlVersion",
+                              "attributes": [],
+                              "children": [
+                                {
+                                  "kind": "text",
+                                  "value": "1"
+                                }
+                              ]
+                            },
+                            {
+                              "kind": "text",
+                              "value": "\n            "
+                            },
+                            {
+                              "kind": "element",
+                              "name": "XmlElements",
+                              "attributes": [],
+                              "children": [
+                                {
+                                  "kind": "text",
+                                  "value": "\n              "
+                                },
+                                {
+                                  "kind": "element",
+                                  "name": "anyType",
+                                  "attributes": [
+                                    {
+                                      "name": "xsi:type",
+                                      "value": "DisplayElement"
+                                    }
+                                  ],
+                                  "children": [
+                                    {
+                                      "kind": "text",
+                                      "value": "\n                "
+                                    },
+                                    {
+                                      "kind": "element",
+                                      "name": "Id",
+                                      "attributes": [],
+                                      "children": [
+                                        {
+                                          "kind": "text",
+                                          "value": "training-confirmation-readback"
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "kind": "text",
+                                      "value": "\n                "
+                                    },
+                                    {
+                                      "kind": "element",
+                                      "name": "NodeType",
+                                      "attributes": [],
+                                      "children": [
+                                        {
+                                          "kind": "text",
+                                          "value": "Display"
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "kind": "text",
+                                      "value": "\n                "
+                                    },
+                                    {
+                                      "kind": "element",
+                                      "name": "Name",
+                                      "attributes": [],
+                                      "children": [
+                                        {
+                                          "kind": "text",
+                                          "value": "Confirm Information"
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "kind": "text",
+                                      "value": "\n                "
+                                    },
+                                    {
+                                      "kind": "element",
+                                      "name": "Description",
+                                      "attributes": [],
+                                      "children": [
+                                        {
+                                          "kind": "text",
+                                          "value": "Read the captured information back to the caller."
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "kind": "text",
+                                      "value": "\n                "
+                                    },
+                                    {
+                                      "kind": "element",
+                                      "name": "OperatorPrompt",
+                                      "attributes": [],
+                                      "children": [
+                                        {
+                                          "kind": "text",
+                                          "value": "\n                  "
+                                        },
+                                        {
+                                          "kind": "element",
+                                          "name": "Instruction",
+                                          "attributes": [],
+                                          "children": [
+                                            {
+                                              "kind": "text",
+                                              "value": "Confirm the captured details"
+                                            }
+                                          ]
+                                        },
+                                        {
+                                          "kind": "text",
+                                          "value": "\n                  "
+                                        },
+                                        {
+                                          "kind": "element",
+                                          "name": "SpokenText",
+                                          "attributes": [],
+                                          "children": [
+                                            {
+                                              "kind": "text",
+                                              "value": "Let me confirm the information I have before we finish."
+                                            }
+                                          ]
+                                        },
+                                        {
+                                          "kind": "text",
+                                          "value": "\n                "
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "kind": "text",
+                                      "value": "\n                "
+                                    },
+                                    {
+                                      "kind": "element",
+                                      "name": "TemplateFields",
+                                      "attributes": [],
+                                      "children": [
+                                        {
+                                          "kind": "text",
+                                          "value": "\n                  "
+                                        },
+                                        {
+                                          "kind": "element",
+                                          "name": "FieldRef",
+                                          "attributes": [
+                                            {
+                                              "name": "elementId",
+                                              "value": "training-caller-name"
+                                            }
+                                          ],
+                                          "children": []
+                                        },
+                                        {
+                                          "kind": "text",
+                                          "value": "\n                  "
+                                        },
+                                        {
+                                          "kind": "element",
+                                          "name": "FieldRef",
+                                          "attributes": [
+                                            {
+                                              "name": "elementId",
+                                              "value": "training-callback-number"
+                                            }
+                                          ],
+                                          "children": []
+                                        },
+                                        {
+                                          "kind": "text",
+                                          "value": "\n                  "
+                                        },
+                                        {
+                                          "kind": "element",
+                                          "name": "FieldRef",
+                                          "attributes": [
+                                            {
+                                              "name": "elementId",
+                                              "value": "training-property-location"
+                                            }
+                                          ],
+                                          "children": []
+                                        },
+                                        {
+                                          "kind": "text",
+                                          "value": "\n                  "
+                                        },
+                                        {
+                                          "kind": "element",
+                                          "name": "FieldRef",
+                                          "attributes": [
+                                            {
+                                              "name": "elementId",
+                                              "value": "training-call-reason"
+                                            }
+                                          ],
+                                          "children": []
+                                        },
+                                        {
+                                          "kind": "text",
+                                          "value": "\n                  "
+                                        },
+                                        {
+                                          "kind": "element",
+                                          "name": "FieldRef",
+                                          "attributes": [
+                                            {
+                                              "name": "elementId",
+                                              "value": "training-urgency"
+                                            }
+                                          ],
+                                          "children": []
+                                        },
+                                        {
+                                          "kind": "text",
+                                          "value": "\n                "
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "kind": "text",
+                                      "value": "\n              "
+                                    }
+                                  ]
+                                },
+                                {
+                                  "kind": "text",
+                                  "value": "\n              "
+                                },
+                                {
+                                  "kind": "element",
+                                  "name": "anyType",
+                                  "attributes": [
+                                    {
+                                      "name": "xsi:type",
+                                      "value": "SelectElement"
+                                    }
+                                  ],
+                                  "children": [
+                                    {
+                                      "kind": "text",
+                                      "value": "\n                "
+                                    },
+                                    {
+                                      "kind": "element",
+                                      "name": "Id",
+                                      "attributes": [],
+                                      "children": [
+                                        {
+                                          "kind": "text",
+                                          "value": "training-disposition"
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "kind": "text",
+                                      "value": "\n                "
+                                    },
+                                    {
+                                      "kind": "element",
+                                      "name": "NodeType",
+                                      "attributes": [],
+                                      "children": [
+                                        {
+                                          "kind": "text",
+                                          "value": "Input"
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "kind": "text",
+                                      "value": "\n                "
+                                    },
+                                    {
+                                      "kind": "element",
+                                      "name": "Name",
+                                      "attributes": [],
+                                      "children": [
+                                        {
+                                          "kind": "text",
+                                          "value": "Call Outcome"
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "kind": "text",
+                                      "value": "\n                "
+                                    },
+                                    {
+                                      "kind": "element",
+                                      "name": "Description",
+                                      "attributes": [],
+                                      "children": [
+                                        {
+                                          "kind": "text",
+                                          "value": "Select how the call was handled."
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "kind": "text",
+                                      "value": "\n                "
+                                    },
+                                    {
+                                      "kind": "element",
+                                      "name": "Tag",
+                                      "attributes": [],
+                                      "children": [
+                                        {
+                                          "kind": "text",
+                                          "value": "disposition"
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "kind": "text",
+                                      "value": "\n                "
+                                    },
+                                    {
+                                      "kind": "element",
+                                      "name": "Requirements",
+                                      "attributes": [],
+                                      "children": [
+                                        {
+                                          "kind": "text",
+                                          "value": "\n                  "
+                                        },
+                                        {
+                                          "kind": "element",
+                                          "name": "Required",
+                                          "attributes": [],
+                                          "children": [
+                                            {
+                                              "kind": "text",
+                                              "value": "true"
+                                            }
+                                          ]
+                                        },
+                                        {
+                                          "kind": "text",
+                                          "value": "\n                  "
+                                        },
+                                        {
+                                          "kind": "element",
+                                          "name": "Readonly",
+                                          "attributes": [],
+                                          "children": [
+                                            {
+                                              "kind": "text",
+                                              "value": "false"
+                                            }
+                                          ]
+                                        },
+                                        {
+                                          "kind": "text",
+                                          "value": "\n                  "
+                                        },
+                                        {
+                                          "kind": "element",
+                                          "name": "InputType",
+                                          "attributes": [],
+                                          "children": [
+                                            {
+                                              "kind": "text",
+                                              "value": "Select"
+                                            }
+                                          ]
+                                        },
+                                        {
+                                          "kind": "text",
+                                          "value": "\n                "
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "kind": "text",
+                                      "value": "\n                "
+                                    },
+                                    {
+                                      "kind": "element",
+                                      "name": "Options",
+                                      "attributes": [],
+                                      "children": [
+                                        {
+                                          "kind": "text",
+                                          "value": "\n                  "
+                                        },
+                                        {
+                                          "kind": "element",
+                                          "name": "Option",
+                                          "attributes": [
+                                            {
+                                              "name": "value",
+                                              "value": "MessageTaken"
+                                            }
+                                          ],
+                                          "children": [
+                                            {
+                                              "kind": "text",
+                                              "value": "Message Taken"
+                                            }
+                                          ]
+                                        },
+                                        {
+                                          "kind": "text",
+                                          "value": "\n                  "
+                                        },
+                                        {
+                                          "kind": "element",
+                                          "name": "Option",
+                                          "attributes": [
+                                            {
+                                              "name": "value",
+                                              "value": "Transferred"
+                                            }
+                                          ],
+                                          "children": [
+                                            {
+                                              "kind": "text",
+                                              "value": "Transferred"
+                                            }
+                                          ]
+                                        },
+                                        {
+                                          "kind": "text",
+                                          "value": "\n                  "
+                                        },
+                                        {
+                                          "kind": "element",
+                                          "name": "Option",
+                                          "attributes": [
+                                            {
+                                              "name": "value",
+                                              "value": "Resolved"
+                                            }
+                                          ],
+                                          "children": [
+                                            {
+                                              "kind": "text",
+                                              "value": "Resolved During Call"
+                                            }
+                                          ]
+                                        },
+                                        {
+                                          "kind": "text",
+                                          "value": "\n                "
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "kind": "text",
+                                      "value": "\n              "
+                                    }
+                                  ]
+                                },
+                                {
+                                  "kind": "text",
+                                  "value": "\n              "
+                                },
+                                {
+                                  "kind": "element",
+                                  "name": "anyType",
+                                  "attributes": [
+                                    {
+                                      "name": "xsi:type",
+                                      "value": "DisplayElement"
+                                    }
+                                  ],
+                                  "children": [
+                                    {
+                                      "kind": "text",
+                                      "value": "\n                "
+                                    },
+                                    {
+                                      "kind": "element",
+                                      "name": "Id",
+                                      "attributes": [],
+                                      "children": [
+                                        {
+                                          "kind": "text",
+                                          "value": "training-closing-script"
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "kind": "text",
+                                      "value": "\n                "
+                                    },
+                                    {
+                                      "kind": "element",
+                                      "name": "NodeType",
+                                      "attributes": [],
+                                      "children": [
+                                        {
+                                          "kind": "text",
+                                          "value": "Display"
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "kind": "text",
+                                      "value": "\n                "
+                                    },
+                                    {
+                                      "kind": "element",
+                                      "name": "Name",
+                                      "attributes": [],
+                                      "children": [
+                                        {
+                                          "kind": "text",
+                                          "value": "Closing"
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "kind": "text",
+                                      "value": "\n                "
+                                    },
+                                    {
+                                      "kind": "element",
+                                      "name": "Description",
+                                      "attributes": [],
+                                      "children": [
+                                        {
+                                          "kind": "text",
+                                          "value": "Close the call after confirming the information."
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "kind": "text",
+                                      "value": "\n                "
+                                    },
+                                    {
+                                      "kind": "element",
+                                      "name": "OperatorPrompt",
+                                      "attributes": [],
+                                      "children": [
+                                        {
+                                          "kind": "text",
+                                          "value": "\n                  "
+                                        },
+                                        {
+                                          "kind": "element",
+                                          "name": "Instruction",
+                                          "attributes": [],
+                                          "children": [
+                                            {
+                                              "kind": "text",
+                                              "value": "Read verbatim"
+                                            }
+                                          ]
+                                        },
+                                        {
+                                          "kind": "text",
+                                          "value": "\n                  "
+                                        },
+                                        {
+                                          "kind": "element",
+                                          "name": "SpokenText",
+                                          "attributes": [],
+                                          "children": [
+                                            {
+                                              "kind": "text",
+                                              "value": "Thank you. I have recorded your information and will make sure it reaches the appropriate person. Is there anything else I can help you with today?"
+                                            }
+                                          ]
+                                        },
+                                        {
+                                          "kind": "text",
+                                          "value": "\n                  "
+                                        },
+                                        {
+                                          "kind": "element",
+                                          "name": "AfterHoursText",
+                                          "attributes": [],
+                                          "children": [
+                                            {
+                                              "kind": "text",
+                                              "value": "Thank you. I have recorded your information for the after-hours team. If this becomes an immediate emergency, please contact local emergency services."
+                                            }
+                                          ]
+                                        },
+                                        {
+                                          "kind": "text",
+                                          "value": "\n                "
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "kind": "text",
+                                      "value": "\n              "
+                                    }
+                                  ]
+                                },
+                                {
+                                  "kind": "text",
+                                  "value": "\n            "
+                                }
+                              ]
+                            },
+                            {
+                              "kind": "text",
+                              "value": "\n            "
+                            },
+                            {
+                              "kind": "element",
+                              "name": "CompletionAction",
+                              "attributes": [
+                                {
+                                  "name": "actionId",
+                                  "value": "training-complete-call"
+                                }
+                              ],
+                              "children": [
+                                {
+                                  "kind": "text",
+                                  "value": "\n              "
+                                },
+                                {
+                                  "kind": "element",
+                                  "name": "Label",
+                                  "attributes": [],
+                                  "children": [
+                                    {
+                                      "kind": "text",
+                                      "value": "Complete call"
+                                    }
+                                  ]
+                                },
+                                {
+                                  "kind": "text",
+                                  "value": "\n              "
+                                },
+                                {
+                                  "kind": "element",
+                                  "name": "Outcome",
+                                  "attributes": [],
+                                  "children": [
+                                    {
+                                      "kind": "text",
+                                      "value": "MessageCaptured"
+                                    }
+                                  ]
+                                },
+                                {
+                                  "kind": "text",
+                                  "value": "\n            "
+                                }
+                              ]
+                            },
+                            {
+                              "kind": "text",
+                              "value": "\n            "
+                            },
+                            {
+                              "kind": "element",
+                              "name": "SummaryHeader",
+                              "attributes": [],
+                              "children": [
+                                {
+                                  "kind": "text",
+                                  "value": "Call Summary"
+                                }
+                              ]
+                            },
+                            {
+                              "kind": "text",
+                              "value": "\n          "
+                            }
+                          ]
+                        },
+                        {
+                          "kind": "text",
+                          "value": "\n        "
+                        }
+                      ]
+                    },
+                    {
+                      "kind": "text",
+                      "value": "\n      "
+                    }
+                  ]
+                },
+                {
+                  "kind": "text",
+                  "value": "\n    "
+                }
+              ]
+            },
+            {
+              "kind": "text",
+              "value": "\n  "
+            }
+          ]
+        },
+        {
+          "kind": "text",
+          "value": "\n"
+        }
+      ]
+    }
+  ]
+}

@@ -28,4 +28,8 @@ jobs:
 
       - run: npm test
 
+      # The committed JSON artifact is regenerated and compared, so it can
+      # never drift from the parser that produced it.
+      - run: npm run export:json:check
+
       - run: npm run build

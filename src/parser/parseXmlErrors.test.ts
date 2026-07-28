@@ -128,7 +128,8 @@ describe('safeParseXml returns the failure instead of throwing', () => {
 
     expect(result.ok).toBe(true);
     if (!result.ok) throw new Error('expected success');
-    expect(result.tree.kind).toBe('element');
+    // The DOCUMENT, so the prolog above the root element is not lost.
+    expect(result.tree.kind).toBe('document');
   });
 
   it('gives ok: false and a readable error for invalid XML', () => {

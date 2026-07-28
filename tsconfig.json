@@ -37,6 +37,7 @@
     // Faster repeat `tsc --noEmit` runs.
     "skipLibCheck": true
   },
-  // App source plus the build config itself, so config errors fail typecheck too.
-  "include": ["src", "vite.config.ts"]
+  // App source, the build config, and the CLI scripts — so a type error in any
+  // of them fails `npm run typecheck` rather than surfacing at runtime in CI.
+  "include": ["src", "scripts", "vite.config.ts"]
 }

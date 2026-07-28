@@ -1,5 +1,9 @@
 import { useState } from 'react';
-import type { XmlElementNode, XmlNode } from '../types/xmlNode';
+import type {
+  XmlDocumentNode,
+  XmlElementNode,
+  XmlNode,
+} from '../types/xmlNode';
 
 /**
  * The display-side mirror of the parser: a renderer that knows no tag names.
@@ -19,6 +23,21 @@ export function XmlNodeView({
   openToDepth: number;
 }) {
   switch (node.kind) {
+    // The document adds no row of its own; its children (the declaration, then
+    // the root element) render at this level, which is where they belong.
+    case 'document':
+      return (
+        <>
+          {renderableChildren(node).map((child, i) => (
+            <XmlNodeView
+              key={i}
+              node={child}
+              depth={depth}
+              openToDepth={openToDepth}
+            />
+          ))}
+        </>
+      );
     case 'element':
       return (
         <ElementView node={node} depth={depth} openToDepth={openToDepth} />
@@ -164,7 +183,9 @@ function QualifiedName({ name }: { name: string }) {
  * character data and dropping it there would be irreversible); the view is the
  * right place to filter it. The raw JSON panel still shows everything.
  */
-export function renderableChildren(node: XmlElementNode): XmlNode[] {
+export function renderableChildren(
+  node: XmlElementNode | XmlDocumentNode,
+): XmlNode[] {
   return node.children.filter(
     (c) => !(c.kind === 'text' && c.value.trim() === ''),
   );

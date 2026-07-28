@@ -63,6 +63,9 @@ function countNodes(node: XmlNode): {
       elements += 1;
       attributes += n.attributes.length;
       n.children.forEach(walk);
+    } else if (n.kind === 'document') {
+      // Counted as a node but not as an element — it has no name or attributes.
+      n.children.forEach(walk);
     } else if (n.kind === 'text' && n.value.trim() !== '') {
       textNodes += 1;
     }
@@ -91,6 +94,11 @@ export function collectVocabulary(tree: XmlNode): VocabularyEntry[] {
   const counts = new Map<string, number>();
 
   const walk = (n: XmlNode): void => {
+    // Descend through the document wrapper without counting it: it has no name.
+    if (n.kind === 'document') {
+      n.children.forEach(walk);
+      return;
+    }
     if (n.kind !== 'element') return;
     counts.set(n.name, (counts.get(n.name) ?? 0) + 1);
     n.children.forEach(walk);

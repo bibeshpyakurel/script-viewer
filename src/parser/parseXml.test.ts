@@ -1,21 +1,45 @@
 import { describe, expect, it } from 'vitest';
-import { parseXml } from './parseXml';
+import { XmlParseError, parseXml } from './parseXml';
 import { serializeXml } from './serializeXml';
-import type { XmlElementNode, XmlNode } from '../types/xmlNode';
+import type {
+  XmlDocumentNode,
+  XmlElementNode,
+  XmlNode,
+} from '../types/xmlNode';
 // `?raw` gives the fixture as an immutable string, the same way the app will
 // load it. Nothing here can write back to the file.
 import fixture from '../fixtures/sample-script.xml?raw';
 
+/** True for the two kinds that have a `children` array. */
+function hasChildren(node: XmlNode): node is XmlElementNode | XmlDocumentNode {
+  return node.kind === 'element' || node.kind === 'document';
+}
+
+/**
+ * The single root element of a parsed document.
+ *
+ * `parseXml` returns the DOCUMENT, not the root element, so that the prolog
+ * survives. Tests that care about the root ask for it explicitly.
+ */
+function rootElement(node: XmlNode): XmlElementNode {
+  if (node.kind !== 'document') throw new Error('expected a document node');
+  const root = node.children.find(
+    (c): c is XmlElementNode => c.kind === 'element',
+  );
+  if (!root) throw new Error('document has no root element');
+  return root;
+}
+
 /** Direct element children, ignoring the whitespace text the parser keeps. */
 function elementChildren(node: XmlNode): XmlElementNode[] {
-  if (node.kind !== 'element') return [];
+  if (!hasChildren(node)) return [];
   return node.children.filter((c): c is XmlElementNode => c.kind === 'element');
 }
 
 /** First element with this name, anywhere in the tree. */
 function findElement(node: XmlNode, name: string): XmlElementNode | undefined {
-  if (node.kind !== 'element') return undefined;
-  if (node.name === name) return node;
+  if (node.kind === 'element' && node.name === name) return node;
+  if (!hasChildren(node)) return undefined;
   for (const child of node.children) {
     const hit = findElement(child, name);
     if (hit) return hit;
@@ -25,6 +49,7 @@ function findElement(node: XmlNode, name: string): XmlElementNode | undefined {
 
 /** Every element in the tree, in document order. */
 function allElements(node: XmlNode): XmlElementNode[] {
+  if (node.kind === 'document') return node.children.flatMap(allElements);
   if (node.kind !== 'element') return [];
   return [node, ...node.children.flatMap(allElements)];
 }
@@ -135,7 +160,7 @@ describe('empty elements', () => {
 
 describe('attribute order and namespaces', () => {
   it('preserves the root attribute order, declarations included', () => {
-    const root = expectElement(parseXml(fixture));
+    const root = rootElement(parseXml(fixture));
 
     expect(root.name).toBe('ScriptExport');
     expect(root.attributes).toEqual([
@@ -158,10 +183,9 @@ describe('attribute order and namespaces', () => {
   it('keeps namespace prefixes on ELEMENT names too', () => {
     // Every element in the fixture is unprefixed, so the fixture alone cannot
     // prove the parser uses `tagName` rather than `localName`. This does.
-    const root = parseXml(
-      '<ns:Root xmlns:ns="u"><ns:Child ns:a="v" /></ns:Root>',
+    const root = rootElement(
+      parseXml('<ns:Root xmlns:ns="u"><ns:Child ns:a="v" /></ns:Root>'),
     );
-    if (root.kind !== 'element') throw new Error('expected an element');
 
     expect(root.name).toBe('ns:Root');
     const child = root.children[0];
@@ -173,7 +197,7 @@ describe('attribute order and namespaces', () => {
   it('retains a namespace declared but never used', () => {
     // The fixture declares xmlns:xsd and never references it. A parser that
     // recorded only namespaces in use would silently drop this.
-    const root = expectElement(parseXml(fixture));
+    const root = rootElement(parseXml(fixture));
     expect(root.attributes.map((a) => a.name)).toContain('xmlns:xsd');
     expect(fixture).not.toContain('xsd:');
   });
@@ -184,8 +208,7 @@ describe('whitespace fidelity', () => {
   // whitespace-only text, serialize and re-parse would drop it consistently
   // and the trees would still match. This pins the decision explicitly.
   it('keeps whitespace-only text nodes rather than dropping them', () => {
-    const root = parseXml(fixture);
-    if (root.kind !== 'element') throw new Error('expected an element');
+    const root = rootElement(parseXml(fixture));
 
     const blankText = root.children.filter(
       (c) => c.kind === 'text' && c.value.trim() === '',
@@ -209,6 +232,68 @@ describe('whitespace fidelity', () => {
       kind: 'text',
       value: '\n                  ',
     });
+  });
+});
+
+describe('the document prolog', () => {
+  // Everything above the root element used to be discarded, because `parseXml`
+  // returned the document ELEMENT. These pin the fix.
+  it('captures the XML declaration that opens the supplied fixture', () => {
+    const doc = parseXml(fixture);
+    expect(doc.kind).toBe('document');
+
+    const declaration = (doc as XmlDocumentNode).children.find(
+      (c) => c.kind === 'pi',
+    );
+    expect(declaration).toEqual({
+      kind: 'pi',
+      target: 'xml',
+      data: 'version="1.0" encoding="utf-8"',
+    });
+  });
+
+  it('places the declaration before the root element, not inside it', () => {
+    const doc = parseXml(fixture);
+    if (doc.kind !== 'document') throw new Error('expected a document');
+
+    const kinds = doc.children.map((c) => c.kind);
+    expect(kinds.indexOf('pi')).toBeLessThan(kinds.indexOf('element'));
+    // The declaration is a sibling of the root, never one of its children.
+    expect(rootElement(doc).children.some((c) => c.kind === 'pi')).toBe(false);
+  });
+
+  it('re-emits the declaration when serialized', () => {
+    // The first line of the supplied file survives a full round trip.
+    expect(serializeXml(parseXml(fixture))).toContain(
+      '<?xml version="1.0" encoding="utf-8"?>',
+    );
+  });
+
+  it('keeps comments and processing instructions above the root', () => {
+    const doc = parseXml(
+      '<?xml version="1.0"?><!--lead--><?stylesheet href="s.xsl"?><r/>',
+    );
+    if (doc.kind !== 'document') throw new Error('expected a document');
+
+    expect(doc.children.map((c) => c.kind)).toEqual([
+      'pi',
+      'comment',
+      'pi',
+      'element',
+    ]);
+  });
+
+  it('keeps trailing nodes that follow the root element', () => {
+    const doc = parseXml('<r/><!--after-->');
+    if (doc.kind !== 'document') throw new Error('expected a document');
+
+    expect(doc.children.map((c) => c.kind)).toEqual(['element', 'comment']);
+  });
+
+  it('still requires a root element', () => {
+    // A prolog alone is not a document. Without this, an input consisting of
+    // only a declaration would parse "successfully" into nothing.
+    expect(() => parseXml('<?xml version="1.0"?>')).toThrow(XmlParseError);
   });
 });
 
@@ -236,9 +321,13 @@ describe('round trip', () => {
     const first = parseXml(xml);
 
     expect(parseXml(serializeXml(first))).toEqual(first);
-    expect(
-      first.kind === 'element' && first.children.map((c) => c.kind),
-    ).toEqual(['cdata', 'comment', 'pi', 'element', 'text']);
+    expect(rootElement(first).children.map((c) => c.kind)).toEqual([
+      'cdata',
+      'comment',
+      'pi',
+      'element',
+      'text',
+    ]);
   });
 
   it('round-trips characters that need escaping', () => {
@@ -246,8 +335,6 @@ describe('round trip', () => {
     const first = parseXml(xml);
 
     expect(parseXml(serializeXml(first))).toEqual(first);
-    expect(first.kind === 'element' && first.attributes[0]?.value).toBe(
-      'quote " amp & lt <',
-    );
+    expect(rootElement(first).attributes[0]?.value).toBe('quote " amp & lt <');
   });
 });

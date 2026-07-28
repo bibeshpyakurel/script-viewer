@@ -27,8 +27,8 @@ deliberate signal that unknown fields are expected.
 guarantees at all.
 
 **Cost.** Consumers must walk a generic tree rather than dot into typed fields.
-The intended fix is small typed _selectors_ over the generic tree — a lookup
-layer for the UI — never a typed parse result.
+The fix is small typed _selectors_ over the generic tree — a lookup layer for the
+UI — never a typed parse result. That layer now exists; see §14.
 
 ## 2. `attributes` is an ordered array, not an object
 
@@ -173,11 +173,33 @@ first line of the supplied file.
 **Honest caveat.** Strictly, the XML spec treats the declaration as its own
 production and forbids `xml` as a PI target, so reusing this kind for it is a
 deliberate simplification — the two are syntactically identical and it keeps the
-union at five kinds.
+union at six kinds instead of seven.
 
-**Known gap.** `parseXml` currently returns the document _element_, so the
-declaration sits above the root and is not yet captured. The type is ready; the
-wiring is not.
+## 9a. A `document` kind, so the prolog survives
+
+**Decision.** `parseXml` returns the **document**, not the document element.
+
+**Why.** A document is not the same thing as its root element. The XML
+declaration, any comment or PI before `<ScriptExport>`, and the whitespace
+between them are children of the document and siblings of the root. Returning
+`doc.documentElement` — which this project did until recently — silently
+discarded the supplied file's first line, which is precisely the loss the rest of
+the design exists to prevent.
+
+**Cost, stated plainly.** This changed the return type for every caller. Test
+helpers that walked from an element root, the fidelity walkers in `analyze.ts`,
+and the renderer all needed to handle one more kind. That cost is why it was
+deferred once; it is not a reason to leave a known gap in the core guarantee.
+
+**Rejected: reconstructing the declaration from the source string.** A regex over
+the input would have avoided touching the return type. Rejected because it
+invents a second, parallel parse path for one special case — and xmldom already
+exposes the declaration as an ordinary PI node, so the honest fix was cheaper
+than the workaround.
+
+**Note on the empty-document case.** A prolog alone is not a document. `parseXml`
+still requires a root element and rejects input without one, so an input
+consisting only of `<?xml version="1.0"?>` fails rather than parsing to nothing.
 
 ## 10. TypeScript end to end
 
@@ -230,6 +252,84 @@ undefined. It caught real gaps while writing the tests.
 **Why.** Fail fast on the cheapest signal. `npm ci` rather than `npm install` so
 a drifted lockfile fails the build instead of being silently reconciled.
 
+## 14. Selectors, and why they are not an allowlist
+
+**Decision.** `src/script/selectors.ts` is the one file that knows AnSer's
+vocabulary. The Script view reads through it. The parser still knows nothing.
+
+**Why this is safe.** §1 rejects a typed domain model because it becomes an
+allowlist at the type boundary. A selector layer avoids that for three reasons,
+and all three have to hold:
+
+1. **It runs after parsing.** The tree is complete before any selector is
+   called. Nothing in this file can affect what was preserved.
+2. **It is never the only path to a value.** Everything a selector surfaces is
+   still in the JSON tab, the Tree tab, and the exported artifact.
+3. **It cannot drop a field.** Every selector splits an element's children with
+   `partition()` into the names it handles and a `rest` array, and every view
+   renders `rest` through `UnrecognizedFields`.
+
+Point 3 is the load-bearing one. A conventional domain-aware UI fails by showing
+only what it was taught about; here, an unfamiliar element loses its styling and
+nothing else. A test asserts, for every element in the fixture, that
+`recognized + rest` accounts for all children — so there is no third outcome for
+a field to disappear into.
+
+**Reading blocks generically.** `<Requirements>` and `<XmlDisplayNode>` are read
+as whatever simple leaves they contain, not as four known fields. That is why
+`<SaveFormatted>`, which appears on exactly one element in the fixture, needed no
+special case, and why a requirement type invented next year will render fine.
+
+**Rejected: rendering the semantic view straight from the tree in JSX.** Fewer
+files, but the vocabulary would be smeared across components and the
+"everything is accounted for" property would have nowhere to live or be tested.
+
+**Rejected: a `toDomainModel()` transform returning typed structs.** This is §1's
+rejected design wearing a later timestamp. The moment the UI reads only from
+typed structs, whatever the transform failed to copy is invisible.
+
+**Cost.** Two ways to read the same data, which must not disagree. They cannot
+drift far, because the selectors return nodes from the same tree rather than
+copies — but a reviewer does have to understand which layer they are in.
+
+## 15. Making the failure path reachable
+
+**Decision.** Ship a "Load a broken file" button alongside file upload.
+
+**Why.** Rejecting malformed XML is one of the most carefully built parts of this
+project — see §8 on the documents xmldom silently recovers from. With only a
+valid fixture bundled, none of it was observable without editing code. Behavior
+nobody can see is behavior nobody can review.
+
+**Why an undefined entity, specifically.** An unclosed tag is fatal in xmldom and
+throws; any parser catches that. An undefined entity is _recovered_ — xmldom
+hands back a tree that misrepresents the file. That quiet case is the one worth
+demonstrating, because it is the one a naive implementation gets wrong.
+
+**Guarded against rot.** The broken sample is produced by `String.replace` on a
+copy of the fixture. If that anchor stopped matching, the button would load
+perfectly valid XML and the demo would prove nothing while still appearing to
+work. A test asserts the result actually fails to parse, and that the fixture
+itself is untouched.
+
+## 16. A committed JSON artifact, checked in CI
+
+**Decision.** `npm run export:json` writes `parsed/sample-script.json`, the file
+is committed, and CI verifies it is current.
+
+**Why.** The brief asks for "valid JSON that a reviewer can inspect". The JSON
+tab satisfies that only for someone willing to run the app; a committed file can
+be opened on GitHub, diffed, or piped into `jq`.
+
+**Why check it in CI.** A committed generated file is normally a liability — it
+drifts from the code that produced it and nobody notices. Regenerating and
+comparing in CI turns it into an asset: it cannot be stale, and the diff on a
+parser change shows exactly what the change did to the output.
+
+**Cost.** Touching the parser means regenerating and committing the artifact, or
+CI fails. That is the intended trade: a small, loud chore instead of a silent
+inconsistency.
+
 ---
 
 ## What I deliberately left out
@@ -244,13 +344,17 @@ I could not stand behind.
 
 Also left out, each on purpose:
 
-- **No editing, upload, or search.** Same reason. Upload is the cheapest of the
-  three to add later — the parser already takes a string, so it is a file input
-  and an error path, both of which exist.
+- **No editing.** Upload has since been added — the parser already took a
+  string, so it was a file input and an error path. Editing is still out, for
+  the reason above.
+- **No search.** Still out, and now the most obvious next gap: three pages are
+  scannable, dozens would not be.
 - **No state management library.** Nothing needs shared mutable state. Node
-  expansion is local component state.
-- **No CSS framework or component library.** ~400 lines of plain CSS covers it,
-  and a framework would have been more configuration than styling.
+  expansion, the active tab, and the loaded source are local component state.
+  The cost is that a view cannot be shared as a URL; deep linking would be the
+  reason to revisit this, not state complexity.
+- **No CSS framework or component library.** ~1,200 lines of plain CSS covers
+  it, and a framework would have been more configuration than styling.
 - **No schema validation.** Validating against a schema means declaring which
   elements are legal — an allowlist through the back door, and the fixture is
   explicit that unknown fields must survive.
@@ -264,23 +368,33 @@ Also left out, each on purpose:
 
 ## What I would build next
 
-In priority order, with the reasoning:
+Done since the first pass: the XML declaration is captured (§9a), the semantic
+call-flow view exists as selectors over the tree (§14), file upload ships with a
+reachable failure path (§15), and the JSON is a committed, CI-checked artifact
+(§16).
 
-1. **Capture the XML declaration.** `parseXml` returns the document element, so
-   `<?xml version="1.0" encoding="utf-8"?>` is not in the tree. The `pi` node
-   kind exists for it; what is missing is returning a document-level node with
-   the declaration as a sibling of the root. This is the last real fidelity gap
-   and it is small — I left it because it changes `parseXml`'s return type for
-   every caller and deserved a deliberate change rather than a bolt-on.
-2. **A semantic call-flow view.** Read the script the way an operator walks a
-   call: page by page in order, greeting, fields collected, the urgency branch,
-   the close. Crucially this layers _on top of_ the generic renderer as typed
-   **selectors** over the tree — `getPages(tree)` — never a second parse path
-   and never a typed parse result, which would reintroduce the allowlist.
-3. **File upload.** Makes the tool useful on a real export rather than the
-   bundled fixture.
-4. **Property-based testing.** Generate random XML, assert the round trip holds.
+Remaining, in priority order:
+
+1. **Search and filter.** Find a field by name, tag, or id across pages. With
+   three pages the flow is scannable; a real export with dozens would not be.
+   This is the first thing I would build next.
+2. **Deep linking.** Tab, page, and loaded source are component state, so a view
+   cannot be shared as a URL. Moving them to the query string is small and makes
+   review much easier — "look at this element" becomes a link.
+3. **Property-based testing.** Generate random XML, assert the round trip holds.
    The two gaps I found by hand-writing mutations — whitespace loss and element
    namespace prefixes — are exactly what generative testing finds automatically.
-5. **Accessibility pass.** Keyboard navigation and screen-reader testing on the
-   tree. It is keyboard-operable and labelled today, but not audited.
+4. **Accessibility pass.** Keyboard navigation and screen-reader testing. It is
+   keyboard-operable and labelled today, but not audited, and the tree is not a
+   true `role="tree"` widget.
+5. **Virtualized rendering.** Rendering is eager and the walk is recursive; a
+   very large or deeply nested export would strain both. I would measure against
+   a real file first rather than optimize for a shape I have not seen.
+
+### Known limits I would want a reviewer to know
+
+- The serializer does not guard against a `]]>` sequence inside CDATA or `--`
+  inside a comment. Neither occurs in the fixture, and both would need escaping
+  strategies that change the round-trip contract.
+- A bare ampersand (`<a>x & y</a>`) is accepted, because xmldom reports nothing
+  for it (§8). No data is lost, but technically invalid XML gets through.

@@ -11,6 +11,11 @@ import type { XmlNode } from '../types/xmlNode';
  */
 export function serializeXml(node: XmlNode): string {
   switch (node.kind) {
+    // A document is exactly its children concatenated — it adds no syntax of
+    // its own. The declaration re-emits through the `pi` branch below.
+    case 'document':
+      return node.children.map(serializeXml).join('');
+
     case 'element': {
       const attrs = node.attributes
         .map((a) => ` ${a.name}="${escapeAttribute(a.value)}"`)
