@@ -4,6 +4,25 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Script Viewer</title>
+    <meta
+      name="description"
+      content="Parses an AnSer call-center script export into JSON and renders it without losing a single element, attribute, or namespace."
+    />
+    <!-- Relative, not root-absolute: GitHub Pages serves this app from
+         /script-viewer/, so a leading slash would point at the domain root. -->
+    <link rel="icon" type="image/svg+xml" href="./favicon.svg" />
+    <link rel="apple-touch-icon" href="./apple-touch-icon.png" />
+    <!-- Tints the browser chrome on mobile to match the app's accent. -->
+    <meta
+      name="theme-color"
+      media="(prefers-color-scheme: light)"
+      content="#2f6f5e"
+    />
+    <meta
+      name="theme-color"
+      media="(prefers-color-scheme: dark)"
+      content="#17181a"
+    />
   </head>
   <body>
     <div id="root"></div>
