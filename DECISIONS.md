@@ -267,15 +267,29 @@ and all three have to hold:
    called. Nothing in this file can affect what was preserved.
 2. **It is never the only path to a value.** Everything a selector surfaces is
    still in the JSON tab, the Tree tab, and the exported artifact.
-3. **It cannot drop a field.** Every selector splits an element's children with
-   `partition()` into the names it handles and a `rest` array, and every view
-   renders `rest` through `UnrecognizedFields`.
+3. **It cannot drop a field, on either axis.** `partition()` splits an
+   element's children into the names a view handles and a `rest` array;
+   `unknownAttributes()` does the same for its attributes. Every view renders
+   both through `UnrecognizedFields`.
 
 Point 3 is the load-bearing one. A conventional domain-aware UI fails by showing
 only what it was taught about; here, an unfamiliar element loses its styling and
-nothing else. A test asserts, for every element in the fixture, that
-`recognized + rest` accounts for all children — so there is no third outcome for
-a field to disappear into.
+nothing else. Tests assert that `recognized + rest` accounts for every child and
+every attribute, so there is no third outcome for a field to disappear into.
+
+**The attribute half was missing at first, and it cost me a field.** The
+original partition covered child elements only, so three values that exist
+solely as attributes — `scriptId`, `versionId`, `actionId` — reached the JSON
+and the Tree tab but never the Script tab, and nothing flagged them. Worse,
+`<XmlVersion>` was listed in `PAGE_KNOWN` but never rendered, so being
+_recognized_ is what made it vanish: it was excluded from `rest` and then
+drawn by nobody. That is the exact failure this design claims to prevent,
+reintroduced one level down.
+
+The fix generalizes rather than patching three names: attributes are now
+partitioned like children, and a test injects an attribute that appears nowhere
+in the fixture and asserts it reaches the screen. The lesson is written into
+`AGENTS.md` — naming a field in a `*_KNOWN` list is a promise to render it.
 
 **Reading blocks generically.** `<Requirements>` and `<XmlDisplayNode>` are read
 as whatever simple leaves they contain, not as four known fields. That is why

@@ -174,6 +174,11 @@ function PageSection({
                 Summary: {page.summaryHeader}
               </span>
             )}
+            {page.xmlVersion && (
+              <span className="page-xmlversion">
+                XML version {page.xmlVersion}
+              </span>
+            )}
           </p>
         </div>
       </header>
@@ -225,12 +230,46 @@ function PageSection({
               {childText(page.completionAction, 'Outcome')}
             </span>
           )}
+          {attr(page.completionAction, 'actionId') && (
+            <code className="completion-id">
+              {attr(page.completionAction, 'actionId')}
+            </code>
+          )}
         </div>
       )}
 
-      <UnrecognizedFields nodes={page.rest} context="this page" />
+      <UnrecognizedFields
+        nodes={page.rest}
+        attributes={page.restAttributes}
+        context="this page"
+      />
     </section>
   );
+}
+
+/** One label/value pair in the export summary. */
+interface MetaRow {
+  label: string;
+  value: string;
+}
+
+/**
+ * An element's attributes as rows, namespace declarations excluded.
+ *
+ * This is what surfaces `scriptId`, `versionId`, and the root's
+ * `schemaVersion` — values that exist ONLY as attributes. Reading child
+ * elements alone would leave them visible in the Tree and JSON tabs but
+ * missing here, which is the silent gap this view is supposed to not have.
+ */
+function attrRows(node: XmlElementNode | undefined): MetaRow[] {
+  return (node?.attributes ?? [])
+    .filter((a) => !a.name.startsWith('xmlns'))
+    .map((a) => ({ label: a.name, value: a.value }));
+}
+
+/** An element's simple leaf children as rows. */
+function fieldRows(node: XmlElementNode | undefined): MetaRow[] {
+  return simpleFields(node).map((f) => ({ label: f.name, value: f.value }));
 }
 
 /** Export provenance, kept at the bottom: useful, but not what you came for. */
@@ -243,41 +282,38 @@ function ScriptMetadata({
   version: XmlElementNode | undefined;
   developersById: Map<string, string>;
 }) {
-  const rows: { label: string; value: string }[] = [];
-
-  for (const a of model.root?.attributes ?? []) {
-    // Namespace declarations are shown in the Tree tab; this is a summary.
-    if (!a.name.startsWith('xmlns'))
-      rows.push({ label: a.name, value: a.value });
-  }
-  for (const f of simpleFields(model.source)) {
-    rows.push({ label: f.name, value: f.value });
-  }
-  if (model.client) {
-    rows.push({
-      label: 'clientId',
-      value: attr(model.client, 'clientId') ?? '—',
-    });
-  }
-  for (const f of simpleFields(model.script)) {
-    rows.push({ label: f.name, value: f.value });
-  }
-  for (const f of simpleFields(version)) {
-    rows.push({ label: f.name, value: f.value });
-  }
+  // Grouped by the element each value came from. A flat list rendered
+  // `CreatedByDeveloperId` and `CreatedAt` twice with nothing to say which
+  // belonged to the script and which to the version.
+  const sections = [
+    { title: 'Export', rows: attrRows(model.root) },
+    { title: 'Source', rows: fieldRows(model.source) },
+    // Attributes only: the client's name and status are already in the header.
+    { title: 'Client', rows: attrRows(model.client) },
+    {
+      title: 'Script',
+      rows: [...attrRows(model.script), ...fieldRows(model.script)],
+    },
+    { title: 'Version', rows: [...attrRows(version), ...fieldRows(version)] },
+  ].filter((section) => section.rows.length > 0);
 
   return (
     <section className="meta">
       <h3 className="meta-title">Export details</h3>
 
-      <dl className="meta-grid">
-        {rows.map((r, i) => (
-          <div className="meta-row" key={`${r.label}-${i}`}>
-            <dt>{r.label}</dt>
-            <dd>{developersById.get(r.value) ?? r.value}</dd>
-          </div>
-        ))}
-      </dl>
+      {sections.map((section) => (
+        <div className="meta-section" key={section.title}>
+          <h5 className="el-block-title">{section.title}</h5>
+          <dl className="meta-grid">
+            {section.rows.map((r, i) => (
+              <div className="meta-row" key={`${r.label}-${i}`}>
+                <dt>{r.label}</dt>
+                <dd>{developersById.get(r.value) ?? r.value}</dd>
+              </div>
+            ))}
+          </dl>
+        </div>
+      ))}
 
       {model.developers.length > 0 && (
         <div className="devs">

@@ -189,7 +189,11 @@ export function ScriptElementCard({
         </div>
       )}
 
-      <UnrecognizedFields nodes={element.rest} context="this element" />
+      <UnrecognizedFields
+        nodes={element.rest}
+        attributes={element.restAttributes}
+        context="this element"
+      />
     </article>
   );
 }

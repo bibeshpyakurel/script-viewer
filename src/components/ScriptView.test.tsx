@@ -112,6 +112,69 @@ describe('the semantic view hides nothing', () => {
     // mode exists, or an empty element would look like a dropped one.
     expect(html).toContain('no overrides');
   });
+
+  it('surfaces an unknown ATTRIBUTE, not just an unknown element', () => {
+    // The element partition only covers children. Without an attribute
+    // partition, a new attribute reaches the JSON and the tree but is
+    // invisible here — the same silent gap, one axis over.
+    const ATTRIBUTE = 'experimentalFlag';
+    expect(fixture).not.toContain(ATTRIBUTE);
+
+    const modified = fixture.replace(
+      '<Page pageId="training-page-call-reason" order="2">',
+      `<Page pageId="training-page-call-reason" order="2" ${ATTRIBUTE}="beta">`,
+    );
+    expect(modified).not.toBe(fixture);
+    const changed = render(modified);
+
+    expect(changed).toContain(ATTRIBUTE);
+    expect(changed).toContain('beta');
+  });
+
+  it('surfaces an unknown attribute on a script element too', () => {
+    const ATTRIBUTE = 'vendorHint';
+    expect(fixture).not.toContain(ATTRIBUTE);
+
+    const modified = fixture.replace(
+      '<anyType xsi:type="SelectElement">',
+      `<anyType xsi:type="SelectElement" ${ATTRIBUTE}="carry-me">`,
+    );
+    const changed = render(modified);
+
+    expect(changed).toContain(ATTRIBUTE);
+    expect(changed).toContain('carry-me');
+  });
+
+  it('does not badge namespace declarations as unrecognized script fields', () => {
+    // They are document plumbing, shown verbatim in the tree view. Flagging
+    // them here would be noise on every single export.
+    const pageOne = html.slice(0, html.indexOf('Call Reason'));
+    expect(pageOne).not.toContain('xmlns');
+  });
+});
+
+describe('values that live only in attributes still reach the view', () => {
+  // Each of these was previously visible in the Tree and JSON tabs but absent
+  // from the Script tab, which is the one a reviewer reads first.
+  it('shows the page XmlVersion', () => {
+    expect(html).toContain('XML version');
+  });
+
+  it('shows scriptId and versionId', () => {
+    expect(html).toContain('training-script-main');
+    expect(html).toContain('training-version-001');
+  });
+
+  it('shows the completion actionId', () => {
+    expect(html).toContain('training-complete-call');
+  });
+
+  it('groups export details by the element each value came from', () => {
+    // A flat list showed CreatedByDeveloperId and CreatedAt twice with no way
+    // to tell the script's from the version's.
+    expect(html).toContain('>Script<');
+    expect(html).toContain('>Version<');
+  });
 });
 
 describe('the semantic view degrades instead of crashing', () => {

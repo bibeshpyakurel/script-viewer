@@ -80,19 +80,24 @@ allowed because it is a **read-only lookup layer**, not a parse step:
 - It runs after parsing; the tree is already complete.
 - It is never the only path to a value — everything is still in the JSON and the
   Tree view.
-- It **cannot drop a field**. Each selector splits children with `partition()`
-  into ones it names and a `rest` array, and every view renders `rest` through
-  `UnrecognizedFields`. Unrecognized is a _rendering mode_, not a filter.
+- It **cannot drop a field**, on either axis. `partition()` splits child
+  elements into ones it names and a `rest` array; `unknownAttributes()` does the
+  same for attributes. Every view renders both through `UnrecognizedFields`.
+  Unrecognized is a _rendering mode_, not a filter.
 
-When adding a field to a `*_KNOWN` list, understand what you are doing: you are
-upgrading its presentation, not making it visible. It was already visible.
+When adding a name to a `*_KNOWN` or `*_KNOWN_ATTRS` list, understand what you
+are doing: you are upgrading its presentation, not making it visible. It was
+already visible. The corollary is the trap — adding a name to a `*_KNOWN` list
+without also rendering it makes the field vanish from the semantic view, because
+it is no longer in `rest`. That happened to `<XmlVersion>` once. If you name it,
+render it.
 
 ## Commands
 
 ```bash
 npm ci                    # install exactly what the lockfile pins
 npm run dev               # dev server
-npm test                  # 96 tests, ~300ms
+npm test                  # 109 tests, ~300ms
 npm run lint              # ESLint
 npm run typecheck         # tsc --noEmit
 npm run format            # Prettier write

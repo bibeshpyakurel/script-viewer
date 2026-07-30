@@ -74,7 +74,7 @@ it — the prolog is part of the parsed result, not discarded.
 npm test
 ```
 
-96 tests. They prove the properties the project depends on rather than just
+109 tests. They prove the properties the project depends on rather than just
 exercising the code:
 
 - **No allowlist** — an element and attribute that appear nowhere in the fixture
@@ -94,9 +94,11 @@ exercising the code:
 - **Round trip** — `parse → serialize → parse` produces a deeply equal tree.
 - **Malformed input** — invalid XML is rejected with a readable message, never
   half-parsed. Including the cases xmldom would otherwise recover from silently.
-- **Nothing can be dropped** — for every element in the fixture, the selectors'
-  `partition()` is checked to account for every child. A field is either
-  recognized or explicitly unrecognized; there is no third outcome.
+- **Nothing can be dropped** — for every element in the fixture, `partition()`
+  is checked to account for every child and `unknownAttributes()` for every
+  attribute. A field is either recognized or explicitly unrecognized; there is
+  no third outcome. A separate test injects an attribute absent from the
+  fixture and proves it reaches the screen.
 - **The broken-file demo really is broken** — otherwise a fixture change could
   leave that button quietly loading valid XML.
 
@@ -141,9 +143,10 @@ Working on this with an AI coding tool? Start at [AGENTS.md](AGENTS.md).
 safe because it is a lookup layer, not a parse step: it runs after parsing, it is
 never the only path to a value, and it **cannot drop a field**. Each selector
 splits an element's children into the names it handles and a `rest` array, and
-every view renders `rest` through `UnrecognizedFields`. Unrecognized is a
-rendering mode, not a filter — the worst an unfamiliar field suffers is plainer
-styling. A test asserts this for every element in the fixture.
+splits its attributes the same way via `unknownAttributes()`. Every view renders
+both through `UnrecognizedFields`. Unrecognized is a rendering mode, not a filter
+— the worst an unfamiliar field suffers is plainer styling. Tests assert this on
+both axes, including for an attribute that exists nowhere in the fixture.
 
 The fixture is treated as read-only input. It is listed in `.prettierignore` so
 formatting can never rewrite it, and it is loaded via Vite's `?raw` import as an
@@ -222,8 +225,9 @@ Working and covered by tests:
   actions, navigation, styles, and completion action. Cross-references resolve:
   field refs and navigation targets render as names, not ids.
 - **Unrecognized fields surfaced, not hidden** — anything the Script view cannot
-  style is rendered in full with a badge, proven by tests that inject elements
-  absent from the fixture
+  style is rendered in full with a badge, on both axes: child elements and
+  attributes. Proven by tests that inject an element and an attribute absent
+  from the fixture
 - Generic collapsible tree view, with the same no-allowlist guarantee
 - Parsed JSON viewable and copyable in the UI, and committed as a file
 - A measured fidelity indicator: element/attribute counts, nodes dropped, and a
@@ -236,19 +240,11 @@ Working and covered by tests:
 
 Not yet complete, in the order I would pick them up:
 
-- **Search and filter.** With three pages the call flow is scannable; a real
-  export with dozens of pages would need to find a field by name or tag. This is
-  the first thing I would build next.
-- **Deep linking.** Tab and page are component state, so a view cannot be shared
-  as a URL. Moving both to the query string is small and would make review
-  easier.
-- **Property-based testing.** Generate random XML and assert the round trip
-  holds. The two gaps found by hand-written mutations — whitespace loss and
-  element namespace prefixes — are exactly what generative testing finds.
-- **Accessibility audit.** Keyboard-operable and labelled, but not tested with a
-  screen reader, and the tree is not a true `role="tree"` widget.
-- **Virtualized rendering.** Rendering is eager; a very large export would
-  strain it. I would measure against a real file before optimizing.
+1. Search and filter
+2. Deep linking
+3. Property-based testing
+4. Accessibility audit
+5. Virtualized rendering
 
-See [DECISIONS.md](DECISIONS.md) for the reasoning behind these, including what
-was deliberately left out.
+[DECISIONS.md](DECISIONS.md) explains why each is next, and what was left out
+on purpose.

@@ -1,4 +1,4 @@
-import type { XmlElementNode, XmlNode } from '../types/xmlNode';
+import type { XmlAttribute, XmlElementNode, XmlNode } from '../types/xmlNode';
 
 /**
  * A read-only lookup layer over the generic {@link XmlNode} tree.
@@ -18,14 +18,21 @@ import type { XmlElementNode, XmlNode } from '../types/xmlNode';
  *   tree it produces is complete before any function in this file is called.
  * - Nothing here is the only path to the data. Every value these selectors
  *   surface is still in the tree, still in the JSON, still in the tree view.
- * - **Nothing here can drop a field.** A name this module has never heard of is
- *   not skipped; it comes back through {@link partition} as `rest`, and the view
- *   renders it generically. Unrecognized is a rendering mode, not a filter.
+ * - **Nothing here can drop a field, on either axis.** A name this module has
+ *   never heard of is not skipped: child elements come back through
+ *   {@link partition} as `rest`, attributes through {@link unknownAttributes},
+ *   and the view renders both generically. Unrecognized is a rendering mode,
+ *   not a filter.
  *
  * So the failure mode of a domain model — add `<FutureVendorSetting>` to the
  * export and watch it vanish at the type boundary — cannot happen here. The
  * worst case is that a new field renders as a generic node instead of a styled
  * one, which is a cosmetic gap, not data loss. There is a test for exactly that.
+ *
+ * Naming a field in a `*_KNOWN` list is therefore a PROMISE TO RENDER IT.
+ * Listing a name moves it out of `rest`, so a name that is recognized but never
+ * drawn disappears from the view entirely — which is how `<XmlVersion>` went
+ * missing once. See DECISIONS.md §14.
  *
  * ## Reading conventions
  *
@@ -188,6 +195,29 @@ export function partition(
   };
 }
 
+/**
+ * The attributes a view does not name — the other half of {@link partition}.
+ *
+ * `partition` splits child elements, which leaves a gap: an attribute nobody
+ * anticipated would reach the JSON and the tree view but never appear in the
+ * semantic view, and nothing would flag it. That is the same silent-drop
+ * failure `rest` exists to prevent, one axis over.
+ *
+ * Namespace declarations are excluded deliberately. They are document plumbing
+ * rather than script content, the tree view already shows them verbatim, and
+ * badging `xmlns:xsi` as an unrecognized script field would be noise.
+ */
+export function unknownAttributes(
+  node: XmlElementNode | undefined,
+  known: readonly string[],
+): XmlAttribute[] {
+  if (!node) return [];
+  const knownSet = new Set(known);
+  return node.attributes.filter(
+    (a) => !knownSet.has(a.name) && !a.name.startsWith('xmlns'),
+  );
+}
+
 // ---------------------------------------------------------------------------
 // AnSer vocabulary begins here. Everything above is name-agnostic.
 // ---------------------------------------------------------------------------
@@ -279,7 +309,17 @@ export interface ScriptElementModel {
   navScreen: string | undefined;
   /** Children this model does not name — rendered generically, never dropped. */
   rest: XmlElementNode[];
+  /** Attributes this model does not name. Same contract as {@link rest}. */
+  restAttributes: XmlAttribute[];
 }
+
+/**
+ * The attributes {@link getScriptElement} reads explicitly.
+ *
+ * Only `xsi:type` today. As with {@link ELEMENT_KNOWN}, this list computes what
+ * is left over — it never filters anything out of the view.
+ */
+const ELEMENT_KNOWN_ATTRS = ['xsi:type'] as const;
 
 /**
  * The child names {@link getScriptElement} reads explicitly.
@@ -338,6 +378,7 @@ export function getScriptElement(node: XmlElementNode): ScriptElementModel {
     navType: childText(node, 'NavType'),
     navScreen: childText(node, 'NavScreen'),
     rest: partition(node, ELEMENT_KNOWN).rest,
+    restAttributes: unknownAttributes(node, ELEMENT_KNOWN_ATTRS),
   };
 }
 
@@ -351,18 +392,25 @@ const PAGE_KNOWN = [
   'CompletionAction',
 ] as const;
 
+/** The attributes {@link getPageModel} reads explicitly. */
+const PAGE_KNOWN_ATTRS = ['pageId', 'order'] as const;
+
 /** A page and everything hanging off it. */
 export interface PageModel {
   node: XmlElementNode;
   pageId: string | undefined;
   order: string | undefined;
   name: string | undefined;
+  /** `<XmlVersion>` — the page's own schema revision, distinct from the export's. */
+  xmlVersion: string | undefined;
   summaryHeader: string | undefined;
   elements: ScriptElementModel[];
   /** `<Style>` blocks defined on this page. */
   styles: XmlElementNode[];
   completionAction: XmlElementNode | undefined;
   rest: XmlElementNode[];
+  /** Attributes this model does not name. Same contract as {@link rest}. */
+  restAttributes: XmlAttribute[];
 }
 
 /** Resolve one `<Page>` into the shape the semantic view renders. */
@@ -372,11 +420,13 @@ export function getPageModel(page: XmlElementNode): PageModel {
     pageId: attr(page, 'pageId'),
     order: attr(page, 'order'),
     name: childText(page, 'Name'),
+    xmlVersion: childText(page, 'XmlVersion'),
     summaryHeader: childText(page, 'SummaryHeader'),
     elements: getPageElements(page).map(getScriptElement),
     styles: children(child(page, 'Styles'), 'Style'),
     completionAction: child(page, 'CompletionAction'),
     rest: partition(page, PAGE_KNOWN).rest,
+    restAttributes: unknownAttributes(page, PAGE_KNOWN_ATTRS),
   };
 }
 

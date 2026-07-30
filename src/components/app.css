@@ -1151,6 +1151,13 @@ label.btn {
   color: var(--ink-soft);
 }
 
+.completion-id {
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  color: var(--ink-faint);
+  margin-left: auto;
+}
+
 .meta {
   margin-top: 3rem;
   padding-top: 1.25rem;
@@ -1160,6 +1167,10 @@ label.btn {
 .meta-title {
   margin: 0 0 0.85rem;
   font-size: 0.95rem;
+}
+
+.meta-section {
+  margin-bottom: 1.1rem;
 }
 
 .meta-grid {

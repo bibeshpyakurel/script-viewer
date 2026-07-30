@@ -13,6 +13,7 @@ import {
   partition,
   simpleFields,
   text,
+  unknownAttributes,
 } from './selectors';
 import type { XmlElementNode, XmlNode } from '../types/xmlNode';
 import fixture from '../fixtures/sample-script.xml?raw';
@@ -239,6 +240,60 @@ describe('nothing can be silently dropped', () => {
     // The fixture's own `<XmlNodes><XmlSharedActionsNode /></XmlNodes>` is not
     // named by PAGE_KNOWN, so it must show up in `rest`.
     expect(pages[0]?.rest.map((r) => r.name)).toContain('XmlNodes');
+  });
+});
+
+describe('unknownAttributes covers the other axis', () => {
+  const firstPage = pages[0];
+  if (!firstPage) throw new Error('the fixture should have pages');
+  const pageNode = firstPage.node;
+
+  it('returns an attribute the caller did not name', () => {
+    expect(unknownAttributes(pageNode, ['pageId'])).toEqual([
+      { name: 'order', value: '1' },
+    ]);
+  });
+
+  it('returns nothing when every attribute is named', () => {
+    expect(unknownAttributes(pageNode, ['pageId', 'order'])).toEqual([]);
+  });
+
+  it('never reports namespace declarations', () => {
+    // The root carries xmlns:xsi and xmlns:xsd plus two real attributes.
+    expect(unknownAttributes(model.root, []).map((a) => a.name)).toEqual([
+      'schemaVersion',
+      'environment',
+    ]);
+  });
+
+  it('tolerates a missing node', () => {
+    expect(unknownAttributes(undefined, [])).toEqual([]);
+  });
+
+  it('leaves no attribute unaccounted for on a page', () => {
+    // Every attribute is either one the model names or one it surfaces.
+    const named = ['pageId', 'order'];
+    expect(named.length + firstPage.restAttributes.length).toBe(
+      pageNode.attributes.length,
+    );
+  });
+
+  it('surfaces an attribute that did not exist when this code was written', () => {
+    const ATTRIBUTE = 'experimentalFlag';
+    expect(fixture).not.toContain(ATTRIBUTE);
+
+    const modified = parseXml(
+      fixture.replace(
+        '<Page pageId="training-page-call-reason" order="2">',
+        `<Page pageId="training-page-call-reason" order="2" ${ATTRIBUTE}="beta">`,
+      ),
+    );
+    const secondPage = getPages(getScriptExport(modified).versions[0])[1];
+    if (!secondPage) throw new Error('expected a second page');
+
+    expect(getPageModel(secondPage).restAttributes).toEqual([
+      { name: ATTRIBUTE, value: 'beta' },
+    ]);
   });
 });
 
