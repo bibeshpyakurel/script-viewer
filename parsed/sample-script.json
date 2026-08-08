@@ -52,7 +52,7 @@
               "children": [
                 {
                   "kind": "text",
-                  "value": "AMTELCO_REPLICA_TRAINING_DERIVATIVE"
+                  "value": "SAMPLE_SCRIPT_PLATFORM"
                 }
               ]
             },
@@ -111,7 +111,7 @@
               "attributes": [
                 {
                   "name": "developerId",
-                  "value": "developer-taulant-matraku"
+                  "value": "developer-jordan-avery"
                 }
               ],
               "children": [
@@ -126,7 +126,7 @@
                   "children": [
                     {
                       "kind": "text",
-                      "value": "Taulant Matraku"
+                      "value": "Jordan Avery"
                     }
                   ]
                 },
@@ -266,7 +266,7 @@
               "children": [
                 {
                   "kind": "text",
-                  "value": "developer-taulant-matraku"
+                  "value": "developer-jordan-avery"
                 }
               ]
             },
@@ -368,7 +368,7 @@
                       "children": [
                         {
                           "kind": "text",
-                          "value": "developer-taulant-matraku"
+                          "value": "developer-jordan-avery"
                         }
                       ]
                     },

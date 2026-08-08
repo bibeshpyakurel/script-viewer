@@ -141,7 +141,7 @@ describe('cross-references resolve to something readable', () => {
 
   it('resolves the authoring developer id to a display name', () => {
     const byDev = indexDevelopersById(model.developers);
-    expect(byDev.get('developer-taulant-matraku')).toBe('Taulant Matraku');
+    expect(byDev.get('developer-jordan-avery')).toBe('Jordan Avery');
   });
 });
 

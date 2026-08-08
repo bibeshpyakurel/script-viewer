@@ -7,7 +7,7 @@ import fixture from '../fixtures/sample-script.xml?raw';
 const tree = parseXml(fixture);
 
 describe('checkFidelity', () => {
-  it('reports the real counts for the supplied fixture', () => {
+  it('reports the real counts for the sample fixture', () => {
     const report = checkFidelity(tree);
 
     expect(report.elements).toBe(225);

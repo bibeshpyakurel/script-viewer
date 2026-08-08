@@ -6,8 +6,8 @@ without breaking the one property it exists to guarantee.
 
 ## What this project is
 
-A viewer for AnSer call-center script exports. It parses XML into JSON and
-renders it three ways: a **Script** view organized the way a reviewer reads a
+A viewer for call-center script exports. It parses XML into JSON and
+renders it three ways: a **Script** view organized the way someone reads a
 script, a **Tree** view showing every node exactly as parsed, and a **JSON**
 view of the raw parsed tree.
 
@@ -49,7 +49,7 @@ src/
     parseXml.ts          String -> tree. Vocabulary-free. The rule above lives here.
     serializeXml.ts      Tree -> string. Exists to make fidelity provable.
     analyze.ts           Fidelity measurement and element vocabulary.
-  script/selectors.ts    Read-only lookup layer. The ONLY place that knows AnSer names.
+  script/selectors.ts    Read-only lookup layer. The ONLY place that knows tag names.
   components/            React UI.
     App.tsx              Source + tab state, error path, layout.
     ScriptView.tsx       Semantic view: overview, call flow, pages.
@@ -57,7 +57,7 @@ src/
     XmlNodeView.tsx      Generic recursive tree renderer. Knows no tag names.
     UnrecognizedFields.tsx  Fallback for anything the semantic view cannot style.
     SourcePicker.tsx     File upload + the deliberately broken sample.
-  fixtures/              The supplied export, byte-for-byte unchanged. READ-ONLY.
+  fixtures/              The sample export. READ-ONLY; tests pin its contents.
 scripts/export-json.ts   CLI: XML -> JSON file. `--check` guards the committed artifact.
 parsed/                  Generated JSON artifact. Do not hand-edit.
 ```
@@ -74,8 +74,8 @@ parsed/                  Generated JSON artifact. Do not hand-edit.
 
 ### Selectors vs. the parser
 
-`src/script/selectors.ts` is the one file that knows AnSer's vocabulary. That is
-allowed because it is a **read-only lookup layer**, not a parse step:
+`src/script/selectors.ts` is the one file that knows the format's vocabulary.
+That is allowed because it is a **read-only lookup layer**, not a parse step:
 
 - It runs after parsing; the tree is already complete.
 - It is never the only path to a value — everything is still in the JSON and the
@@ -115,10 +115,11 @@ commit the regenerated artifact, or CI will fail on the drift check.
 
 ## Things that will waste your time if you don't know them
 
-- **Never modify `src/fixtures/sample-script.xml`.** It is the supplied input and
-  must stay byte-identical. It is listed in `.prettierignore` for that reason. To
-  test a variation, `String.replace` a copy in the test — that is what the
-  existing tests do.
+- **Treat `src/fixtures/sample-script.xml` as read-only.** Tests assert exact
+  counts against it and `parsed/sample-script.json` is generated from it, so
+  editing it means updating both. It is listed in `.prettierignore` so
+  formatting can never rewrite it. To test a variation, `String.replace` a copy
+  in the test — that is what the existing tests do.
 - **`?raw` imports** are a Vite feature. In `scripts/`, read the file with
   `node:fs` instead.
 - **Tests run in `environment: 'node'`**, not jsdom. Component tests use

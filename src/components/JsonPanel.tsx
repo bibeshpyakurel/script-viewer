@@ -2,7 +2,7 @@ import { useState } from 'react';
 import type { XmlNode } from '../types/xmlNode';
 
 /**
- * The brief asks for "valid JSON a reviewer can inspect", so the parsed tree is
+ * The parser's output is meant to be inspectable, so the parsed tree is
  * viewable and copyable in full — including the whitespace text nodes the tree
  * view filters out. What you copy is exactly what the parser produced.
  */

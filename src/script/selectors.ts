@@ -5,14 +5,14 @@ import type { XmlAttribute, XmlElementNode, XmlNode } from '../types/xmlNode';
  *
  * ## What this module is, and what it deliberately is not
  *
- * This is the one place in the project that knows AnSer's vocabulary — that a
- * `<Page>` holds `<XmlElements>`, that `<Requirements>` describes an input. The
- * semantic view needs that knowledge to organize a script the way a reviewer
- * reads one.
+ * This is the one place in the project that knows the format's vocabulary —
+ * that a `<Page>` holds `<XmlElements>`, that `<Requirements>` describes an
+ * input. The semantic view needs that knowledge to organize a script the way a
+ * reviewer reads one.
  *
  * It is **not** a parse step, and it is **not** a typed parse result. The
- * distinction matters, because a typed parse result is exactly the allowlist the
- * brief forbids:
+ * distinction matters, because a typed parse result is exactly the allowlist
+ * this project exists to avoid:
  *
  * - Nothing here runs during parsing. `parseXml` stays vocabulary-free, and the
  *   tree it produces is complete before any function in this file is called.
@@ -41,7 +41,7 @@ import type { XmlAttribute, XmlElementNode, XmlNode } from '../types/xmlNode';
  */
 
 // ---------------------------------------------------------------------------
-// Generic tree helpers — no AnSer vocabulary below this line.
+// Generic tree helpers — no domain vocabulary below this line.
 // ---------------------------------------------------------------------------
 
 /** True for the two node kinds that carry a `children` array. */
@@ -219,7 +219,7 @@ export function unknownAttributes(
 }
 
 // ---------------------------------------------------------------------------
-// AnSer vocabulary begins here. Everything above is name-agnostic.
+// Domain vocabulary begins here. Everything above is name-agnostic.
 // ---------------------------------------------------------------------------
 
 /** Where in the document a selector found something, for "jump to tree" links. */

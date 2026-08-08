@@ -19,7 +19,7 @@ describe('the "load a broken file" demo', () => {
     expect(breakFixture()).not.toBe(fixture);
   });
 
-  it('never mutates the supplied fixture itself', () => {
+  it('never mutates the sample fixture itself', () => {
     const before = fixture;
     breakFixture();
 

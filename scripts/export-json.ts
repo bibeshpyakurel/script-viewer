@@ -1,8 +1,8 @@
 /**
  * Convert an XML script export to JSON on disk.
  *
- * The brief asks for "valid JSON that a reviewer can inspect". The app shows it
- * in the JSON tab, but that requires running the app; this produces a file that
+ * The app shows the parsed JSON in its JSON tab, but reading it that way means
+ * running the app first. This produces a file that
  * can be opened, diffed, piped into `jq`, or read straight from the repo.
  *
  * Usage:

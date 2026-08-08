@@ -55,7 +55,7 @@ export function App() {
           <div>
             <h1>Script Viewer</h1>
             <p className="tagline">
-              An AnSer call-center script export, parsed into a lossless tree.
+              A call-center script export, parsed into a lossless tree.
             </p>
           </div>
           <ThemeToggle theme={theme} onToggle={toggleTheme} />

@@ -47,7 +47,7 @@ describe('the semantic view presents the whole script', () => {
 
   it('resolves ids into names a human can read', () => {
     // Developer id -> display name.
-    expect(html).toContain('Taulant Matraku');
+    expect(html).toContain('Jordan Avery');
     // The readback element references five fields by id; their names appear.
     expect(html).toContain('Property or Unit');
     // Navigation resolves to the destination page's name.

@@ -2,10 +2,11 @@
 
 **Live app: https://bibeshpyakurel.github.io/script-viewer/**
 
-AnSer builds call-center scripts in a GUI and stores them as XML — pages, input
-fields, requirements, display settings, navigation, and vendor configuration all
-nested together in a form that is painful to review by hand. This is a viewer
-for those files: it parses an export into JSON and presents it three ways.
+Call-center scripting platforms build scripts in a GUI and store them as XML —
+pages, input fields, requirements, display settings, navigation, and vendor
+configuration all nested together in a form that is painful to review by hand.
+This is a viewer for those files: it parses an export into JSON and presents it
+three ways.
 
 | Tab        | Answers                                                       |
 | ---------- | ------------------------------------------------------------- |
@@ -14,15 +15,15 @@ for those files: it parses an export into JSON and presents it three ways.
 | **JSON**   | _What did the parser actually produce?_ The raw tree.         |
 
 The design rests on one idea: **a single uniform node type represents any XML
-node**, so the parser has no knowledge of AnSer's vocabulary. An element it has
-never seen survives with its name, attributes, parent, and sibling position
+node**, so the parser has no knowledge of the format's vocabulary. An element it
+has never seen survives with its name, attributes, parent, and sibling position
 intact, with no code change. That property is enforced by tests rather than
 asserted in prose, and the app reports it on screen.
 
 The Script view is built on the same guarantee. It reads the parsed tree through
 selectors, and anything it has no styled presentation for is rendered in full
 under an **unrecognized** badge rather than skipped — so a domain-aware UI still
-cannot hide a field. The supplied fixture exercises this: its
+cannot hide a field. The bundled sample exercises this: its
 `<FutureVendorSetting>` appears on screen without a line of code naming it.
 
 ---
@@ -110,9 +111,9 @@ See [DECISIONS.md](DECISIONS.md) for why each choice was made.
 src/
   types/       The one node type every other file is built around. Read first.
   parser/      XML -> XmlNode tree, back again, and analysis over the tree.
-  script/      Read-only selectors. The only place that knows AnSer's vocabulary.
+  script/      Read-only selectors. The only place that knows the format's names.
   components/  React UI: the semantic view, the generic tree renderer, panels.
-  fixtures/    The supplied export, byte-for-byte unchanged. Read-only input.
+  fixtures/    The sample export. Read-only input, pinned by tests.
   main.tsx     React entry point.
 scripts/       CLI entry points (XML -> JSON).
 parsed/        Generated JSON artifact. Do not hand-edit.
@@ -165,7 +166,7 @@ Four things follow from that, and each is what makes the result lossless:
 
 - **The document, not the root element, is returned.** The XML declaration and
   anything else in the prolog are children of the document, siblings of the
-  root. Starting at the root would drop the supplied file's first line.
+  root. Starting at the root would drop the sample file's first line.
 - **Names are copied verbatim**, namespace prefix included — `xsi:type`, not
   `type`. Elements use `tagName`, never `localName`.
 - **Attributes are an ordered array** of `{ name, value }`, not an object. An

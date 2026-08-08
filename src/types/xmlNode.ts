@@ -57,7 +57,7 @@ export type XmlNode =
  * element. The prolog — the XML declaration, any comment or processing
  * instruction before `<ScriptExport>`, and the whitespace between them — are
  * children of the document, siblings of the root. Returning the root element
- * instead would silently discard the supplied file's very first line.
+ * instead would silently discard the sample file's very first line.
  *
  * `children` therefore holds the prolog, the single root element, and any
  * trailing nodes, in document order. Exactly one child is an element; that
@@ -127,7 +127,7 @@ export interface XmlCommentNode {
  * forbids `xml` as a PI target, so this reuse is a deliberate simplification:
  * it keeps the union at six kinds instead of seven, and the declaration is
  * syntactically identical to a PI. The alternative — dropping it — would mean
- * the very first line of the supplied document vanished from the parsed
+ * the very first line of the sample document vanished from the parsed
  * result, which is exactly the kind of silent loss this type exists to prevent.
  */
 export interface XmlProcessingInstructionNode {

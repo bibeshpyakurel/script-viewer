@@ -61,7 +61,7 @@ function expectElement(node: XmlNode | undefined): XmlElementNode {
 }
 
 describe('the no-allowlist guarantee', () => {
-  // Names chosen to exist nowhere in the supplied fixture. The assertions
+  // Names chosen to exist nowhere in the sample fixture. The assertions
   // below prove that, so this test cannot silently rot into a no-op if the
   // fixture ever changes.
   const NEW_ELEMENT = 'QuantumFlux';
@@ -238,7 +238,7 @@ describe('whitespace fidelity', () => {
 describe('the document prolog', () => {
   // Everything above the root element used to be discarded, because `parseXml`
   // returned the document ELEMENT. These pin the fix.
-  it('captures the XML declaration that opens the supplied fixture', () => {
+  it('captures the XML declaration that opens the sample fixture', () => {
     const doc = parseXml(fixture);
     expect(doc.kind).toBe('document');
 
@@ -263,7 +263,7 @@ describe('the document prolog', () => {
   });
 
   it('re-emits the declaration when serialized', () => {
-    // The first line of the supplied file survives a full round trip.
+    // The first line of the sample file survives a full round trip.
     expect(serializeXml(parseXml(fixture))).toContain(
       '<?xml version="1.0" encoding="utf-8"?>',
     );

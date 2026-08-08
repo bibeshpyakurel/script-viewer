@@ -10,16 +10,17 @@ another developer can extend this without reverse-engineering the reasoning.
 **Decision.** A single `XmlNode` type represents any XML node. There is no
 `PageNode`, `ModeNode`, or `InputElement` type.
 
-**Why.** The brief forbids an allowlist: a new element or attribute must be
-retained without changing the parser. A domain model is an allowlist wearing a
-different hat — the moment you write `interface Page { pageId: string }`, an
-export containing `<Page vendorFlag="x">` starts losing data at the type
+**Why.** The project's core guarantee forbids an allowlist: a new element or
+attribute must be retained without changing the parser. A domain model is an
+allowlist wearing a different hat — the moment you write
+`interface Page { pageId: string }`, an export containing
+`<Page vendorFlag="x">` starts losing data at the type
 boundary. Keeping structure as _data_ rather than _type-level knowledge_ means
 the parser has nothing to be surprised by.
 
 **Rejected: typed domain model.** Nicer autocomplete for known fields, and
 tempting because the fixture's vocabulary looks stable. Rejected because it
-fails the brief's core requirement and because AnSer's own fixture contains
+fails the core requirement above, and because the sample export itself contains
 `<FutureVendorSetting>` with `<UnknownValue>retain-in-json</UnknownValue>` — a
 deliberate signal that unknown fields are expected.
 
@@ -158,7 +159,7 @@ Several genuinely malformed documents are reported to `onError` and then
 The recovering cases are the dangerous ones — nothing looks wrong. Capturing
 `onError` is therefore a **correctness** requirement, not a message-quality
 nicety. `parseXml` collects every report and rejects the document if there are
-any. The supplied fixture reports zero, so this is strict without being noisy.
+any. The sample fixture reports zero, so this is strict without being noisy.
 
 **Known limitation.** A bare ampersand (`<a>x & y</a>`) produces no report at
 all and parses to the text `x & y`. xmldom tolerates it silently, so this parser
@@ -170,7 +171,7 @@ accepts it too. No data is lost, but technically invalid XML gets through.
 
 **Why.** The fixture opens with `<?xml version="1.0" encoding="utf-8"?>`.
 Without somewhere to put it, a full-document round trip would silently drop the
-first line of the supplied file.
+first line of the sample file.
 
 **Honest caveat.** Strictly, the XML spec treats the declaration as its own
 production and forbids `xml` as a PI target, so reusing this kind for it is a
@@ -185,7 +186,7 @@ union at six kinds instead of seven.
 declaration, any comment or PI before `<ScriptExport>`, and the whitespace
 between them are children of the document and siblings of the root. Returning
 `doc.documentElement` — which this project did until recently — silently
-discarded the supplied file's first line, which is precisely the loss the rest of
+discarded the sample file's first line, which is precisely the loss the rest of
 the design exists to prevent.
 
 **Cost, stated plainly.** This changed the return type for every caller. Test
@@ -212,7 +213,7 @@ with `strict` on.
 screen. That claim lives in a type. `XmlNode` being a discriminated union means
 a `switch` over `kind` is checked for exhaustiveness, so adding a seventh node
 kind breaks the build at every place that fails to handle it — the compiler
-enforces the guarantee instead of a reviewer having to notice. `strict` and
+enforces the guarantee instead of a human having to notice. `strict` and
 `noUncheckedIndexedAccess` matter most in the parser and tests, where array
 indexing is constant; they caught real gaps while this was being written.
 
@@ -226,7 +227,7 @@ is much weaker without real types.
 
 **Rejected: TypeScript only in the parser.** The boundary would sit exactly
 where data crosses into the UI — the place a lossy shortcut is most likely to
-be introduced, and the place a reviewer is most likely to look.
+be introduced, and the place a reader is most likely to look.
 
 ## 11. TypeScript pinned to `~6.0.3`
 
@@ -256,7 +257,7 @@ a drifted lockfile fails the build instead of being silently reconciled.
 
 ## 14. Selectors, and why they are not an allowlist
 
-**Decision.** `src/script/selectors.ts` is the one file that knows AnSer's
+**Decision.** `src/script/selectors.ts` is the one file that knows the format's
 vocabulary. The Script view reads through it. The parser still knows nothing.
 
 **Why this is safe.** §1 rejects a typed domain model because it becomes an
@@ -306,7 +307,7 @@ typed structs, whatever the transform failed to copy is invisible.
 
 **Cost.** Two ways to read the same data, which must not disagree. They cannot
 drift far, because the selectors return nodes from the same tree rather than
-copies — but a reviewer does have to understand which layer they are in.
+copies — but a reader does have to understand which layer they are in.
 
 ## 15. Making the failure path reachable
 
@@ -333,7 +334,7 @@ itself is untouched.
 **Decision.** `npm run export:json` writes `parsed/sample-script.json`, the file
 is committed, and CI verifies it is current.
 
-**Why.** The brief asks for "valid JSON that a reviewer can inspect". The JSON
+**Why.** The parser's output should be inspectable without ceremony. The JSON
 tab satisfies that only for someone willing to run the app; a committed file can
 be opened on GitHub, diffed, or piped into `jq`.
 
@@ -354,7 +355,7 @@ inconsistency.
 most of what follows. Reading a script export is a bounded problem with a
 verifiable correctness property — nothing is lost. Editing is a different
 product: it needs a mutation model, undo, validation on write, conflict
-handling, and a way to emit XML that AnSer's own tooling will accept. Adding a
+handling, and a way to emit XML the originating platform will accept. Adding a
 shallow version of that would have traded a guarantee I can prove for a feature
 I could not stand behind.
 
@@ -407,7 +408,7 @@ Remaining, in priority order:
    very large or deeply nested export would strain both. I would measure against
    a real file first rather than optimize for a shape I have not seen.
 
-### Known limits I would want a reviewer to know
+### Known limits worth knowing
 
 - The serializer does not guard against a `]]>` sequence inside CDATA or `--`
   inside a comment. Neither occurs in the fixture, and both would need escaping

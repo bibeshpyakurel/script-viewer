@@ -69,7 +69,7 @@ describe('nothing looks dropped', () => {
     const html = render(fixture);
     const badges = html.match(/empty-badge/g) ?? [];
 
-    // 14 self-closing elements in the supplied file.
+    // 14 self-closing elements in the sample file.
     expect(badges.length).toBe(14);
   });
 });

@@ -152,7 +152,7 @@ describe('safeParseXml returns the failure instead of throwing', () => {
 });
 
 describe('valid input is unaffected', () => {
-  it('parses the supplied fixture with no errors', () => {
+  it('parses the sample fixture with no errors', () => {
     expect(() => parseXml(fixture)).not.toThrow();
     expect(safeParseXml(fixture).ok).toBe(true);
   });

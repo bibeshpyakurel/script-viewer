@@ -4,14 +4,14 @@
               schemaVersion="1.0"
               environment="training">
   <Source>
-    <System>AMTELCO_REPLICA_TRAINING_DERIVATIVE</System>
+    <System>SAMPLE_SCRIPT_PLATFORM</System>
     <ExportId>training-export-2026-001</ExportId>
     <ExportedAt>2026-07-01T15:00:00Z</ExportedAt>
   </Source>
 
   <Developers>
-    <Developer developerId="developer-taulant-matraku">
-      <DisplayName>Taulant Matraku</DisplayName>
+    <Developer developerId="developer-jordan-avery">
+      <DisplayName>Jordan Avery</DisplayName>
       <Role>Script Developer</Role>
       <Active>true</Active>
     </Developer>
@@ -25,7 +25,7 @@
   <Script scriptId="training-script-main"
           clientId="training-client-001">
     <Name>Training Property Main Script</Name>
-    <CreatedByDeveloperId>developer-taulant-matraku</CreatedByDeveloperId>
+    <CreatedByDeveloperId>developer-jordan-avery</CreatedByDeveloperId>
     <CreatedAt>2026-01-15T15:30:00Z</CreatedAt>
     <ActiveVersionId>training-version-001</ActiveVersionId>
 
@@ -33,7 +33,7 @@
       <Version versionId="training-version-001" versionNumber="1">
         <Status>Active</Status>
         <ChangeReason>Initial synthetic training script</ChangeReason>
-        <CreatedByDeveloperId>developer-taulant-matraku</CreatedByDeveloperId>
+        <CreatedByDeveloperId>developer-jordan-avery</CreatedByDeveloperId>
         <CreatedAt>2026-01-15T15:30:00Z</CreatedAt>
 
         <Pages>
