@@ -13,7 +13,8 @@
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
     "export:json": "tsx scripts/export-json.ts",
-    "export:json:check": "tsx scripts/export-json.ts --check"
+    "export:json:check": "tsx scripts/export-json.ts --check",
+    "test:coverage": "vitest run --coverage"
   },
   "dependencies": {
     "@xmldom/xmldom": "^0.9.10",
@@ -26,6 +27,7 @@
     "@types/react": "^19.2.17",
     "@types/react-dom": "^19.2.3",
     "@vitejs/plugin-react": "^6.0.4",
+    "@vitest/coverage-v8": "^4.1.11",
     "eslint": "^10.8.0",
     "eslint-config-prettier": "^10.1.8",
     "prettier": "^3.9.6",

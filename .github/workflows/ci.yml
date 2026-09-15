@@ -28,9 +28,15 @@ jobs:
       # continue-on-error anywhere. Ordered cheapest-to-most-expensive.
       - run: npm run lint
 
+      # The repo ships a format:check script that CI never called, so a
+      # badly formatted file could reach main while the tooling to catch it
+      # sat unused.
+      - run: npm run format:check
+
       - run: npm run typecheck
 
-      - run: npm test
+      # Coverage thresholds are a ratchet; see vite.config.ts.
+      - run: npm run test:coverage
 
       # The committed JSON artifact is regenerated and compared, so it can
       # never drift from the parser that produced it.
