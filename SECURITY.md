@@ -21,11 +21,11 @@ Please include:
 
 ## What to expect
 
-| Stage                | Target            |
-| -------------------- | ----------------- |
-| Acknowledgement      | within 72 hours   |
-| Initial assessment   | within 7 days     |
-| Fix or mitigation    | depends on severity, discussed on the report |
+| Stage              | Target                                       |
+| ------------------ | -------------------------------------------- |
+| Acknowledgement    | within 72 hours                              |
+| Initial assessment | within 7 days                                |
+| Fix or mitigation  | depends on severity, discussed on the report |
 
 You will get a reply either way, including when the conclusion is that the
 behaviour is intentional.
