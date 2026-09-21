@@ -1,0 +1,8 @@
+{
+  "headlineMetric": "109 passing tests, including no-allowlist proofs that an unseen XML element survives with its name, attributes, parent, and sibling position",
+  "role": "Sole developer",
+  "resumeEligible": false,
+  "stack": ["TypeScript", "React 19", "Vite", "Vitest", "@xmldom/xmldom", "GitHub Pages"],
+  "oneLiner": "A web viewer that parses call-center script XML into JSON, preserving every element, attribute, namespace, and sibling order.",
+  "startDate": "2026-07"
+}
