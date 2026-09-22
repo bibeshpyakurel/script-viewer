@@ -28,7 +28,7 @@
     "@types/react-dom": "^19.3.0",
     "@vitejs/plugin-react": "^6.0.4",
     "@vitest/coverage-v8": "^4.1.11",
-    "eslint": "^10.10.0",
+    "eslint": "^10.11.0",
     "eslint-config-prettier": "^10.1.8",
     "prettier": "^3.9.6",
     "tsx": "^4.23.13",
